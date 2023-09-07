@@ -13,6 +13,7 @@ class MovieApp extends StatelessWidget {
     final appRouter = AppRouter();
 
     return MaterialApp.router(
+      debugShowCheckedModeBanner: false,
       routerConfig: appRouter.config(),
     );
   }
