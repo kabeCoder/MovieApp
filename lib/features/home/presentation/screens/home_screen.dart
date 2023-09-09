@@ -17,10 +17,7 @@ class HomeScreen extends StatelessWidget {
       builder: (context, child, controller) {
         return Scaffold(
           appBar: AppBar(
-            leading: const Icon(
-              Icons.face,
-              color: Colors.white,
-            ),
+            leading: Image.asset('assets/images/netflix.png'),
             title: TabBar(
               controller: controller,
               tabs: const [

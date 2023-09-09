@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:movie_app/application/presentation/utils/text_styles.dart';
 
 @RoutePage()
 class MoviesScreen extends StatelessWidget {
@@ -11,7 +12,7 @@ class MoviesScreen extends StatelessWidget {
       body: Center(
         child: Text(
           'Movies Screen',
-          style: TextStyle(color: Colors.white),
+          style: TextStyles.bodyText1,
         ),
       ),
     );

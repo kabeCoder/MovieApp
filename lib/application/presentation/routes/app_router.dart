@@ -1,5 +1,5 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:movie_app/features/Navigation/presentation/screens/navigation_screen.dart';
+import 'package:movie_app/features/navigation/presentation/screens/navigation_screen.dart';
 import 'package:movie_app/features/coming_soon/presentation/screens/coming_soon_screen.dart';
 import 'package:movie_app/features/download/presentation/screens/download_screen.dart';
 import 'package:movie_app/features/home/presentation/screens/home_screen.dart';
