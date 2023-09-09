@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:movie_app/application/presentation/routes/app_router.dart';
+import 'package:movie_app/application/presentation/utils/color_constants.dart';
+import 'package:movie_app/generated/app_localizations.dart';
 
 void main() {
   runApp(const MovieApp());
@@ -13,17 +15,18 @@ class MovieApp extends StatelessWidget {
     final appRouter = AppRouter();
 
     return MaterialApp.router(
-      title: 'Movie App',
       theme: ThemeData(
         appBarTheme: const AppBarTheme(
-          color: Color.fromARGB(255, 0, 0, 0),
+          color: ColorConstants.black1,
         ),
-        scaffoldBackgroundColor: const Color.fromARGB(255, 0, 0, 0),
+        scaffoldBackgroundColor: ColorConstants.black1,
         colorScheme: ColorScheme.fromSwatch(
           primarySwatch: Colors.deepPurple,
         ),
         useMaterial3: true,
       ),
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      supportedLocales: AppLocalizations.supportedLocales,
       debugShowCheckedModeBanner: false,
       routerConfig: appRouter.config(),
     );

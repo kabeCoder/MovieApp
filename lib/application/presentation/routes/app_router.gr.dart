@@ -39,6 +39,18 @@ abstract class _$AppRouter extends RootStackRouter {
         child: const MoreScreen(),
       );
     },
+    MoviesRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const MoviesScreen(),
+      );
+    },
+    MyListRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const MyListScreen(),
+      );
+    },
     NavigationRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
@@ -49,6 +61,12 @@ abstract class _$AppRouter extends RootStackRouter {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
         child: const SearchScreen(),
+      );
+    },
+    TvShowsRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const TvShowsScreen(),
       );
     },
   };
@@ -111,6 +129,34 @@ class MoreRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [MoviesScreen]
+class MoviesRoute extends PageRouteInfo<void> {
+  const MoviesRoute({List<PageRouteInfo>? children})
+      : super(
+          MoviesRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'MoviesRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [MyListScreen]
+class MyListRoute extends PageRouteInfo<void> {
+  const MyListRoute({List<PageRouteInfo>? children})
+      : super(
+          MyListRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'MyListRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
 /// [NavigationScreen]
 class NavigationRoute extends PageRouteInfo<void> {
   const NavigationRoute({List<PageRouteInfo>? children})
@@ -134,6 +180,20 @@ class SearchRoute extends PageRouteInfo<void> {
         );
 
   static const String name = 'SearchRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [TvShowsScreen]
+class TvShowsRoute extends PageRouteInfo<void> {
+  const TvShowsRoute({List<PageRouteInfo>? children})
+      : super(
+          TvShowsRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'TvShowsRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
 }
