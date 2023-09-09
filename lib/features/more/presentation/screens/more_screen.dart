@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:movie_app/application/presentation/utils/color_constants.dart';
 
 @RoutePage()
 class MoreScreen extends StatelessWidget {
@@ -11,7 +12,7 @@ class MoreScreen extends StatelessWidget {
       body: Center(
         child: Text(
           'MoreScreen',
-          style: TextStyle(color: Colors.white),
+          style: TextStyle(color: ColorConstants.white1),
         ),
       ),
     );

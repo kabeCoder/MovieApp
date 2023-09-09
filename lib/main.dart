@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:movie_app/application/presentation/routes/app_router.dart';
+import 'package:movie_app/application/presentation/utils/color_constants.dart';
 
 void main() {
   runApp(const MovieApp());
@@ -16,9 +17,9 @@ class MovieApp extends StatelessWidget {
       title: 'Movie App',
       theme: ThemeData(
         appBarTheme: const AppBarTheme(
-          color: Color.fromARGB(255, 0, 0, 0),
+          color: ColorConstants.black1,
         ),
-        scaffoldBackgroundColor: const Color.fromARGB(255, 0, 0, 0),
+        scaffoldBackgroundColor: ColorConstants.black1,
         colorScheme: ColorScheme.fromSwatch(
           primarySwatch: Colors.deepPurple,
         ),
