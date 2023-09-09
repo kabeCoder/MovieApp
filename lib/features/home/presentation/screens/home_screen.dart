@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:movie_app/application/presentation/routes/app_router.dart';
+import 'package:movie_app/application/presentation/utils/app_localizations.dart';
 import 'package:movie_app/application/presentation/utils/color_constants.dart';
 import 'package:movie_app/application/presentation/utils/text_styles.dart';
 
@@ -22,15 +23,15 @@ class HomeScreen extends StatelessWidget {
             leading: Image.asset('assets/images/netflix.png'),
             title: TabBar(
               controller: controller,
-              tabs: const [
+              tabs: [
                 Tab(
-                  text: 'TV Shows',
+                  text: context.l10n.label_tv_shows,
                 ),
                 Tab(
-                  text: 'Movies',
+                  text: context.l10n.label_movies,
                 ),
                 Tab(
-                  text: 'My List',
+                  text: context.l10n.label_my_list,
                 ),
               ],
               dividerColor: Colors.transparent,
