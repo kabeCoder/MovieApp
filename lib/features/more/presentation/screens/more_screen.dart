@@ -11,7 +11,7 @@ class MoreScreen extends StatelessWidget {
     return const Scaffold(
       body: Center(
         child: Text(
-          'MoreScreen',
+          'More Screen',
           style: TextStyle(color: ColorConstants.white1),
         ),
       ),
