@@ -1,6 +1,8 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:movie_app/application/presentation/routes/app_router.dart';
+import 'package:movie_app/application/presentation/utils/color_constants.dart';
+import 'package:movie_app/application/presentation/utils/text_styles.dart';
 
 @RoutePage()
 class HomeScreen extends StatelessWidget {
@@ -32,6 +34,9 @@ class HomeScreen extends StatelessWidget {
                 ),
               ],
               dividerColor: Colors.transparent,
+              labelStyle: TextStyles.bodyText2,
+              unselectedLabelColor: ColorConstants.deepPurpleLight,
+              unselectedLabelStyle: TextStyles.bodyText2,
             ),
           ),
           body: child,
