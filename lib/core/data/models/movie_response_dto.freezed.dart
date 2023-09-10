@@ -275,7 +275,7 @@ class __$$_MovieResponseDtoCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_MovieResponseDto implements _MovieResponseDto {
+class _$_MovieResponseDto extends _MovieResponseDto {
   const _$_MovieResponseDto(
       {required this.adult,
       @JsonKey(name: 'backdrop_path') this.backdropPath,
@@ -291,7 +291,8 @@ class _$_MovieResponseDto implements _MovieResponseDto {
       required this.video,
       @JsonKey(name: 'vote_average') required this.voteAverage,
       @JsonKey(name: 'vote_count') required this.voteCount})
-      : _genreIds = genreIds;
+      : _genreIds = genreIds,
+        super._();
 
   factory _$_MovieResponseDto.fromJson(Map<String, dynamic> json) =>
       _$$_MovieResponseDtoFromJson(json);
@@ -407,7 +408,7 @@ class _$_MovieResponseDto implements _MovieResponseDto {
   }
 }
 
-abstract class _MovieResponseDto implements MovieResponseDto {
+abstract class _MovieResponseDto extends MovieResponseDto {
   const factory _MovieResponseDto(
           {required final bool adult,
           @JsonKey(name: 'backdrop_path') final String? backdropPath,
@@ -425,6 +426,7 @@ abstract class _MovieResponseDto implements MovieResponseDto {
           @JsonKey(name: 'vote_average') required final double voteAverage,
           @JsonKey(name: 'vote_count') required final int voteCount}) =
       _$_MovieResponseDto;
+  const _MovieResponseDto._() : super._();
 
   factory _MovieResponseDto.fromJson(Map<String, dynamic> json) =
       _$_MovieResponseDto.fromJson;

@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:movie_app/application/data/utils/env.dart';
 import 'package:movie_app/core/domain/models/movie.dart';
 
 part 'movie_response_dto.freezed.dart';
@@ -27,17 +28,16 @@ class MovieResponseDto with _$MovieResponseDto {
 
   const MovieResponseDto._();
 
-  // MovieModel toDomain() => MovieModel(
-  //       id: id,
-  //       title: title,
-  //       posterUrl: Uri.parse('${Env.baseImageUrl}/w500$posterPath'),
-  //       backdropUrl: Uri.parse('${Env.baseImageBackdropUrl}$backdropPath'),
-  //       description: overview,
-  //       releaseDate: DateTime.parse(releaseDate),
-
-  //     );
+  MovieModel toDomain() => MovieModel(
+        id: id,
+        title: title,
+        posterUrl: Uri.parse('${Env.baseImageUrl}/w500$posterPath'),
+        backdropUrl: Uri.parse('${Env.baseImageBackdropUrl}$backdropPath'),
+        description: overview,
+        releaseDate: DateTime.parse(releaseDate),
+      );
 }
 
-// extension ToDomain on List<MovieResponseDto> {
-//   List<MovieModel> toDomain() => map((getMovieResponse) => getMovieResponse.toDomain()).toList();
-// }
+extension ToDomain on List<MovieResponseDto> {
+  List<MovieModel> toDomain() => map((getMovieResponse) => getMovieResponse.toDomain()).toList();
+}
