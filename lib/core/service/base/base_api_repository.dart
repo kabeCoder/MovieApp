@@ -1,12 +1,12 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
-import 'package:movie_app/core/service/base/data/api_result.dart';
+import 'package:movie_app/core/service/base/model/api_result.dart';
 
 class BaseApiRepository {
-  final String baseUrl;
+  // final String baseUrl;
 
-  BaseApiRepository({required this.baseUrl});
+  // BaseApiRepository({required this.baseUrl});
 
   Future<ApiResult<T>> serviceCall<T>(Future<T> Function() callFunction) async {
     try {
