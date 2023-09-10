@@ -4,10 +4,6 @@ import 'package:http/http.dart' as http;
 import 'package:movie_app/core/service/base/data/models/api_result.dart';
 
 class BaseApiRepository {
-  // final String baseUrl;
-
-  // BaseApiRepository({required this.baseUrl});
-
   Future<ApiResult<T>> serviceCall<T>(Future<T> Function() callFunction) async {
     try {
       final result = await callFunction();
@@ -25,14 +21,21 @@ class BaseApiRepository {
       final response = await callFunction();
 
       if (response.statusCode == 200) {
-        final List<dynamic> jsonData = json.decode(response.body);
+        final List<dynamic> jsonData = json.decode(response.body)['results'];
         final data = jsonData.map((dynamic item) => fromJson(item)).toList();
         return ApiResult<List<T>>(data: data, error: null);
       } else {
-        return ApiResult<List<T>>(data: [], error: 'HTTP Error: ${response.statusCode}');
+        return ApiResult<List<T>>(
+          data: [],
+          error: 'HTTP Error: ${response.statusCode}',
+        );
       }
     } catch (e) {
-      return ApiResult<List<T>>(data: [], error: 'Network Error: $e');
+      print('Error in API call: $e');
+      return ApiResult<List<T>>(
+        data: [],
+        error: 'Network Error: $e',
+      );
     }
   }
 }
