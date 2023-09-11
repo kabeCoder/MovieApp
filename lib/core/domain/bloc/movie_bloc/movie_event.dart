@@ -5,6 +5,6 @@ class MovieEvent with _$MovieEvent {
   const factory MovieEvent.started() = _Started;
 
   const factory MovieEvent.getMovies(
-    MoviesFilter moviesFilter,
+    TmdbFilter moviesFilter,
   ) = _GetMovies;
 }

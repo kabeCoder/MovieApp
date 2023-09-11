@@ -4,11 +4,11 @@ part 'tv_show.freezed.dart';
 
 @freezed
 class TvShowModel with _$TvShowModel {
-  const factory TvShowModel(
-      {required int id,
-      required String name,
-      required Uri posterUrl,
-      required Uri backdropUrl,
-      required String description,
-      required DateTime country}) = _TvShowModel;
+  const factory TvShowModel({
+    required String name,
+    required Uri posterUrl,
+    required Uri backdropUrl,
+    required String description,
+    required String country,
+  }) = _TvShowModel;
 }

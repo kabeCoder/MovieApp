@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_app/core/domain/bloc/movie_bloc/movie_bloc.dart';
 import 'package:movie_app/core/domain/repositories/movie_repository_impl.dart';
-import 'package:movie_app/core/domain/utils/enums/movies_filter.dart';
+import 'package:movie_app/core/domain/utils/enums/tmdb_filter.dart';
 
 class BuildHorizontalListView extends StatelessWidget {
   const BuildHorizontalListView({
@@ -12,7 +12,7 @@ class BuildHorizontalListView extends StatelessWidget {
     required this.child,
   }) : super(key: key);
 
-  final MoviesFilter moviesFilter;
+  final TmdbFilter moviesFilter;
   final Widget child;
 
   @override

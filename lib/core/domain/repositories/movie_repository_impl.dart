@@ -1,6 +1,6 @@
 import 'package:movie_app/core/domain/models/movie/movie.dart';
 import 'package:movie_app/core/domain/repositories/base/movie_repository.dart';
-import 'package:movie_app/core/domain/utils/enums/movies_filter.dart';
+import 'package:movie_app/core/domain/utils/enums/tmdb_filter.dart';
 import 'package:movie_app/core/service/base/data/models/api_result.dart';
 import 'package:movie_app/core/service/tmdb_api_service.dart';
 
@@ -13,7 +13,7 @@ class MovieRepositoryImplementation implements MovieRepository {
 
   @override
   Future<ApiResult<List<MovieModel>>> getMovies(
-    MoviesFilter moviesFilter,
+    TmdbFilter moviesFilter,
   ) async {
     try {
       final response = await apiService.getMovies(moviesFilter);
