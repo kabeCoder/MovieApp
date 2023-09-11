@@ -1,6 +1,10 @@
 {
   "@@locale": "en",
+  "label_Upcoming": "Upcoming",
   "label_movies": "Movies",
   "label_my_list": "My List",
+  "label_now_playing": "Now Playing",
+  "label_popular": "Popular",
+  "label_top_rated": "Top Rated",
   "label_tv_shows": "TV Shows"
 }

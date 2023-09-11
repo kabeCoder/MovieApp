@@ -1,6 +1,7 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:movie_app/application/presentation/utils/text_styles.dart';
+
+import 'package:auto_route/auto_route.dart';
+import 'package:movie_app/features/home/presentation/widgets/movies/movies_vertical_list_view.dart';
 
 @RoutePage()
 class MoviesScreen extends StatelessWidget {
@@ -9,12 +10,7 @@ class MoviesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
-      body: Center(
-        child: Text(
-          'Movies Screen',
-          style: TextStyles.bodyText1,
-        ),
-      ),
+      body: MoviesVerticalListView(),
     );
   }
 }
