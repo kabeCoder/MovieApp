@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 import 'package:movie_app/application/data/utils/env.dart';
-import 'package:movie_app/core/data/models/movie_response_dto.dart';
+import 'package:movie_app/core/data/models/movie/movie_response_dto.dart';
 import 'package:movie_app/core/domain/utils/enums/movies_filter.dart';
 import 'package:movie_app/core/service/base/base_api_repository.dart';
 import 'package:movie_app/core/service/base/data/models/api_result.dart';

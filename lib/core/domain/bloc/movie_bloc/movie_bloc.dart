@@ -1,6 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:movie_app/core/domain/models/movie.dart';
+import 'package:movie_app/core/domain/models/movie/movie.dart';
 import 'package:movie_app/core/domain/repositories/movie_repository_impl.dart';
 import 'package:movie_app/core/domain/utils/enums/movies_filter.dart';
 

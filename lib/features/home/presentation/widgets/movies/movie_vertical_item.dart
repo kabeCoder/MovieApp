@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:movie_app/core/domain/models/movie.dart';
+import 'package:movie_app/core/domain/models/movie/movie.dart';
 import 'package:movie_app/core/presentation/widgets/app_cached_network_image.dart';
 
 class MovieVerticalItem extends StatelessWidget {
