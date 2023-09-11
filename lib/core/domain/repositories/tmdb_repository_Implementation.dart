@@ -41,9 +41,9 @@ class TmdbRepositoryImplementation implements TmdbRepository {
   }
 
   @override
-  Future<ApiResult<List<TvShowModel>>> getTvShows(TmdbFilter moviesFilter) async {
+  Future<ApiResult<List<TvShowModel>>> getTvShows(TmdbFilter tvShowsFilter) async {
     try {
-      final response = await apiService.getTvShows(moviesFilter);
+      final response = await apiService.getTvShows(tvShowsFilter);
 
       if (response.error != null) {
         return ApiResult<List<TvShowModel>>(

@@ -9,6 +9,6 @@ class TvShowModel with _$TvShowModel {
     required Uri posterUrl,
     required Uri backdropUrl,
     required String description,
-    required String country,
+    required List<String> country,
   }) = _TvShowModel;
 }

@@ -34,9 +34,9 @@ class TmdbApiService extends BaseApiRepository {
   }
 
   Future<ApiResult<List<TvShowResponseDto>>> getTvShows(
-    TmdbFilter moviesFilter,
+    TmdbFilter tvShowsFilter,
   ) {
-    final String path = _getTvShowPathForFilter(moviesFilter);
+    final String path = _getTvShowPathForFilter(tvShowsFilter);
 
     final uri = Uri.parse(
       '${Env.baseUrl}$path?api_key=${Env.tmdbApiKey}',
@@ -83,7 +83,7 @@ class TmdbApiService extends BaseApiRepository {
       case TmdbFilter.topRated:
         return '/3/tv/top_rated';
       default:
-        throw Exception('Invalid filter');
+        throw Exception('Invalid tv filter');
     }
   }
 }

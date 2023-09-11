@@ -11,7 +11,7 @@ class TvShowResponseDto with _$TvShowResponseDto {
     @JsonKey(name: 'backdrop_path') String? backdropPath,
     @JsonKey(name: 'genre_ids') required List<int> genreIds,
     required String name,
-    @JsonKey(name: 'origin_country') required String originCountry,
+    @JsonKey(name: 'origin_country') required List<String> originCountry,
     required String overview,
     required double popularity,
     @JsonKey(name: 'poster_path') String? posterPath,

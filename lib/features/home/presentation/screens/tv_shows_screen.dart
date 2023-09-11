@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:auto_route/auto_route.dart';
-import 'package:movie_app/application/presentation/utils/text_styles.dart';
+import 'package:movie_app/features/home/presentation/widgets/tv_shows/tv_shows_vertical_list_view.dart';
 
 @RoutePage()
 class TvShowsScreen extends StatelessWidget {
@@ -10,12 +10,7 @@ class TvShowsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
-      body: Center(
-        child: Text(
-          'TV Shows Screen',
-          style: TextStyles.bodyText1,
-        ),
-      ),
+      body: TvShowsVerticalListView(),
     );
   }
 }

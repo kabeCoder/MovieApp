@@ -10,12 +10,12 @@ part 'tv_show_bloc.freezed.dart';
 
 class TvShowBloc extends Bloc<TvShowEvent, TvShowState> {
   TvShowBloc({
-    required this.tvShowbRepositoryImplementation,
+    required this.tvShowRepositoryImplementation,
   }) : super(
           const _Initial(),
         ) {
     on<_GetTvShows>((event, emit) async {
-      final response = await tvShowbRepositoryImplementation.getTvShows(event.tvShowsFilter);
+      final response = await tvShowRepositoryImplementation.getTvShows(event.tvShowsFilter);
 
       if (response.error != null) {
         emit(
@@ -24,11 +24,11 @@ class TvShowBloc extends Bloc<TvShowEvent, TvShowState> {
           ),
         );
       } else {
-        final List<TvShowModel> movies = response.data?.toList() ?? [];
-        emit(_$_LoadedTvShow(movies: movies));
+        final List<TvShowModel> tvShows = response.data?.toList() ?? [];
+        emit(_$_LoadedTvShow(tvShow: tvShows));
       }
     });
   }
 
-  final TmdbRepositoryImplementation tvShowbRepositoryImplementation;
+  final TmdbRepositoryImplementation tvShowRepositoryImplementation;
 }
