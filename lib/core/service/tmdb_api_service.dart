@@ -7,11 +7,11 @@ import 'package:movie_app/core/domain/utils/enums/movies_filter.dart';
 import 'package:movie_app/core/service/base/base_api_repository.dart';
 import 'package:movie_app/core/service/base/data/models/api_result.dart';
 
-class MovieApiService extends BaseApiRepository {
+class TmdbApiService extends BaseApiRepository {
   Future<ApiResult<List<MovieResponseDto>>> getMovies(
     MoviesFilter moviesFilter,
   ) {
-    final String path = _getPathForFilter(moviesFilter);
+    final String path = _getMoviePathForFilter(moviesFilter);
 
     final uri = Uri.parse(
       '${Env.baseUrl}$path?api_key=${Env.tmdbApiKey}',
@@ -32,7 +32,7 @@ class MovieApiService extends BaseApiRepository {
     );
   }
 
-  String _getPathForFilter(MoviesFilter filter) {
+  String _getMoviePathForFilter(MoviesFilter filter) {
     switch (filter) {
       case MoviesFilter.popular:
         return '/3/movie/popular';
@@ -42,8 +42,6 @@ class MovieApiService extends BaseApiRepository {
         return '/3/movie/upcoming';
       case MoviesFilter.topRated:
         return '/3/movie/top_rated';
-      case MoviesFilter.discover:
-        return '/3/discover/movie';
       default:
         throw Exception('Invalid filter');
     }

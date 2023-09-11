@@ -3,5 +3,4 @@ enum MoviesFilter {
   nowPlaying,
   upcoming,
   topRated,
-  discover,
 }

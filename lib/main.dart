@@ -4,8 +4,8 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:movie_app/application/presentation/routes/app_router.dart';
 import 'package:movie_app/application/presentation/utils/color_constants.dart';
 import 'package:movie_app/core/domain/repositories/movie_repository_impl.dart';
-import 'package:movie_app/core/service/movie_api_service.dart';
-import 'package:movie_app/generated/app_localizations.dart';
+import 'package:movie_app/core/service/tmdb_api_service.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 void main() async {
   await dotenv.load();
@@ -21,7 +21,7 @@ class MovieApp extends StatelessWidget {
 
     return RepositoryProvider(
       create: (_) => MovieRepositoryImplementation(
-        apiService: MovieApiService(),
+        apiService: TmdbApiService(),
       ),
       child: MaterialApp.router(
         theme: ThemeData(

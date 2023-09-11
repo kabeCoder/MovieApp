@@ -13,14 +13,16 @@ class MovieBloc extends Bloc<MovieEvent, MovieState> {
     required this.movieRepositoryImplementation,
   }) : super(const _Initial()) {
     on<_GetMovies>((event, emit) async {
-      emit(const _LoadingMovies());
-
       final response = await movieRepositoryImplementation.getMovies(event.moviesFilter);
-      final List<MovieModel> movies = response.data?.toList() ?? [];
 
       if (response.error != null) {
-        emit(_EncounteredError(errorMessage: response.error.toString()));
+        emit(
+          _EncounteredError(
+            errorMessage: response.error ?? '',
+          ),
+        );
       } else {
+        final List<MovieModel> movies = response.data?.toList() ?? [];
         emit(_$_LoadedMovies(movies: movies));
       }
     });
