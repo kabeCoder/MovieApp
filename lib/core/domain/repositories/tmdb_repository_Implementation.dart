@@ -1,11 +1,12 @@
 import 'package:movie_app/core/domain/models/movie/movie.dart';
-import 'package:movie_app/core/domain/repositories/base/movie_repository.dart';
+import 'package:movie_app/core/domain/models/tv_show/tv_show.dart';
+import 'package:movie_app/core/domain/repositories/base/tmdb_repository.dart';
 import 'package:movie_app/core/domain/utils/enums/tmdb_filter.dart';
 import 'package:movie_app/core/service/base/data/models/api_result.dart';
 import 'package:movie_app/core/service/tmdb_api_service.dart';
 
-class MovieRepositoryImplementation implements MovieRepository {
-  MovieRepositoryImplementation({
+class TmdbRepositoryImplementation implements TmdbRepository {
+  TmdbRepositoryImplementation({
     required this.apiService,
   });
 
@@ -34,6 +35,32 @@ class MovieRepositoryImplementation implements MovieRepository {
       // Handle exceptions (e.g., network errors) here and return an error ApiResult
 
       return ApiResult<List<MovieModel>>(
+        error: 'Network Error: $e',
+      );
+    }
+  }
+
+  @override
+  Future<ApiResult<List<TvShowModel>>> getTvShows(TmdbFilter moviesFilter) async {
+    try {
+      final response = await apiService.getTvShows(moviesFilter);
+
+      if (response.error != null) {
+        return ApiResult<List<TvShowModel>>(
+          error: response.error,
+        );
+      }
+
+      final List<TvShowModel> tvShows = response.data?.map((dto) => dto.toDomain()).toList() ?? [];
+
+      return ApiResult<List<TvShowModel>>(
+        data: tvShows,
+        error: null,
+      );
+    } catch (e) {
+      // Handle exceptions (e.g., network errors) here and return an error ApiResult
+
+      return ApiResult<List<TvShowModel>>(
         error: 'Network Error: $e',
       );
     }

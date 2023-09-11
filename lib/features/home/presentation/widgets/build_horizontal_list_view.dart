@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_app/core/domain/bloc/movie_bloc/movie_bloc.dart';
-import 'package:movie_app/core/domain/repositories/movie_repository_impl.dart';
+import 'package:movie_app/core/domain/repositories/tmdb_repository_Implementation.dart';
 import 'package:movie_app/core/domain/utils/enums/tmdb_filter.dart';
 
 class BuildHorizontalListView extends StatelessWidget {
@@ -19,7 +19,7 @@ class BuildHorizontalListView extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (_) => MovieBloc(
-        movieRepositoryImplementation: context.read<MovieRepositoryImplementation>(),
+        movieRepositoryImplementation: context.read<TmdbRepositoryImplementation>(),
       )..add(
           MovieEvent.getMovies(moviesFilter),
         ),

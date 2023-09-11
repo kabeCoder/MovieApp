@@ -1,7 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:movie_app/core/domain/models/movie/movie.dart';
-import 'package:movie_app/core/domain/repositories/movie_repository_impl.dart';
+import 'package:movie_app/core/domain/repositories/tmdb_repository_Implementation.dart';
 import 'package:movie_app/core/domain/utils/enums/tmdb_filter.dart';
 
 part 'movie_event.dart';
@@ -28,5 +28,5 @@ class MovieBloc extends Bloc<MovieEvent, MovieState> {
     });
   }
 
-  final MovieRepositoryImplementation movieRepositoryImplementation;
+  final TmdbRepositoryImplementation movieRepositoryImplementation;
 }
