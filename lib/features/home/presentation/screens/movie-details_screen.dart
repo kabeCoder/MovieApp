@@ -1,31 +1,21 @@
-// ignore_for_file: must_be_immutable
-
-import 'package:flutter/material.dart';
-
 import 'package:auto_route/auto_route.dart';
+import 'package:flutter/material.dart';
 import 'package:movie_app/application/presentation/utils/color_constants.dart';
 import 'package:movie_app/application/presentation/utils/text_styles.dart';
 import 'package:movie_app/core/domain/models/movie/movie.dart';
-import 'package:movie_app/core/domain/models/tv_show/tv_show.dart';
 import 'package:movie_app/core/presentation/widgets/app_cached_network_image.dart';
 
 @RoutePage()
-class DetailsScreen extends StatelessWidget {
-  DetailsScreen({
+class MovieDetailsScreen extends StatelessWidget {
+  const MovieDetailsScreen({
     super.key,
-    required this.collection,
-    this.movie,
-    this.tvShow,
+    required this.movie,
   });
 
-  final String collection;
-  MovieModel? movie;
-  TvShowModel? tvShow;
+  final MovieModel movie;
 
   @override
   Widget build(BuildContext context) {
-    final backdropUrl = (collection == 'movie') ? movie?.backdropUrl : tvShow?.backdropUrl;
-    final description = (collection == 'movie') ? movie?.description : tvShow?.description;
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -53,7 +43,7 @@ class DetailsScreen extends StatelessWidget {
             Stack(
               children: [
                 AppCachedNetworkImage(
-                  imageUrl: backdropUrl!,
+                  imageUrl: movie.backdropUrl,
                   opacity: 0.4,
                 ),
               ],
@@ -73,7 +63,7 @@ class DetailsScreen extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Text(
-                description!,
+                movie.description,
                 style: TextStyles.bodyText2.copyWith(
                   fontSize: 12,
                   color: ColorConstants.deepPurpleLight,

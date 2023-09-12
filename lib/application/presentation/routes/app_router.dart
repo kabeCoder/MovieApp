@@ -52,7 +52,7 @@ class AppRouter extends _$AppRouter {
           ],
         ),
         AutoRoute(
-          page: MovieDetailsRoute.page,
+          page: DetailsRoute.page,
         ),
       ];
 }

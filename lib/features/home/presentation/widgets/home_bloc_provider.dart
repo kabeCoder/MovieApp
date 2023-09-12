@@ -6,8 +6,8 @@ import 'package:movie_app/core/domain/bloc/tb_show_bloc/tv_show_bloc.dart';
 import 'package:movie_app/core/domain/repositories/tmdb_repository_Implementation.dart';
 import 'package:movie_app/core/domain/utils/enums/tmdb_filter.dart';
 
-class BuildHorizontalListView extends StatelessWidget {
-  const BuildHorizontalListView({
+class HomeBlocProvider extends StatelessWidget {
+  const HomeBlocProvider({
     Key? key,
     required this.tmdbFilter,
     required this.child,

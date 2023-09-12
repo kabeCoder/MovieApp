@@ -10,7 +10,9 @@ class TvShowsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
-      body: TvShowsVerticalListView(),
+      body: TvShowsVerticalListView(
+        collection: 'tvShow',
+      ),
     );
   }
 }
