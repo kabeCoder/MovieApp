@@ -1,5 +1,7 @@
 {
   "@@locale": "en",
+  "collection_movie": "movie",
+  "collection_tv_show": "tvShow",
   "label_Upcoming": "Upcoming",
   "label_airing_today": "Airing Today",
   "label_movies": "Movies",

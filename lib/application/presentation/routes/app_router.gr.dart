@@ -21,6 +21,18 @@ abstract class _$AppRouter extends RootStackRouter {
         child: const ComingSoonScreen(),
       );
     },
+    DetailsRoute.name: (routeData) {
+      final args = routeData.argsAs<DetailsRouteArgs>();
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: DetailsScreen(
+          key: args.key,
+          collection: args.collection,
+          movie: args.movie,
+          tvShow: args.tvShow,
+        ),
+      );
+    },
     DownloadRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
@@ -84,6 +96,54 @@ class ComingSoonRoute extends PageRouteInfo<void> {
   static const String name = 'ComingSoonRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [DetailsScreen]
+class DetailsRoute extends PageRouteInfo<DetailsRouteArgs> {
+  DetailsRoute({
+    Key? key,
+    required String collection,
+    MovieModel? movie,
+    TvShowModel? tvShow,
+    List<PageRouteInfo>? children,
+  }) : super(
+          DetailsRoute.name,
+          args: DetailsRouteArgs(
+            key: key,
+            collection: collection,
+            movie: movie,
+            tvShow: tvShow,
+          ),
+          initialChildren: children,
+        );
+
+  static const String name = 'DetailsRoute';
+
+  static const PageInfo<DetailsRouteArgs> page =
+      PageInfo<DetailsRouteArgs>(name);
+}
+
+class DetailsRouteArgs {
+  const DetailsRouteArgs({
+    this.key,
+    required this.collection,
+    this.movie,
+    this.tvShow,
+  });
+
+  final Key? key;
+
+  final String collection;
+
+  final MovieModel? movie;
+
+  final TvShowModel? tvShow;
+
+  @override
+  String toString() {
+    return 'DetailsRouteArgs{key: $key, collection: $collection, movie: $movie, tvShow: $tvShow}';
+  }
 }
 
 /// generated route for
