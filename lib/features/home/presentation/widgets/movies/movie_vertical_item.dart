@@ -1,4 +1,6 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:movie_app/application/presentation/routes/app_router.dart';
 
 import 'package:movie_app/core/domain/models/movie/movie.dart';
 import 'package:movie_app/core/presentation/widgets/app_cached_network_image.dart';
@@ -13,16 +15,23 @@ class MovieVerticalItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(
-        horizontal: 4,
-      ),
-      child: SizedBox(
-        width: 120,
-        child: AppCachedNetworkImage(
-          imageUrl: movie.posterUrl,
+    return GestureDetector(
+      onTap: () => _onTap(context),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(
+          horizontal: 4,
+        ),
+        child: SizedBox(
+          width: 120,
+          child: AppCachedNetworkImage(
+            imageUrl: movie.posterUrl,
+          ),
         ),
       ),
     );
   }
+
+  void _onTap(BuildContext context) => context.pushRoute(
+        MovieDetailsRoute(movie: movie),
+      );
 }

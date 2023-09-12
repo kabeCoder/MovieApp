@@ -39,6 +39,16 @@ abstract class _$AppRouter extends RootStackRouter {
         child: const MoreScreen(),
       );
     },
+    MovieDetailsRoute.name: (routeData) {
+      final args = routeData.argsAs<MovieDetailsRouteArgs>();
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: MovieDetailsScreen(
+          key: args.key,
+          movie: args.movie,
+        ),
+      );
+    },
     MoviesRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
@@ -126,6 +136,44 @@ class MoreRoute extends PageRouteInfo<void> {
   static const String name = 'MoreRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [MovieDetailsScreen]
+class MovieDetailsRoute extends PageRouteInfo<MovieDetailsRouteArgs> {
+  MovieDetailsRoute({
+    Key? key,
+    required MovieModel movie,
+    List<PageRouteInfo>? children,
+  }) : super(
+          MovieDetailsRoute.name,
+          args: MovieDetailsRouteArgs(
+            key: key,
+            movie: movie,
+          ),
+          initialChildren: children,
+        );
+
+  static const String name = 'MovieDetailsRoute';
+
+  static const PageInfo<MovieDetailsRouteArgs> page =
+      PageInfo<MovieDetailsRouteArgs>(name);
+}
+
+class MovieDetailsRouteArgs {
+  const MovieDetailsRouteArgs({
+    this.key,
+    required this.movie,
+  });
+
+  final Key? key;
+
+  final MovieModel movie;
+
+  @override
+  String toString() {
+    return 'MovieDetailsRouteArgs{key: $key, movie: $movie}';
+  }
 }
 
 /// generated route for
