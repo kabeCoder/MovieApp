@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:movie_app/application/presentation/utils/app_localizations.dart';
 import 'package:movie_app/application/presentation/utils/text_styles.dart';
 import 'package:movie_app/core/domain/bloc/movie_bloc/movie_bloc.dart';
 import 'package:movie_app/core/domain/bloc/tb_show_bloc/tv_show_bloc.dart';
@@ -36,7 +37,7 @@ class CommonHorizontalListView extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 8),
-          if (collection == 'movie')
+          if (collection == context.l10n.collection_movie)
             BlocConsumer<MovieBloc, MovieState>(
               listener: (context, state) => state.whenOrNull(
                 encounteredError: (errorMessage) => ScaffoldMessenger.of(context).showSnackBar(
@@ -59,7 +60,7 @@ class CommonHorizontalListView extends StatelessWidget {
                     children: [
                       for (final movie in movies)
                         CommonVerticalItem(
-                          collection: 'movie',
+                          collection: context.l10n.collection_movie,
                           movie: movie,
                         ),
                     ],
@@ -68,7 +69,7 @@ class CommonHorizontalListView extends StatelessWidget {
                 orElse: SizedBox.shrink,
               ),
             ),
-          if (collection == 'tvShow')
+          if (collection == context.l10n.collection_tv_show)
             BlocConsumer<TvShowBloc, TvShowState>(
               listener: (context, state) => state.whenOrNull(
                 encounteredError: (errorMessage) => ScaffoldMessenger.of(context).showSnackBar(
@@ -91,7 +92,7 @@ class CommonHorizontalListView extends StatelessWidget {
                     children: [
                       for (final tvShow in tvShows)
                         CommonVerticalItem(
-                          collection: 'tvShow',
+                          collection: context.l10n.collection_tv_show,
                           tvShow: tvShow,
                         ),
                     ],

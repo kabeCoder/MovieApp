@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 import 'package:auto_route/auto_route.dart';
 import 'package:movie_app/application/presentation/routes/app_router.dart';
+import 'package:movie_app/application/presentation/utils/app_localizations.dart';
 import 'package:movie_app/core/domain/models/movie/movie.dart';
 import 'package:movie_app/core/domain/models/tv_show/tv_show.dart';
 import 'package:movie_app/core/presentation/widgets/app_cached_network_image.dart';
@@ -22,7 +23,7 @@ class CommonVerticalItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final imageUrl = (collection == 'movie') ? movie?.posterUrl : tvShow?.posterUrl;
+    final imageUrl = (collection == context.l10n.collection_movie) ? movie?.posterUrl : tvShow?.posterUrl;
     return GestureDetector(
       onTap: () => _onTap(context),
       child: Padding(
@@ -40,7 +41,7 @@ class CommonVerticalItem extends StatelessWidget {
   }
 
   void _onTap(BuildContext context) {
-    if (collection == 'movie') {
+    if (collection == context.l10n.collection_movie) {
       context.pushRoute(
         DetailsRoute(
           collection: collection,

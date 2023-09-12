@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:auto_route/auto_route.dart';
+import 'package:movie_app/application/presentation/utils/app_localizations.dart';
 import 'package:movie_app/application/presentation/utils/color_constants.dart';
 import 'package:movie_app/application/presentation/utils/text_styles.dart';
 import 'package:movie_app/core/domain/models/movie/movie.dart';
@@ -24,8 +25,8 @@ class DetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final backdropUrl = (collection == 'movie') ? movie?.backdropUrl : tvShow?.backdropUrl;
-    final description = (collection == 'movie') ? movie?.description : tvShow?.description;
+    final backdropUrl = (collection == context.l10n.collection_movie) ? movie?.backdropUrl : tvShow?.backdropUrl;
+    final description = (collection == context.l10n.collection_movie) ? movie?.description : tvShow?.description;
     return Scaffold(
       appBar: AppBar(
         title: const Text(
