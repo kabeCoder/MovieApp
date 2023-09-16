@@ -4,6 +4,7 @@ import 'package:http/http.dart' as http;
 import 'package:movie_app/application/data/utils/env.dart';
 import 'package:movie_app/core/data/models/movie/movie_response_dto.dart';
 import 'package:movie_app/core/data/models/tv_show/tv_show_response_dto.dart';
+import 'package:movie_app/core/data/models/tv_show_casts/tv_show_casts_response_dto.dart';
 import 'package:movie_app/core/domain/utils/enums/tmdb_filter.dart';
 import 'package:movie_app/core/service/base/base_api_repository.dart';
 import 'package:movie_app/core/service/base/data/models/api_result.dart';
@@ -48,8 +49,34 @@ class TmdbApiService extends BaseApiRepository {
         if (response.statusCode == 200) {
           final Map<String, dynamic> jsonData = json.decode(response.body);
           final List<dynamic> results = jsonData['results'] ?? [];
-          final List<TvShowResponseDto> movieDtos = results.map((dynamic item) => TvShowResponseDto.fromJson(item as Map<String, dynamic>)).toList();
-          return movieDtos;
+          final List<TvShowResponseDto> tvShowDtos = results.map((dynamic item) => TvShowResponseDto.fromJson(item as Map<String, dynamic>)).toList();
+          return tvShowDtos;
+        } else {
+          throw Exception('HTTP Error: ${response.statusCode}');
+        }
+      },
+    );
+  }
+
+  Future<ApiResult<List<TvShowCastsResponseDto>>> getTvShowCasts(
+    int seriesId,
+  ) {
+    final String path = '/3/tv/$seriesId/credits';
+
+    final uri = Uri.parse(
+      '${Env.baseUrl}$path?api_key=${Env.tmdbApiKey}',
+    );
+
+    return serviceCall<List<TvShowCastsResponseDto>>(
+      () async {
+        final response = await http.get(uri);
+        if (response.statusCode == 200) {
+          final Map<String, dynamic> jsonData = json.decode(response.body);
+          final List<dynamic> results = jsonData['cast'] ?? [];
+          final List<TvShowCastsResponseDto> tvShowCastsDto =
+              results.map((dynamic item) => TvShowCastsResponseDto.fromJson(item as Map<String, dynamic>)).toList();
+
+          return tvShowCastsDto;
         } else {
           throw Exception('HTTP Error: ${response.statusCode}');
         }

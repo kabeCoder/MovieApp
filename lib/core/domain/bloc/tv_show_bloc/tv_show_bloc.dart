@@ -14,20 +14,24 @@ class TvShowBloc extends Bloc<TvShowEvent, TvShowState> {
   }) : super(
           const _Initial(),
         ) {
-    on<_GetTvShows>((event, emit) async {
-      final response = await tvShowRepositoryImplementation.getTvShows(event.tvShowsFilter);
+    on<_GetTvShows>(
+      (event, emit) async {
+        final response = await tvShowRepositoryImplementation.getTvShows(event.tvShowsFilter);
 
-      if (response.error != null) {
-        emit(
-          _EncounteredError(
-            errorMessage: response.error ?? '',
-          ),
-        );
-      } else {
-        final List<TvShowModel> tvShows = response.data?.toList() ?? [];
-        emit(_$_LoadedTvShow(tvShow: tvShows));
-      }
-    });
+        if (response.error != null) {
+          emit(
+            _EncounteredError(
+              errorMessage: response.error ?? '',
+            ),
+          );
+        } else {
+          final List<TvShowModel> tvShows = response.data?.toList() ?? [];
+          emit(
+            _$_LoadedTvShow(tvShow: tvShows),
+          );
+        }
+      },
+    );
   }
 
   final TmdbRepositoryImplementation tvShowRepositoryImplementation;

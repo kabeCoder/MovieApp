@@ -1,5 +1,6 @@
 import 'package:movie_app/core/domain/models/movie/movie.dart';
 import 'package:movie_app/core/domain/models/tv_show/tv_show.dart';
+import 'package:movie_app/core/domain/models/tv_show_casts/tv_show_casts.dart';
 import 'package:movie_app/core/domain/repositories/base/tmdb_repository.dart';
 import 'package:movie_app/core/domain/utils/enums/tmdb_filter.dart';
 import 'package:movie_app/core/service/base/data/models/api_result.dart';
@@ -61,6 +62,32 @@ class TmdbRepositoryImplementation implements TmdbRepository {
       // Handle exceptions (e.g., network errors) here and return an error ApiResult
 
       return ApiResult<List<TvShowModel>>(
+        error: 'Network Error: $e',
+      );
+    }
+  }
+
+  @override
+  Future<ApiResult<List<TvShowCastsModel>>> getTvShowCasts(int seriesId) async {
+    try {
+      final response = await apiService.getTvShowCasts(seriesId);
+
+      if (response.error != null) {
+        return ApiResult<List<TvShowCastsModel>>(
+          error: response.error,
+        );
+      }
+
+      final List<TvShowCastsModel> tvShowCasts = response.data?.map((dto) => dto.toDomain()).toList() ?? [];
+
+      return ApiResult<List<TvShowCastsModel>>(
+        data: tvShowCasts,
+        error: null,
+      );
+    } catch (e) {
+      // Handle exceptions (e.g., network errors) here and return an error ApiResult
+
+      return ApiResult<List<TvShowCastsModel>>(
         error: 'Network Error: $e',
       );
     }

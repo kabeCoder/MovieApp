@@ -3,12 +3,16 @@
 import 'package:flutter/material.dart';
 
 import 'package:auto_route/auto_route.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_app/application/presentation/utils/app_localizations.dart';
 import 'package:movie_app/application/presentation/utils/color_constants.dart';
 import 'package:movie_app/application/presentation/utils/text_styles.dart';
+import 'package:movie_app/core/domain/bloc/tv_show_casts_bloc/tv_show_casts_bloc.dart';
 import 'package:movie_app/core/domain/models/movie/movie.dart';
 import 'package:movie_app/core/domain/models/tv_show/tv_show.dart';
 import 'package:movie_app/core/presentation/widgets/app_cached_network_image.dart';
+import 'package:movie_app/core/presentation/widgets/app_circular_progress_indicator.dart';
+import 'package:movie_app/features/home/presentation/widgets/home_bloc_provider.dart';
 import 'package:movie_app/features/home/utils/home_constants.dart';
 
 @RoutePage()
@@ -30,6 +34,8 @@ class DetailsScreen extends StatelessWidget {
     final overview = (collection == context.l10n.collection_movie) ? movie?.overview : tvShow?.overview;
     final title = (collection == context.l10n.collection_movie) ? movie?.title : tvShow?.name;
     final popularity = (collection == context.l10n.collection_movie) ? movie?.popularity : tvShow?.popularity;
+
+    final id = (collection == context.l10n.collection_movie) ? movie?.id : tvShow?.id;
     final int maxPopularity;
     String? popularityPercentage;
 
@@ -128,16 +134,52 @@ class DetailsScreen extends StatelessWidget {
                 textAlign: TextAlign.justify,
               ),
             ),
-            Align(
-              alignment: Alignment.centerLeft,
-              child: Text(
-                'Cast: ',
-                style: TextStyles.bodyText1.copyWith(
-                  fontSize: 18,
-                  fontWeight: FontWeight.w700,
+            if (collection == 'tvShow')
+              HomeBlocProvider(
+                seriesId: id,
+                child: BlocConsumer<TvShowCastsBloc, TvShowCastsState>(
+                  listener: (context, state) => state.whenOrNull(
+                    encounteredError: (errorMessage) => ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text(errorMessage),
+                      ),
+                    ),
+                  ),
+                  builder: (_, state) => state.maybeWhen(
+                    loadingTvShowsCasts: () => const Center(
+                      child: AppCircularProgressIndicator(),
+                    ),
+                    loadedTvShowsCasts: (tvShowsCasts) {
+                      return Column(
+                        children: [
+                          if (tvShowsCasts.isNotEmpty)
+                            Row(
+                              children: [
+                                for (final tvShowCast in tvShowsCasts)
+                                  Text(
+                                    'Cast: ${tvShowCast.name}',
+                                    style: TextStyles.bodyText1.copyWith(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w700,
+                                    ),
+                                  ),
+                              ],
+                            ),
+                          if (tvShowsCasts.isEmpty)
+                            Text(
+                              'Cast: None', // Change 'Cast:[]' to 'Cast: None'
+                              style: TextStyles.bodyText1.copyWith(
+                                fontSize: 18,
+                                fontWeight: FontWeight.w700,
+                              ),
+                            ),
+                        ],
+                      );
+                    },
+                    orElse: SizedBox.shrink,
+                  ),
                 ),
               ),
-            ),
             Align(
               alignment: Alignment.centerLeft,
               child: Text(

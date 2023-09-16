@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_app/application/presentation/utils/app_localizations.dart';
 import 'package:movie_app/application/presentation/utils/text_styles.dart';
 import 'package:movie_app/core/domain/bloc/movie_bloc/movie_bloc.dart';
-import 'package:movie_app/core/domain/bloc/tb_show_bloc/tv_show_bloc.dart';
+import 'package:movie_app/core/domain/bloc/tv_show_bloc/tv_show_bloc.dart';
 import 'package:movie_app/core/presentation/widgets/app_circular_progress_indicator.dart';
 import 'package:movie_app/features/home/presentation/widgets/common_vertical_item.dart';
 

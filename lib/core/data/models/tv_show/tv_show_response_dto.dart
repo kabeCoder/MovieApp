@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:movie_app/application/data/utils/env.dart';
 import 'package:movie_app/core/domain/models/tv_show/tv_show.dart';
@@ -27,16 +25,17 @@ class TvShowResponseDto with _$TvShowResponseDto {
   const TvShowResponseDto._();
 
   TvShowModel toDomain() => TvShowModel(
-      id: id,
-      name: name,
-      countries: originCountry,
-      genreIds: genreIds,
-      firstAirDate: firstAirDate,
-      overview: overview,
-      popularity: popularity,
-      posterUrl: Uri.parse('${Env.baseImageUrl}/w500$posterPath'),
-      backdropUrl: Uri.parse('${Env.baseImageBackdropUrl}/$backdropPath'),
-      voteAverage: voteAverage);
+        id: id,
+        name: name,
+        countries: originCountry,
+        genreIds: genreIds,
+        firstAirDate: firstAirDate,
+        overview: overview,
+        popularity: popularity,
+        posterUrl: Uri.parse('${Env.baseImageUrl}/w500$posterPath'),
+        backdropUrl: Uri.parse('${Env.baseImageBackdropUrl}/$backdropPath'),
+        voteAverage: voteAverage,
+      );
 }
 
 extension ToDomain on List<TvShowResponseDto> {

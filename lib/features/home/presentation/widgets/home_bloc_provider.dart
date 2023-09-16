@@ -2,19 +2,23 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_app/core/domain/bloc/movie_bloc/movie_bloc.dart';
-import 'package:movie_app/core/domain/bloc/tb_show_bloc/tv_show_bloc.dart';
+import 'package:movie_app/core/domain/bloc/tv_show_bloc/tv_show_bloc.dart';
+import 'package:movie_app/core/domain/bloc/tv_show_casts_bloc/tv_show_casts_bloc.dart';
 import 'package:movie_app/core/domain/repositories/tmdb_repository_Implementation.dart';
 import 'package:movie_app/core/domain/utils/enums/tmdb_filter.dart';
 
+// ignore: must_be_immutable
 class HomeBlocProvider extends StatelessWidget {
-  const HomeBlocProvider({
+  HomeBlocProvider({
     Key? key,
-    required this.tmdbFilter,
     required this.child,
+    this.tmdbFilter,
+    this.seriesId,
   }) : super(key: key);
 
-  final TmdbFilter tmdbFilter;
   final Widget child;
+  TmdbFilter? tmdbFilter;
+  int? seriesId;
 
   @override
   Widget build(BuildContext context) {
@@ -24,13 +28,19 @@ class HomeBlocProvider extends StatelessWidget {
           create: (_) => MovieBloc(
             movieRepositoryImplementation: context.read<TmdbRepositoryImplementation>(),
           )..add(
-              MovieEvent.getMovies(tmdbFilter),
+              MovieEvent.getMovies(tmdbFilter!),
             ),
         ),
         BlocProvider(
           create: (context) => TvShowBloc(tvShowRepositoryImplementation: context.read<TmdbRepositoryImplementation>())
             ..add(
-              TvShowEvent.getTvShows(tmdbFilter),
+              TvShowEvent.getTvShows(tmdbFilter!),
+            ),
+        ),
+        BlocProvider(
+          create: (context) => TvShowCastsBloc(tvShowCastsRepositoryImplementation: context.read<TmdbRepositoryImplementation>())
+            ..add(
+              TvShowCastsEvent.getTvShowsCasts(seriesId!),
             ),
         ),
       ],
