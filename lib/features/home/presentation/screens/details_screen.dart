@@ -39,6 +39,8 @@ class DetailsScreen extends StatelessWidget {
     final popularity = (collection == context.l10n.collection_movie) ? movie?.popularity : tvShow?.popularity;
 
     final id = (collection == context.l10n.collection_movie) ? movie?.id : tvShow?.id;
+    final genres = (collection == context.l10n.collection_movie) ? movie?.genreIds : tvShow?.genreIds;
+
     final int maxPopularity;
     String? popularityPercentage;
 
@@ -232,13 +234,13 @@ class DetailsScreen extends StatelessWidget {
             const SizedBox(
               height: 8,
             ),
-            Align(
+            CommonTextView(
               alignment: Alignment.centerLeft,
               child: Text(
-                context.l10n.label_genres,
-                style: TextStyles.bodyText1.copyWith(
-                  fontSize: 18,
-                  fontWeight: FontWeight.w700,
+                '${context.l10n.label_genres}: ${genres!.join(', ')}',
+                style: TextStyles.bodyText2.copyWith(
+                  fontWeight: FontWeight.w300,
+                  fontSize: 12,
                 ),
               ),
             ),
