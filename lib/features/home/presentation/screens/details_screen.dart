@@ -7,7 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_app/application/presentation/utils/app_localizations.dart';
 import 'package:movie_app/application/presentation/utils/color_constants.dart';
 import 'package:movie_app/application/presentation/utils/text_styles.dart';
-import 'package:movie_app/core/domain/bloc/tv_show_casts_bloc/tv_show_casts_bloc.dart';
+import 'package:movie_app/core/domain/bloc/casts_bloc/casts_bloc.dart';
 import 'package:movie_app/core/domain/bloc/tv_show_genres/tv_show_genres_bloc.dart';
 import 'package:movie_app/core/domain/models/movie/movie.dart';
 import 'package:movie_app/core/domain/models/tv_show/tv_show.dart';
@@ -43,6 +43,7 @@ class DetailsScreen extends StatelessWidget {
     final id = (collection == context.l10n.collection_movie) ? movie?.id : tvShow?.id;
     final genres = (collection == context.l10n.collection_movie) ? movie?.genreIds : tvShow?.genreIds;
 
+    final tmdbFilter = (collection == context.l10n.collection_movie) ? TmdbFilter.movie : TmdbFilter.tv;
     final int maxPopularity;
     String? popularityPercentage;
 
@@ -197,78 +198,77 @@ class DetailsScreen extends StatelessWidget {
             const SizedBox(
               height: 8,
             ),
-            if (collection == context.l10n.collection_tv_show)
-              HomeBlocProvider(
-                seriesId: id,
-                child: BlocConsumer<TvShowCastsBloc, TvShowCastsState>(
-                  listener: (context, state) => state.whenOrNull(
-                    encounteredError: (errorMessage) => ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text(errorMessage),
+            HomeBlocProvider(
+              tmdbFilter: tmdbFilter,
+              tmdbCastsId: id,
+              child: BlocConsumer<CastsBloc, CastsState>(
+                listener: (context, state) => state.whenOrNull(
+                  encounteredError: (errorMessage) => ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text(errorMessage),
+                    ),
+                  ),
+                ),
+                builder: (_, state) => state.maybeWhen(
+                  loadingCasts: () => const Center(
+                    child: AppCircularProgressIndicator(),
+                  ),
+                  loadedCasts: (tvShowCasts) => CommonTextView(
+                    alignment: Alignment.centerLeft,
+                    child: ReadMoreText(
+                      tvShowCasts.isEmpty
+                          ? '${context.l10n.label_cast}: ${context.l10n.label_not_available}'
+                          : '${context.l10n.label_cast}: ${tvShowCasts.map((tvShowCast) => tvShowCast.name).join(', ')}',
+                      trimLines: 2,
+                      colorClickableText: ColorConstants.white1,
+                      trimMode: TrimMode.Line,
+                      trimCollapsedText: context.l10n.label_more,
+                      trimExpandedText: context.l10n.label_less,
+                      style: TextStyles.bodyText2.copyWith(
+                        fontWeight: FontWeight.w300,
+                        fontSize: 12,
                       ),
                     ),
                   ),
-                  builder: (_, state) => state.maybeWhen(
-                    loadingTvShowCasts: () => const Center(
-                      child: AppCircularProgressIndicator(),
+                  orElse: SizedBox.shrink,
+                ),
+              ),
+            ),
+            const SizedBox(
+              height: 8,
+            ),
+            HomeBlocProvider(
+              tmdbFilter: tmdbFilter,
+              child: BlocConsumer<TvShowGenresBloc, TvShowGenresState>(
+                listener: (context, state) => state.whenOrNull(
+                  encounteredError: (errorMessage) => ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text(errorMessage),
                     ),
-                    loadedTvShowCasts: (tvShowCasts) => CommonTextView(
+                  ),
+                ),
+                builder: (_, state) => state.maybeWhen(
+                  loadingTvShowGenres: () => const Center(
+                    child: AppCircularProgressIndicator(),
+                  ),
+                  loadedTvShowGenres: (tvShowGenres) {
+                    final genreNames = genres!.map((genreId) => tvShowGenres.firstWhere((genre) => genre.id == genreId).name).toList();
+
+                    return CommonTextView(
                       alignment: Alignment.centerLeft,
-                      child: ReadMoreText(
-                        tvShowCasts.isEmpty
-                            ? '${context.l10n.label_cast}: ${context.l10n.label_not_available}'
-                            : '${context.l10n.label_cast}: ${tvShowCasts.map((tvShowCast) => tvShowCast.name).join(', ')}',
-                        trimLines: 2,
-                        colorClickableText: ColorConstants.white1,
-                        trimMode: TrimMode.Line,
-                        trimCollapsedText: context.l10n.label_more,
-                        trimExpandedText: context.l10n.label_less,
+                      child: Text(
+                        '${context.l10n.label_genres}: ${genreNames.join(', ')}',
                         style: TextStyles.bodyText2.copyWith(
                           fontWeight: FontWeight.w300,
                           fontSize: 12,
                         ),
                       ),
-                    ),
-                    orElse: SizedBox.shrink,
-                  ),
+                    );
+                  },
+                  orElse: SizedBox.shrink,
                 ),
               ),
-            const SizedBox(
-              height: 8,
             ),
-            if (collection == context.l10n.collection_tv_show)
-              HomeBlocProvider(
-                tmdbFilter: TmdbFilter.tv,
-                child: BlocConsumer<TvShowGenresBloc, TvShowGenresState>(
-                  listener: (context, state) => state.whenOrNull(
-                    encounteredError: (errorMessage) => ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text(errorMessage),
-                      ),
-                    ),
-                  ),
-                  builder: (_, state) => state.maybeWhen(
-                    loadingTvShowGenres: () => const Center(
-                      child: AppCircularProgressIndicator(),
-                    ),
-                    loadedTvShowGenres: (tvShowGenres) {
-                      final genreNames = genres!.map((genreId) => tvShowGenres.firstWhere((genre) => genre.id == genreId).name).toList();
-
-                      return CommonTextView(
-                        alignment: Alignment.centerLeft,
-                        child: Text(
-                          '${context.l10n.label_genres}: ${genreNames.join(', ')}',
-                          style: TextStyles.bodyText2.copyWith(
-                            fontWeight: FontWeight.w300,
-                            fontSize: 12,
-                          ),
-                        ),
-                      );
-                    },
-                    orElse: SizedBox.shrink,
-                  ),
-                ),
-              ),
             const Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [

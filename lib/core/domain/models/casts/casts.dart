@@ -1,13 +1,13 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-part 'tv_show_casts.freezed.dart';
+part 'casts.freezed.dart';
 
 @freezed
-class TvShowCastsModel with _$TvShowCastsModel {
-  const factory TvShowCastsModel({
+class CastsModel with _$CastsModel {
+  const factory CastsModel({
     required int id,
     required String name,
     required Uri profileUrl,
     required int order,
-  }) = _TvShowCastsModel;
+  }) = _CastsModel;
 }

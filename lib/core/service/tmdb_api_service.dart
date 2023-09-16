@@ -2,9 +2,9 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 import 'package:movie_app/application/data/utils/env.dart';
+import 'package:movie_app/core/data/models/casts/casts_response_dto.dart';
 import 'package:movie_app/core/data/models/movie/movie_response_dto.dart';
 import 'package:movie_app/core/data/models/tv_show/tv_show_response_dto.dart';
-import 'package:movie_app/core/data/models/tv_show_casts/tv_show_casts_response_dto.dart';
 import 'package:movie_app/core/data/models/tv_show_genres/tv_show_genres_dto.dart';
 import 'package:movie_app/core/domain/utils/enums/tmdb_filter.dart';
 import 'package:movie_app/core/service/base/base_api_repository.dart';
@@ -59,25 +59,25 @@ class TmdbApiService extends BaseApiRepository {
     );
   }
 
-  Future<ApiResult<List<TvShowCastsResponseDto>>> getTvShowCasts(
-    int seriesId,
+  Future<ApiResult<List<CastsResponseDto>>> getCasts(
+    TmdbFilter tmdbCastsFilter,
+    int tmdbCastsId,
   ) {
-    final String path = '/3/tv/$seriesId/credits';
+    final String path = _getTmdbCastsPathForFilter(tmdbCastsFilter, tmdbCastsId);
 
     final uri = Uri.parse(
       '${Env.baseUrl}$path?api_key=${Env.tmdbApiKey}',
     );
 
-    return serviceCall<List<TvShowCastsResponseDto>>(
+    return serviceCall<List<CastsResponseDto>>(
       () async {
         final response = await http.get(uri);
         if (response.statusCode == 200) {
           final Map<String, dynamic> jsonData = json.decode(response.body);
           final List<dynamic> results = jsonData['cast'] ?? [];
-          final List<TvShowCastsResponseDto> tvShowCastsDto =
-              results.map((dynamic item) => TvShowCastsResponseDto.fromJson(item as Map<String, dynamic>)).toList();
+          final List<CastsResponseDto> castsDto = results.map((dynamic item) => CastsResponseDto.fromJson(item as Map<String, dynamic>)).toList();
 
-          return tvShowCastsDto;
+          return castsDto;
         } else {
           throw Exception('HTTP Error: ${response.statusCode}');
         }
@@ -88,7 +88,7 @@ class TmdbApiService extends BaseApiRepository {
   Future<ApiResult<List<TvShowGenresResponseDto>>> getTvShowGenres(
     TmdbFilter tvShowGenresFilter,
   ) {
-    final String path = _getTvShowGenrePathForFilter(tvShowGenresFilter);
+    final String path = _getTmdbGenrePathForFilter(tvShowGenresFilter);
 
     final uri = Uri.parse(
       '${Env.baseUrl}$path?api_key=${Env.tmdbApiKey}',
@@ -138,7 +138,7 @@ class TmdbApiService extends BaseApiRepository {
     }
   }
 
-  String _getTvShowGenrePathForFilter(TmdbFilter filter) {
+  String _getTmdbGenrePathForFilter(TmdbFilter filter) {
     switch (filter) {
       case TmdbFilter.movie:
         return '/3/genre/movie/list';
@@ -146,6 +146,20 @@ class TmdbApiService extends BaseApiRepository {
         return '/3/genre/tv/list';
       default:
         throw Exception('Invalid genre filter');
+    }
+  }
+
+  String _getTmdbCastsPathForFilter(
+    TmdbFilter filter,
+    int tmdbId,
+  ) {
+    switch (filter) {
+      case TmdbFilter.movie:
+        return '/3/movie/$tmdbId/credits';
+      case TmdbFilter.tv:
+        return '/3/tv/$tmdbId/credits';
+      default:
+        throw Exception('Invalid cast filter');
     }
   }
 }
