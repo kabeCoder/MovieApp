@@ -1,4 +1,4 @@
-// ignore_for_file: must_be_immutable
+// ignore_for_file: must_be_immutable, avoid_function_literals_in_foreach_calls
 
 import 'package:flutter/material.dart';
 
@@ -12,8 +12,11 @@ import 'package:movie_app/core/domain/models/movie/movie.dart';
 import 'package:movie_app/core/domain/models/tv_show/tv_show.dart';
 import 'package:movie_app/core/presentation/widgets/app_cached_network_image.dart';
 import 'package:movie_app/core/presentation/widgets/app_circular_progress_indicator.dart';
+import 'package:movie_app/features/home/presentation/widgets/common_button.dart';
+import 'package:movie_app/features/home/presentation/widgets/common_text_view.dart';
 import 'package:movie_app/features/home/presentation/widgets/home_bloc_provider.dart';
 import 'package:movie_app/features/home/utils/home_constants.dart';
+import 'package:readmore/readmore.dart';
 
 @RoutePage()
 class DetailsScreen extends StatelessWidget {
@@ -63,7 +66,7 @@ class DetailsScreen extends StatelessWidget {
       maxPopularity = popularity.toInt();
     }
 
-    popularityPercentage = '${((popularity / maxPopularity) * 100).toStringAsFixed(0)} %';
+    popularityPercentage = '${((popularity / maxPopularity) * 100).toStringAsFixed(0)}%';
 
     return Scaffold(
       appBar: AppBar(
@@ -93,8 +96,36 @@ class DetailsScreen extends StatelessWidget {
                 ),
               ],
             ),
-            const SizedBox(height: 16),
-            Align(
+            const SizedBox(
+              height: 16,
+            ),
+            Row(
+              children: [
+                Image.asset(
+                  'assets/images/netflix.png',
+                  scale: 30,
+                ),
+                Column(
+                  children: [
+                    CommonTextView(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        context.l10n.label_series.toUpperCase(),
+                        style: TextStyles.bodyText2.copyWith(
+                          fontWeight: FontWeight.w600,
+                          fontSize: 12,
+                          letterSpacing: 3.0,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+            const SizedBox(
+              height: 8,
+            ),
+            CommonTextView(
               alignment: Alignment.centerLeft,
               child: Text(
                 title!,
@@ -104,37 +135,65 @@ class DetailsScreen extends StatelessWidget {
                 ),
               ),
             ),
-            Align(
+            CommonTextView(
               alignment: Alignment.centerLeft,
               child: Text(
                 '$popularityPercentage ${context.l10n.label_popularity}',
                 style: TextStyles.bodyText1.copyWith(
-                  fontSize: 18,
-                  fontWeight: FontWeight.w700,
+                  fontSize: 14,
+                  fontWeight: FontWeight.w500,
+                  color: ColorConstants.white1,
                 ),
               ),
             ),
-            ElevatedButton(
-              onPressed: () {},
-              child: Text('Play'),
+            const SizedBox(
+              height: 8,
             ),
-            ElevatedButton(
-              onPressed: () {},
-              child: Text('Download'),
+            CommonButton(
+              buttonText: context.l10n.label_play,
+              buttonTextStyle: TextStyles.bodyText2.copyWith(
+                fontWeight: FontWeight.w600,
+              ),
+              buttonRadius: 5.0,
+              width: double.infinity,
+              leadingIcon: const Icon(
+                Icons.play_arrow,
+              ),
+              iconTextSpacing: 4,
+              onTap: () {},
+            ),
+            CommonButton(
+              buttonText: context.l10n.label_download,
+              buttonTextStyle: TextStyles.bodyText2.copyWith(
+                fontWeight: FontWeight.w600,
+                color: ColorConstants.white1,
+              ),
+              buttonBackGroundColor: ColorConstants.grey1,
+              buttonRadius: 5.0,
+              width: double.infinity,
+              leadingIcon: const Icon(
+                Icons.download,
+                color: ColorConstants.white1,
+              ),
+              iconTextSpacing: 4,
+              onTap: () {},
             ),
             const SizedBox(height: 8),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
+            CommonTextView(
+              alignment: Alignment.centerLeft,
               child: Text(
                 overview!,
                 style: TextStyles.bodyText2.copyWith(
-                  fontSize: 12,
+                  fontWeight: FontWeight.w500,
+                  fontSize: 14,
                   color: ColorConstants.deepPurpleLight,
                 ),
-                textAlign: TextAlign.justify,
               ),
             ),
-            if (collection == 'tvShow')
+            const SizedBox(
+              height: 8,
+            ),
+            if (collection == context.l10n.collection_tv_show)
               HomeBlocProvider(
                 seriesId: id,
                 child: BlocConsumer<TvShowCastsBloc, TvShowCastsState>(
@@ -149,41 +208,34 @@ class DetailsScreen extends StatelessWidget {
                     loadingTvShowsCasts: () => const Center(
                       child: AppCircularProgressIndicator(),
                     ),
-                    loadedTvShowsCasts: (tvShowsCasts) {
-                      return Column(
-                        children: [
-                          if (tvShowsCasts.isNotEmpty)
-                            Row(
-                              children: [
-                                for (final tvShowCast in tvShowsCasts)
-                                  Text(
-                                    'Cast: ${tvShowCast.name}',
-                                    style: TextStyles.bodyText1.copyWith(
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.w700,
-                                    ),
-                                  ),
-                              ],
-                            ),
-                          if (tvShowsCasts.isEmpty)
-                            Text(
-                              'Cast: None', // Change 'Cast:[]' to 'Cast: None'
-                              style: TextStyles.bodyText1.copyWith(
-                                fontSize: 18,
-                                fontWeight: FontWeight.w700,
-                              ),
-                            ),
-                        ],
-                      );
-                    },
+                    loadedTvShowsCasts: (tvShowsCasts) => CommonTextView(
+                      alignment: Alignment.centerLeft,
+                      child: ReadMoreText(
+                        tvShowsCasts.isEmpty
+                            ? '${context.l10n.label_cast}: ${context.l10n.label_not_available}'
+                            : '${context.l10n.label_cast}: ${tvShowsCasts.map((tvShowCast) => tvShowCast.name).join(', ')}',
+                        trimLines: 2,
+                        colorClickableText: ColorConstants.white1,
+                        trimMode: TrimMode.Line,
+                        trimCollapsedText: context.l10n.label_more,
+                        trimExpandedText: context.l10n.label_less,
+                        style: TextStyles.bodyText2.copyWith(
+                          fontWeight: FontWeight.w300,
+                          fontSize: 12,
+                        ),
+                      ),
+                    ),
                     orElse: SizedBox.shrink,
                   ),
                 ),
               ),
+            const SizedBox(
+              height: 8,
+            ),
             Align(
               alignment: Alignment.centerLeft,
               child: Text(
-                'Genres: ',
+                context.l10n.label_genres,
                 style: TextStyles.bodyText1.copyWith(
                   fontSize: 18,
                   fontWeight: FontWeight.w700,
