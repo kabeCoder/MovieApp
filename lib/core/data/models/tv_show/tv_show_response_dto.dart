@@ -35,7 +35,7 @@ class TvShowResponseDto with _$TvShowResponseDto {
       overview: overview,
       popularity: popularity,
       posterUrl: Uri.parse('${Env.baseImageUrl}/w500$posterPath'),
-      backdropUrl: Uri.parse('${Env.baseImageBackdropUrl}$backdropPath'),
+      backdropUrl: Uri.parse('${Env.baseImageBackdropUrl}/$backdropPath'),
       voteAverage: voteAverage);
 }
 

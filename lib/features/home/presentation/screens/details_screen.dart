@@ -9,6 +9,7 @@ import 'package:movie_app/application/presentation/utils/text_styles.dart';
 import 'package:movie_app/core/domain/models/movie/movie.dart';
 import 'package:movie_app/core/domain/models/tv_show/tv_show.dart';
 import 'package:movie_app/core/presentation/widgets/app_cached_network_image.dart';
+import 'package:movie_app/features/home/utils/home_constants.dart';
 
 @RoutePage()
 class DetailsScreen extends StatelessWidget {
@@ -26,8 +27,38 @@ class DetailsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final backdropUrl = (collection == context.l10n.collection_movie) ? movie?.backdropUrl : tvShow?.backdropUrl;
-    final description = (collection == context.l10n.collection_movie) ? movie?.description : tvShow?.overview;
+    final overview = (collection == context.l10n.collection_movie) ? movie?.overview : tvShow?.overview;
     final title = (collection == context.l10n.collection_movie) ? movie?.title : tvShow?.name;
+    final popularity = (collection == context.l10n.collection_movie) ? movie?.popularity : tvShow?.popularity;
+    final int maxPopularity;
+    String? popularityPercentage;
+
+    if (popularity! >= 0 && popularity <= 1000) {
+      maxPopularity = HomeConstants.oneKMax;
+    } else if (popularity <= 2000) {
+      maxPopularity = HomeConstants.twoKMax;
+    } else if (popularity <= 3000) {
+      maxPopularity = HomeConstants.threeKMax;
+    } else if (popularity <= 4000) {
+      maxPopularity = HomeConstants.fourKMax;
+    } else if (popularity <= 5000) {
+      maxPopularity = HomeConstants.fourKMax;
+    } else if (popularity <= 6000) {
+      maxPopularity = HomeConstants.fourKMax;
+    } else if (popularity <= 7000) {
+      maxPopularity = HomeConstants.fourKMax;
+    } else if (popularity <= 8000) {
+      maxPopularity = HomeConstants.fourKMax;
+    } else if (popularity <= 9000) {
+      maxPopularity = HomeConstants.fourKMax;
+    } else if (popularity <= 10000) {
+      maxPopularity = HomeConstants.fourKMax;
+    } else {
+      maxPopularity = popularity.toInt();
+    }
+
+    popularityPercentage = '${((popularity / maxPopularity) * 100).toStringAsFixed(0)} %';
+
     return Scaffold(
       appBar: AppBar(
         leading: Builder(
@@ -70,7 +101,7 @@ class DetailsScreen extends StatelessWidget {
             Align(
               alignment: Alignment.centerLeft,
               child: Text(
-                '91% popularity 2021 Season 1',
+                '$popularityPercentage ${context.l10n.label_popularity}',
                 style: TextStyles.bodyText1.copyWith(
                   fontSize: 18,
                   fontWeight: FontWeight.w700,
@@ -89,7 +120,7 @@ class DetailsScreen extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Text(
-                description!,
+                overview!,
                 style: TextStyles.bodyText2.copyWith(
                   fontSize: 12,
                   color: ColorConstants.deepPurpleLight,
