@@ -9,6 +9,6 @@ abstract class TmdbRepository {
   );
 
   Future<ApiResult<List<TvShowModel>>> getTvShows(
-    TmdbFilter moviesFilter,
+    TmdbFilter tvShowsFilter,
   );
 }

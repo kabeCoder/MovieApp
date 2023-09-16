@@ -26,7 +26,7 @@ class DetailsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final backdropUrl = (collection == context.l10n.collection_movie) ? movie?.backdropUrl : tvShow?.backdropUrl;
-    final description = (collection == context.l10n.collection_movie) ? movie?.description : tvShow?.description;
+    final description = (collection == context.l10n.collection_movie) ? movie?.description : tvShow?.overview;
     final title = (collection == context.l10n.collection_movie) ? movie?.title : tvShow?.name;
     return Scaffold(
       appBar: AppBar(
