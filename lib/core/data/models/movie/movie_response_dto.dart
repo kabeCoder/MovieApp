@@ -25,8 +25,8 @@ class MovieResponseDto with _$MovieResponseDto {
 
   MovieModel toDomain() => MovieModel(
         title: title,
-        posterUrl: Uri.parse('${Env.baseImageUrl}/w500$posterPath'),
-        backdropUrl: Uri.parse('${Env.baseImageBackdropUrl}$backdropPath'),
+        posterUrl: Uri.parse('${Env.baseImageUrl}/w500/$posterPath'),
+        backdropUrl: Uri.parse('${Env.baseImageBackdropUrl}/$backdropPath'),
         description: overview,
         releaseDate: DateTime.parse(releaseDate),
       );

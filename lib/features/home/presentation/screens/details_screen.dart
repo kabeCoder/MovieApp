@@ -27,12 +27,9 @@ class DetailsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final backdropUrl = (collection == context.l10n.collection_movie) ? movie?.backdropUrl : tvShow?.backdropUrl;
     final description = (collection == context.l10n.collection_movie) ? movie?.description : tvShow?.description;
+    final title = (collection == context.l10n.collection_movie) ? movie?.title : tvShow?.name;
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'Movie Details',
-          style: TextStyles.bodyText1,
-        ),
         leading: Builder(
           builder: (BuildContext context) {
             return IconButton(
@@ -55,7 +52,7 @@ class DetailsScreen extends StatelessWidget {
               children: [
                 AppCachedNetworkImage(
                   imageUrl: backdropUrl!,
-                  opacity: 0.4,
+                  opacity: 1.0,
                 ),
               ],
             ),
@@ -63,12 +60,30 @@ class DetailsScreen extends StatelessWidget {
             Align(
               alignment: Alignment.centerLeft,
               child: Text(
-                'Overview: ',
+                title!,
                 style: TextStyles.bodyText1.copyWith(
                   fontSize: 18,
                   fontWeight: FontWeight.w700,
                 ),
               ),
+            ),
+            Align(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                '91% popularity 2021 Season 1',
+                style: TextStyles.bodyText1.copyWith(
+                  fontSize: 18,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+            ),
+            ElevatedButton(
+              onPressed: () {},
+              child: Text('Play'),
+            ),
+            ElevatedButton(
+              onPressed: () {},
+              child: Text('Download'),
             ),
             const SizedBox(height: 8),
             Padding(
@@ -81,6 +96,67 @@ class DetailsScreen extends StatelessWidget {
                 ),
                 textAlign: TextAlign.justify,
               ),
+            ),
+            Align(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                'Cast: ',
+                style: TextStyles.bodyText1.copyWith(
+                  fontSize: 18,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+            ),
+            Align(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                'Genres: ',
+                style: TextStyles.bodyText1.copyWith(
+                  fontSize: 18,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+            ),
+            const Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Column(
+                  children: [
+                    Icon(
+                      Icons.list_alt_outlined,
+                      color: ColorConstants.deepPurpleLight,
+                    ),
+                    Text(
+                      'My List',
+                      style: TextStyles.bodyText2,
+                    ),
+                  ],
+                ),
+                Column(
+                  children: [
+                    Icon(
+                      Icons.thumbs_up_down_outlined,
+                      color: ColorConstants.deepPurpleLight,
+                    ),
+                    Text(
+                      'My List',
+                      style: TextStyles.bodyText2,
+                    ),
+                  ],
+                ),
+                Column(
+                  children: [
+                    Icon(
+                      Icons.share_outlined,
+                      color: ColorConstants.deepPurpleLight,
+                    ),
+                    Text(
+                      'Share',
+                      style: TextStyles.bodyText2,
+                    ),
+                  ],
+                ),
+              ],
             ),
           ],
         ),
