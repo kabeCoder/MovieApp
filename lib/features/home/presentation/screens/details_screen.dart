@@ -8,8 +8,10 @@ import 'package:movie_app/application/presentation/utils/app_localizations.dart'
 import 'package:movie_app/application/presentation/utils/color_constants.dart';
 import 'package:movie_app/application/presentation/utils/text_styles.dart';
 import 'package:movie_app/core/domain/bloc/tv_show_casts_bloc/tv_show_casts_bloc.dart';
+import 'package:movie_app/core/domain/bloc/tv_show_genres/tv_show_genres_bloc.dart';
 import 'package:movie_app/core/domain/models/movie/movie.dart';
 import 'package:movie_app/core/domain/models/tv_show/tv_show.dart';
+import 'package:movie_app/core/domain/utils/enums/tmdb_filter.dart';
 import 'package:movie_app/core/presentation/widgets/app_cached_network_image.dart';
 import 'package:movie_app/core/presentation/widgets/app_circular_progress_indicator.dart';
 import 'package:movie_app/features/home/presentation/widgets/common_button.dart';
@@ -184,7 +186,7 @@ class DetailsScreen extends StatelessWidget {
             CommonTextView(
               alignment: Alignment.centerLeft,
               child: Text(
-                overview!,
+                overview!.isEmpty ? context.l10n.label_no_overview : overview,
                 style: TextStyles.bodyText2.copyWith(
                   fontWeight: FontWeight.w500,
                   fontSize: 14,
@@ -207,15 +209,15 @@ class DetailsScreen extends StatelessWidget {
                     ),
                   ),
                   builder: (_, state) => state.maybeWhen(
-                    loadingTvShowsCasts: () => const Center(
+                    loadingTvShowCasts: () => const Center(
                       child: AppCircularProgressIndicator(),
                     ),
-                    loadedTvShowsCasts: (tvShowsCasts) => CommonTextView(
+                    loadedTvShowCasts: (tvShowCasts) => CommonTextView(
                       alignment: Alignment.centerLeft,
                       child: ReadMoreText(
-                        tvShowsCasts.isEmpty
+                        tvShowCasts.isEmpty
                             ? '${context.l10n.label_cast}: ${context.l10n.label_not_available}'
-                            : '${context.l10n.label_cast}: ${tvShowsCasts.map((tvShowCast) => tvShowCast.name).join(', ')}',
+                            : '${context.l10n.label_cast}: ${tvShowCasts.map((tvShowCast) => tvShowCast.name).join(', ')}',
                         trimLines: 2,
                         colorClickableText: ColorConstants.white1,
                         trimMode: TrimMode.Line,
@@ -234,16 +236,39 @@ class DetailsScreen extends StatelessWidget {
             const SizedBox(
               height: 8,
             ),
-            CommonTextView(
-              alignment: Alignment.centerLeft,
-              child: Text(
-                '${context.l10n.label_genres}: ${genres!.join(', ')}',
-                style: TextStyles.bodyText2.copyWith(
-                  fontWeight: FontWeight.w300,
-                  fontSize: 12,
+            if (collection == context.l10n.collection_tv_show)
+              HomeBlocProvider(
+                tmdbFilter: TmdbFilter.tv,
+                child: BlocConsumer<TvShowGenresBloc, TvShowGenresState>(
+                  listener: (context, state) => state.whenOrNull(
+                    encounteredError: (errorMessage) => ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text(errorMessage),
+                      ),
+                    ),
+                  ),
+                  builder: (_, state) => state.maybeWhen(
+                    loadingTvShowGenres: () => const Center(
+                      child: AppCircularProgressIndicator(),
+                    ),
+                    loadedTvShowGenres: (tvShowGenres) {
+                      final genreNames = genres!.map((genreId) => tvShowGenres.firstWhere((genre) => genre.id == genreId).name).toList();
+
+                      return CommonTextView(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          '${context.l10n.label_genres}: ${genreNames.join(', ')}',
+                          style: TextStyles.bodyText2.copyWith(
+                            fontWeight: FontWeight.w300,
+                            fontSize: 12,
+                          ),
+                        ),
+                      );
+                    },
+                    orElse: SizedBox.shrink,
+                  ),
                 ),
               ),
-            ),
             const Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
@@ -291,3 +316,11 @@ class DetailsScreen extends StatelessWidget {
     );
   }
 }
+
+// Text(
+//                         '${context.l10n.label_genres}: ${genres!.join(', ')}',
+//                         style: TextStyles.bodyText2.copyWith(
+//                           fontWeight: FontWeight.w300,
+//                           fontSize: 12,
+//                         ),
+//                       ),

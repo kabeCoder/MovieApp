@@ -11,7 +11,7 @@ class TvShowCastsBloc extends Bloc<TvShowCastsEvent, TvShowCastsState> {
   TvShowCastsBloc({
     required this.tvShowCastsRepositoryImplementation,
   }) : super(const _Initial()) {
-    on<_GetTvShowsCasts>(
+    on<_GetTvShowCasts>(
       (event, emit) async {
         final response = await tvShowCastsRepositoryImplementation.getTvShowCasts(event.seriesId);
 
@@ -22,9 +22,9 @@ class TvShowCastsBloc extends Bloc<TvShowCastsEvent, TvShowCastsState> {
             ),
           );
         } else {
-          final List<TvShowCastsModel> tvShowsCasts = response.data?.toList() ?? [];
+          final List<TvShowCastsModel> tvShowCasts = response.data?.toList() ?? [];
           emit(
-            _$_LoadedTvShowCasts(tvShowCasts: tvShowsCasts),
+            _$_LoadedTvShowCasts(tvShowCasts: tvShowCasts),
           );
         }
       },

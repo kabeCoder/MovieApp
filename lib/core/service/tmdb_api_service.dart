@@ -5,6 +5,7 @@ import 'package:movie_app/application/data/utils/env.dart';
 import 'package:movie_app/core/data/models/movie/movie_response_dto.dart';
 import 'package:movie_app/core/data/models/tv_show/tv_show_response_dto.dart';
 import 'package:movie_app/core/data/models/tv_show_casts/tv_show_casts_response_dto.dart';
+import 'package:movie_app/core/data/models/tv_show_genres/tv_show_genres_dto.dart';
 import 'package:movie_app/core/domain/utils/enums/tmdb_filter.dart';
 import 'package:movie_app/core/service/base/base_api_repository.dart';
 import 'package:movie_app/core/service/base/data/models/api_result.dart';
@@ -84,6 +85,29 @@ class TmdbApiService extends BaseApiRepository {
     );
   }
 
+  Future<ApiResult<List<TvShowGenresResponseDto>>> getTvShowGenres(
+    TmdbFilter tvShowGenresFilter,
+  ) {
+    final String path = _getTvShowGenrePathForFilter(tvShowGenresFilter);
+
+    final uri = Uri.parse(
+      '${Env.baseUrl}$path?api_key=${Env.tmdbApiKey}',
+    );
+    return serviceCall<List<TvShowGenresResponseDto>>(() async {
+      final response = await http.get(uri);
+      if (response.statusCode == 200) {
+        final Map<String, dynamic> jsonData = json.decode(response.body);
+        final List<dynamic> results = jsonData['genres'] ?? [];
+        final List<TvShowGenresResponseDto> tvShowGenresDto =
+            results.map((dynamic item) => TvShowGenresResponseDto.fromJson(item as Map<String, dynamic>)).toList();
+
+        return tvShowGenresDto;
+      } else {
+        throw Exception('HTTP Error: ${response.statusCode}');
+      }
+    });
+  }
+
   String _getMoviePathForFilter(TmdbFilter filter) {
     switch (filter) {
       case TmdbFilter.popular:
@@ -111,6 +135,17 @@ class TmdbApiService extends BaseApiRepository {
         return '/3/tv/top_rated';
       default:
         throw Exception('Invalid tv filter');
+    }
+  }
+
+  String _getTvShowGenrePathForFilter(TmdbFilter filter) {
+    switch (filter) {
+      case TmdbFilter.movie:
+        return '/3/genre/movie/list';
+      case TmdbFilter.tv:
+        return '/3/genre/tv/list';
+      default:
+        throw Exception('Invalid genre filter');
     }
   }
 }

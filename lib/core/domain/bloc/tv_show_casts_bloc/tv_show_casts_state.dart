@@ -4,9 +4,9 @@ part of 'tv_show_casts_bloc.dart';
 class TvShowCastsState with _$TvShowCastsState {
   const factory TvShowCastsState.initial() = _Initial;
 
-  const factory TvShowCastsState.loadingTvShowsCasts() = _LoadingTvShowCasts;
+  const factory TvShowCastsState.loadingTvShowCasts() = _LoadingTvShowCasts;
 
-  const factory TvShowCastsState.loadedTvShowsCasts({
+  const factory TvShowCastsState.loadedTvShowCasts({
     required List<TvShowCastsModel> tvShowCasts,
   }) = _LoadedTvShowCasts;
 

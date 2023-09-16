@@ -4,7 +4,7 @@ part of 'tv_show_casts_bloc.dart';
 class TvShowCastsEvent with _$TvShowCastsEvent {
   const factory TvShowCastsEvent.started() = _Started;
 
-  const factory TvShowCastsEvent.getTvShowsCasts(
+  const factory TvShowCastsEvent.getTvShowCasts(
     int seriesId,
-  ) = _GetTvShowsCasts;
+  ) = _GetTvShowCasts;
 }

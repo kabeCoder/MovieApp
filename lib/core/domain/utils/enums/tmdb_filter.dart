@@ -5,4 +5,6 @@ enum TmdbFilter {
   topRated,
   airingToday,
   onTheAir,
+  tv,
+  movie,
 }

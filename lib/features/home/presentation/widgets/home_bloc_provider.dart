@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_app/core/domain/bloc/movie_bloc/movie_bloc.dart';
 import 'package:movie_app/core/domain/bloc/tv_show_bloc/tv_show_bloc.dart';
 import 'package:movie_app/core/domain/bloc/tv_show_casts_bloc/tv_show_casts_bloc.dart';
+import 'package:movie_app/core/domain/bloc/tv_show_genres/tv_show_genres_bloc.dart';
 import 'package:movie_app/core/domain/repositories/tmdb_repository_Implementation.dart';
 import 'package:movie_app/core/domain/utils/enums/tmdb_filter.dart';
 
@@ -40,7 +41,13 @@ class HomeBlocProvider extends StatelessWidget {
         BlocProvider(
           create: (context) => TvShowCastsBloc(tvShowCastsRepositoryImplementation: context.read<TmdbRepositoryImplementation>())
             ..add(
-              TvShowCastsEvent.getTvShowsCasts(seriesId!),
+              TvShowCastsEvent.getTvShowCasts(seriesId!),
+            ),
+        ),
+        BlocProvider(
+          create: (context) => TvShowGenresBloc(tvShowGenresRepositoryImplementation: context.read<TmdbRepositoryImplementation>())
+            ..add(
+              TvShowGenresEvent.getTvShowGenres(tmdbFilter!),
             ),
         ),
       ],
