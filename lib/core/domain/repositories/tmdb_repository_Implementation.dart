@@ -33,8 +33,6 @@ class TmdbRepositoryImplementation implements TmdbRepository {
         error: null,
       );
     } catch (e) {
-      // Handle exceptions (e.g., network errors) here and return an error ApiResult
-
       return ApiResult<List<MovieModel>>(
         error: 'Network Error: $e',
       );
@@ -59,8 +57,6 @@ class TmdbRepositoryImplementation implements TmdbRepository {
         error: null,
       );
     } catch (e) {
-      // Handle exceptions (e.g., network errors) here and return an error ApiResult
-
       return ApiResult<List<TvShowModel>>(
         error: 'Network Error: $e',
       );
@@ -85,8 +81,6 @@ class TmdbRepositoryImplementation implements TmdbRepository {
         error: null,
       );
     } catch (e) {
-      // Handle exceptions (e.g., network errors) here and return an error ApiResult
-
       return ApiResult<List<TvShowCastsModel>>(
         error: 'Network Error: $e',
       );
