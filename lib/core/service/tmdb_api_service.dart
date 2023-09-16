@@ -3,9 +3,9 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:movie_app/application/data/utils/env.dart';
 import 'package:movie_app/core/data/models/casts/casts_response_dto.dart';
+import 'package:movie_app/core/data/models/genres/genres_dto.dart';
 import 'package:movie_app/core/data/models/movie/movie_response_dto.dart';
 import 'package:movie_app/core/data/models/tv_show/tv_show_response_dto.dart';
-import 'package:movie_app/core/data/models/tv_show_genres/tv_show_genres_dto.dart';
 import 'package:movie_app/core/domain/utils/enums/tmdb_filter.dart';
 import 'package:movie_app/core/service/base/base_api_repository.dart';
 import 'package:movie_app/core/service/base/data/models/api_result.dart';
@@ -85,7 +85,7 @@ class TmdbApiService extends BaseApiRepository {
     );
   }
 
-  Future<ApiResult<List<TvShowGenresResponseDto>>> getTvShowGenres(
+  Future<ApiResult<List<GenresResponseDto>>> getGenres(
     TmdbFilter tvShowGenresFilter,
   ) {
     final String path = _getTmdbGenrePathForFilter(tvShowGenresFilter);
@@ -93,15 +93,14 @@ class TmdbApiService extends BaseApiRepository {
     final uri = Uri.parse(
       '${Env.baseUrl}$path?api_key=${Env.tmdbApiKey}',
     );
-    return serviceCall<List<TvShowGenresResponseDto>>(() async {
+    return serviceCall<List<GenresResponseDto>>(() async {
       final response = await http.get(uri);
       if (response.statusCode == 200) {
         final Map<String, dynamic> jsonData = json.decode(response.body);
         final List<dynamic> results = jsonData['genres'] ?? [];
-        final List<TvShowGenresResponseDto> tvShowGenresDto =
-            results.map((dynamic item) => TvShowGenresResponseDto.fromJson(item as Map<String, dynamic>)).toList();
+        final List<GenresResponseDto> genresDto = results.map((dynamic item) => GenresResponseDto.fromJson(item as Map<String, dynamic>)).toList();
 
-        return tvShowGenresDto;
+        return genresDto;
       } else {
         throw Exception('HTTP Error: ${response.statusCode}');
       }

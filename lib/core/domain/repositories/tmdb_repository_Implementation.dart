@@ -1,7 +1,7 @@
 import 'package:movie_app/core/domain/models/casts/casts.dart';
+import 'package:movie_app/core/domain/models/genres/genres.dart';
 import 'package:movie_app/core/domain/models/movie/movie.dart';
 import 'package:movie_app/core/domain/models/tv_show/tv_show.dart';
-import 'package:movie_app/core/domain/models/tv_show_genres/tv_show_genres.dart';
 import 'package:movie_app/core/domain/repositories/base/tmdb_repository.dart';
 import 'package:movie_app/core/domain/utils/enums/tmdb_filter.dart';
 import 'package:movie_app/core/service/base/data/models/api_result.dart';
@@ -92,26 +92,26 @@ class TmdbRepositoryImplementation implements TmdbRepository {
   }
 
   @override
-  Future<ApiResult<List<TvShowGenresModel>>> getTvShowGenres(
-    TmdbFilter tvShowGenresFilter,
+  Future<ApiResult<List<GenresModel>>> getGenres(
+    TmdbFilter tmdbGenresFilter,
   ) async {
     try {
-      final response = await apiService.getTvShowGenres(tvShowGenresFilter);
+      final response = await apiService.getGenres(tmdbGenresFilter);
 
       if (response.error != null) {
-        return ApiResult<List<TvShowGenresModel>>(
+        return ApiResult<List<GenresModel>>(
           error: response.error,
         );
       }
 
-      final List<TvShowGenresModel> tvShowGenres = response.data?.map((dto) => dto.toDomain()).toList() ?? [];
+      final List<GenresModel> genres = response.data?.map((dto) => dto.toDomain()).toList() ?? [];
 
-      return ApiResult<List<TvShowGenresModel>>(
-        data: tvShowGenres,
+      return ApiResult<List<GenresModel>>(
+        data: genres,
         error: null,
       );
     } catch (e) {
-      return ApiResult<List<TvShowGenresModel>>(
+      return ApiResult<List<GenresModel>>(
         error: 'Network Error: $e',
       );
     }

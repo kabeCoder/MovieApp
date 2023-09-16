@@ -8,7 +8,7 @@ import 'package:movie_app/application/presentation/utils/app_localizations.dart'
 import 'package:movie_app/application/presentation/utils/color_constants.dart';
 import 'package:movie_app/application/presentation/utils/text_styles.dart';
 import 'package:movie_app/core/domain/bloc/casts_bloc/casts_bloc.dart';
-import 'package:movie_app/core/domain/bloc/tv_show_genres/tv_show_genres_bloc.dart';
+import 'package:movie_app/core/domain/bloc/genres/genres_bloc.dart';
 import 'package:movie_app/core/domain/models/movie/movie.dart';
 import 'package:movie_app/core/domain/models/tv_show/tv_show.dart';
 import 'package:movie_app/core/domain/utils/enums/tmdb_filter.dart';
@@ -186,8 +186,13 @@ class DetailsScreen extends StatelessWidget {
             const SizedBox(height: 8),
             CommonTextView(
               alignment: Alignment.centerLeft,
-              child: Text(
+              child: ReadMoreText(
                 overview!.isEmpty ? context.l10n.label_no_overview : overview,
+                trimLines: 2,
+                colorClickableText: ColorConstants.white1,
+                trimMode: TrimMode.Line,
+                trimCollapsedText: context.l10n.label_more,
+                trimExpandedText: context.l10n.label_less,
                 style: TextStyles.bodyText2.copyWith(
                   fontWeight: FontWeight.w500,
                   fontSize: 14,
@@ -213,12 +218,12 @@ class DetailsScreen extends StatelessWidget {
                   loadingCasts: () => const Center(
                     child: AppCircularProgressIndicator(),
                   ),
-                  loadedCasts: (tvShowCasts) => CommonTextView(
+                  loadedCasts: (tmdbCasts) => CommonTextView(
                     alignment: Alignment.centerLeft,
                     child: ReadMoreText(
-                      tvShowCasts.isEmpty
+                      tmdbCasts.isEmpty
                           ? '${context.l10n.label_cast}: ${context.l10n.label_not_available}'
-                          : '${context.l10n.label_cast}: ${tvShowCasts.map((tvShowCast) => tvShowCast.name).join(', ')}',
+                          : '${context.l10n.label_cast}: ${tmdbCasts.map((tvShowCast) => tvShowCast.name).join(', ')}',
                       trimLines: 2,
                       colorClickableText: ColorConstants.white1,
                       trimMode: TrimMode.Line,
@@ -239,7 +244,7 @@ class DetailsScreen extends StatelessWidget {
             ),
             HomeBlocProvider(
               tmdbFilter: tmdbFilter,
-              child: BlocConsumer<TvShowGenresBloc, TvShowGenresState>(
+              child: BlocConsumer<GenresBloc, GenresState>(
                 listener: (context, state) => state.whenOrNull(
                   encounteredError: (errorMessage) => ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
@@ -248,11 +253,11 @@ class DetailsScreen extends StatelessWidget {
                   ),
                 ),
                 builder: (_, state) => state.maybeWhen(
-                  loadingTvShowGenres: () => const Center(
+                  loadingGenres: () => const Center(
                     child: AppCircularProgressIndicator(),
                   ),
-                  loadedTvShowGenres: (tvShowGenres) {
-                    final genreNames = genres!.map((genreId) => tvShowGenres.firstWhere((genre) => genre.id == genreId).name).toList();
+                  loadedGenres: (tmdbGenres) {
+                    final genreNames = genres!.map((genreId) => tmdbGenres.firstWhere((genre) => genre.id == genreId).name).toList();
 
                     return CommonTextView(
                       alignment: Alignment.centerLeft,
