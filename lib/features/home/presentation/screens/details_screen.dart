@@ -321,11 +321,3 @@ class DetailsScreen extends StatelessWidget {
     );
   }
 }
-
-// Text(
-//                         '${context.l10n.label_genres}: ${genres!.join(', ')}',
-//                         style: TextStyles.bodyText2.copyWith(
-//                           fontWeight: FontWeight.w300,
-//                           fontSize: 12,
-//                         ),
-//                       ),
