@@ -8,7 +8,7 @@ import 'package:movie_app/application/presentation/utils/app_localizations.dart'
 import 'package:movie_app/application/presentation/utils/color_constants.dart';
 import 'package:movie_app/application/presentation/utils/text_styles.dart';
 import 'package:movie_app/core/domain/bloc/casts_bloc/casts_bloc.dart';
-import 'package:movie_app/core/domain/bloc/genres/genres_bloc.dart';
+import 'package:movie_app/core/domain/bloc/genres_bloc/genres_bloc.dart';
 import 'package:movie_app/core/domain/models/movie/movie.dart';
 import 'package:movie_app/core/domain/models/tv_show/tv_show.dart';
 import 'package:movie_app/core/domain/utils/enums/tmdb_filter.dart';
@@ -115,7 +115,7 @@ class DetailsScreen extends StatelessWidget {
                     CommonTextView(
                       alignment: Alignment.centerLeft,
                       child: Text(
-                        context.l10n.label_series.toUpperCase(),
+                        collection == context.l10n.collection_movie ? context.l10n.label_film.toUpperCase() : context.l10n.label_series.toUpperCase(),
                         style: TextStyles.bodyText2.copyWith(
                           fontWeight: FontWeight.w600,
                           fontSize: 12,
