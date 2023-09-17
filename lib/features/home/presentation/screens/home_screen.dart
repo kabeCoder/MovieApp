@@ -5,7 +5,7 @@ import 'package:movie_app/application/presentation/routes/app_router.dart';
 import 'package:movie_app/application/presentation/utils/app_localizations.dart';
 import 'package:movie_app/application/presentation/utils/color_constants.dart';
 import 'package:movie_app/application/presentation/utils/text_styles.dart';
-import 'package:movie_app/features/home/presentation/widgets/common_tab_bar.dart';
+import 'package:movie_app/features/widgets/common_tab_bar.dart';
 
 @RoutePage()
 class HomeScreen extends StatelessWidget {

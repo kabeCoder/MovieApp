@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
-
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:movie_app/core/domain/bloc/movie_bloc/movie_bloc.dart';
-import 'package:movie_app/core/domain/bloc/tv_show_bloc/tv_show_bloc.dart';
+import 'package:movie_app/core/domain/bloc/casts_bloc/casts_bloc.dart';
+import 'package:movie_app/core/domain/bloc/genres_bloc/genres_bloc.dart';
 import 'package:movie_app/core/domain/repositories/tmdb_repository_Implementation.dart';
 import 'package:movie_app/core/domain/utils/enums/tmdb_filter.dart';
 
 // ignore: must_be_immutable
-class HomeBlocProvider extends StatelessWidget {
-  HomeBlocProvider({
+class DetailsBlocProvider extends StatelessWidget {
+  DetailsBlocProvider({
     Key? key,
     required this.child,
     this.tmdbFilter,
@@ -24,16 +23,15 @@ class HomeBlocProvider extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (_) => MovieBloc(
-            movieRepositoryImplementation: context.read<TmdbRepositoryImplementation>(),
-          )..add(
-              MovieEvent.getMovies(tmdbFilter!),
+          create: (context) => CastsBloc(castsRepositoryImplementation: context.read<TmdbRepositoryImplementation>())
+            ..add(
+              CastsEvent.getCasts(tmdbFilter!, tmdbCastsId!),
             ),
         ),
         BlocProvider(
-          create: (context) => TvShowBloc(tvShowRepositoryImplementation: context.read<TmdbRepositoryImplementation>())
+          create: (context) => GenresBloc(genresRepositoryImplementation: context.read<TmdbRepositoryImplementation>())
             ..add(
-              TvShowEvent.getTvShows(tmdbFilter!),
+              GenresEvent.getGenres(tmdbFilter!),
             ),
         ),
       ],

@@ -14,10 +14,10 @@ import 'package:movie_app/core/domain/models/tv_show/tv_show.dart';
 import 'package:movie_app/core/domain/utils/enums/tmdb_filter.dart';
 import 'package:movie_app/core/presentation/widgets/app_cached_network_image.dart';
 import 'package:movie_app/core/presentation/widgets/app_circular_progress_indicator.dart';
-import 'package:movie_app/features/home/presentation/widgets/common_button.dart';
-import 'package:movie_app/features/home/presentation/widgets/common_text_view.dart';
-import 'package:movie_app/features/home/presentation/widgets/home_bloc_provider.dart';
+import 'package:movie_app/features/details/presentation/widgets/details_bloc_provider.dart';
 import 'package:movie_app/features/home/utils/home_constants.dart';
+import 'package:movie_app/features/widgets/common_button.dart';
+import 'package:movie_app/features/widgets/common_text_view.dart';
 import 'package:readmore/readmore.dart';
 
 @RoutePage()
@@ -203,7 +203,7 @@ class DetailsScreen extends StatelessWidget {
             const SizedBox(
               height: 8,
             ),
-            HomeBlocProvider(
+            DetailsBlocProvider(
               tmdbFilter: tmdbFilter,
               tmdbCastsId: id,
               child: BlocConsumer<CastsBloc, CastsState>(
@@ -242,7 +242,7 @@ class DetailsScreen extends StatelessWidget {
             const SizedBox(
               height: 8,
             ),
-            HomeBlocProvider(
+            DetailsBlocProvider(
               tmdbFilter: tmdbFilter,
               child: BlocConsumer<GenresBloc, GenresState>(
                 listener: (context, state) => state.whenOrNull(
