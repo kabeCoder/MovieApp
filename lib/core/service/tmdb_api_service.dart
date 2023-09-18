@@ -11,6 +11,75 @@ import 'package:movie_app/core/service/base/base_api_repository.dart';
 import 'package:movie_app/core/service/base/data/models/api_result.dart';
 
 class TmdbApiService extends BaseApiRepository {
+  String _getMoviePathForFilter(TmdbFilter filter) {
+    switch (filter) {
+      case TmdbFilter.popular:
+        return '/3/movie/popular';
+      case TmdbFilter.nowPlaying:
+        return '/3/movie/now_playing';
+      case TmdbFilter.upcoming:
+        return '/3/movie/upcoming';
+      case TmdbFilter.topRated:
+        return '/3/movie/top_rated';
+      default:
+        throw Exception('Invalid filter');
+    }
+  }
+
+  String _getTvShowPathForFilter(TmdbFilter filter) {
+    switch (filter) {
+      case TmdbFilter.popular:
+        return '/3/tv/popular';
+      case TmdbFilter.airingToday:
+        return '/3/tv/airing_today';
+      case TmdbFilter.onTheAir:
+        return '/3/tv/on_the_air';
+      case TmdbFilter.topRated:
+        return '/3/tv/top_rated';
+      default:
+        throw Exception('Invalid tv filter');
+    }
+  }
+
+  String _getTmdbGenrePathForFilter(TmdbFilter filter) {
+    switch (filter) {
+      case TmdbFilter.movie:
+        return '/3/genre/movie/list';
+      case TmdbFilter.tv:
+        return '/3/genre/tv/list';
+      default:
+        throw Exception('Invalid genre filter');
+    }
+  }
+
+  String _getTmdbCastsPathForFilter(
+    TmdbFilter filter,
+    int tmdbId,
+  ) {
+    switch (filter) {
+      case TmdbFilter.movie:
+        return '/3/movie/$tmdbId/credits';
+      case TmdbFilter.tv:
+        return '/3/tv/$tmdbId/credits';
+      default:
+        throw Exception('Invalid cast filter');
+    }
+  }
+
+  String _getTmdbSimilarPathForFilter(
+    TmdbFilter filter,
+    int tmdbId,
+  ) {
+    switch (filter) {
+      case TmdbFilter.movie:
+        return '/3/movie/$tmdbId/similar';
+      case TmdbFilter.tv:
+        return '/3/tv/$tmdbId/similar';
+      default:
+        throw Exception('Invalid similar filter');
+    }
+  }
+
   Future<ApiResult<List<MovieResponseDto>>> getMovies(
     TmdbFilter moviesFilter,
   ) {
@@ -107,58 +176,28 @@ class TmdbApiService extends BaseApiRepository {
     });
   }
 
-  String _getMoviePathForFilter(TmdbFilter filter) {
-    switch (filter) {
-      case TmdbFilter.popular:
-        return '/3/movie/popular';
-      case TmdbFilter.nowPlaying:
-        return '/3/movie/now_playing';
-      case TmdbFilter.upcoming:
-        return '/3/movie/upcoming';
-      case TmdbFilter.topRated:
-        return '/3/movie/top_rated';
-      default:
-        throw Exception('Invalid filter');
-    }
-  }
-
-  String _getTvShowPathForFilter(TmdbFilter filter) {
-    switch (filter) {
-      case TmdbFilter.popular:
-        return '/3/tv/popular';
-      case TmdbFilter.airingToday:
-        return '/3/tv/airing_today';
-      case TmdbFilter.onTheAir:
-        return '/3/tv/on_the_air';
-      case TmdbFilter.topRated:
-        return '/3/tv/top_rated';
-      default:
-        throw Exception('Invalid tv filter');
-    }
-  }
-
-  String _getTmdbGenrePathForFilter(TmdbFilter filter) {
-    switch (filter) {
-      case TmdbFilter.movie:
-        return '/3/genre/movie/list';
-      case TmdbFilter.tv:
-        return '/3/genre/tv/list';
-      default:
-        throw Exception('Invalid genre filter');
-    }
-  }
-
-  String _getTmdbCastsPathForFilter(
-    TmdbFilter filter,
-    int tmdbId,
+  Future<ApiResult<List<TvShowResponseDto>>> getSimilarTvShows(
+    TmdbFilter tvShowsFilter,
+    int tvShowId,
   ) {
-    switch (filter) {
-      case TmdbFilter.movie:
-        return '/3/movie/$tmdbId/credits';
-      case TmdbFilter.tv:
-        return '/3/tv/$tmdbId/credits';
-      default:
-        throw Exception('Invalid cast filter');
-    }
+    final String path = _getTmdbSimilarPathForFilter(tvShowsFilter, tvShowId);
+
+    final uri = Uri.parse(
+      '${Env.baseUrl}$path?api_key=${Env.tmdbApiKey}',
+    );
+
+    return serviceCall<List<TvShowResponseDto>>(
+      () async {
+        final response = await http.get(uri);
+        if (response.statusCode == 200) {
+          final Map<String, dynamic> jsonData = json.decode(response.body);
+          final List<dynamic> results = jsonData['results'] ?? [];
+          final List<TvShowResponseDto> tvShowDtos = results.map((dynamic item) => TvShowResponseDto.fromJson(item as Map<String, dynamic>)).toList();
+          return tvShowDtos;
+        } else {
+          throw Exception('HTTP Error: ${response.statusCode}');
+        }
+      },
+    );
   }
 }

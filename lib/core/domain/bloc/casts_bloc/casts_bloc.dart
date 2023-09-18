@@ -11,7 +11,9 @@ part 'casts_bloc.freezed.dart';
 class CastsBloc extends Bloc<CastsEvent, CastsState> {
   CastsBloc({
     required this.castsRepositoryImplementation,
-  }) : super(const _Initial()) {
+  }) : super(
+          const _Initial(),
+        ) {
     on<_GetCasts>(
       (event, emit) async {
         final response = await castsRepositoryImplementation.getCasts(event.tmdbCastsFilter, event.tmdbCastsId);

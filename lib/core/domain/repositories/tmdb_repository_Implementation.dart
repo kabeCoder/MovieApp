@@ -116,4 +116,28 @@ class TmdbRepositoryImplementation implements TmdbRepository {
       );
     }
   }
+
+  @override
+  Future<ApiResult<List<TvShowModel>>> getSimilarTvShows(TmdbFilter tmdbSimilarFilter, int tvShowId) async {
+    try {
+      final response = await apiService.getSimilarTvShows(tmdbSimilarFilter, tvShowId);
+
+      if (response.error != null) {
+        return ApiResult<List<TvShowModel>>(
+          error: response.error,
+        );
+      }
+
+      final List<TvShowModel> similarTvhows = response.data?.map((dto) => dto.toDomain()).toList() ?? [];
+
+      return ApiResult<List<TvShowModel>>(
+        data: similarTvhows,
+        error: null,
+      );
+    } catch (e) {
+      return ApiResult<List<TvShowModel>>(
+        error: 'Network Error: $e',
+      );
+    }
+  }
 }

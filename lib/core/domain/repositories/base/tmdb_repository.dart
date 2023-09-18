@@ -22,4 +22,9 @@ abstract class TmdbRepository {
   Future<ApiResult<List<GenresModel>>> getGenres(
     TmdbFilter tmdbGenresFilter,
   );
+
+  Future<ApiResult<List<TvShowModel>>> getSimilarTvShows(
+    TmdbFilter tmdbSimilarFilter,
+    int tvShowId,
+  );
 }

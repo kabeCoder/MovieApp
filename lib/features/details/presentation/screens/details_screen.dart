@@ -323,12 +323,18 @@ class DetailsScreen extends StatelessWidget {
               child: CommonTabBar(
                 showBackArrow: false,
                 isTabScrollable: true,
-                tabRoutes: const [
-                  MoreLikeThisRoute(),
+                tabRoutes: [
+                  MoreLikeThisRoute(
+                    collection: collection,
+                    tmdbFilter: tmdbFilter,
+                    tmdbId: id!,
+                  ),
                 ],
                 tabTexts: [
                   Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 8.0),
+                    padding: const EdgeInsets.only(
+                      top: 8.0,
+                    ),
                     child: Text(
                       context.l10n.label_more_like_this,
                     ),

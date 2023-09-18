@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_app/core/domain/bloc/casts_bloc/casts_bloc.dart';
 import 'package:movie_app/core/domain/bloc/genres_bloc/genres_bloc.dart';
+import 'package:movie_app/core/domain/bloc/similar_tv_show_bloc/similar_tv_show_bloc.dart';
 import 'package:movie_app/core/domain/repositories/tmdb_repository_Implementation.dart';
 import 'package:movie_app/core/domain/utils/enums/tmdb_filter.dart';
 
@@ -12,11 +13,13 @@ class DetailsBlocProvider extends StatelessWidget {
     required this.child,
     this.tmdbFilter,
     this.tmdbCastsId,
+    this.tvShowId,
   }) : super(key: key);
 
   final Widget child;
   TmdbFilter? tmdbFilter;
   int? tmdbCastsId;
+  int? tvShowId;
 
   @override
   Widget build(BuildContext context) {
@@ -32,6 +35,12 @@ class DetailsBlocProvider extends StatelessWidget {
           create: (context) => GenresBloc(genresRepositoryImplementation: context.read<TmdbRepositoryImplementation>())
             ..add(
               GenresEvent.getGenres(tmdbFilter!),
+            ),
+        ),
+        BlocProvider(
+          create: (context) => SimilarTvShowBloc(similarRepositoryImplementation: context.read<TmdbRepositoryImplementation>())
+            ..add(
+              SimilarTvShowEvent.getSimilarTvShow(tmdbFilter!, tvShowId!),
             ),
         ),
       ],
