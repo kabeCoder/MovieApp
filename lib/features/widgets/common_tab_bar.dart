@@ -11,7 +11,11 @@ class CommonTabBar extends StatelessWidget {
     required this.labelStyle,
     required this.unselectedLabelColor,
     required this.unselectedLabelStyle,
+    this.showBackArrow,
     this.leadingIcon,
+    this.isTabScrollable,
+    this.tabIndicator,
+    this.enableOffsetValue,
   });
 
   final List<PageRouteInfo<dynamic>> tabRoutes;
@@ -20,7 +24,11 @@ class CommonTabBar extends StatelessWidget {
   final TextStyle labelStyle;
   final Color unselectedLabelColor;
   final TextStyle unselectedLabelStyle;
+  bool? showBackArrow;
   Widget? leadingIcon;
+  bool? isTabScrollable;
+  Decoration? tabIndicator;
+  Offset? enableOffsetValue;
 
   @override
   Widget build(BuildContext context) {
@@ -29,14 +37,32 @@ class CommonTabBar extends StatelessWidget {
       builder: (context, child, controller) {
         return Scaffold(
           appBar: AppBar(
+            automaticallyImplyLeading: showBackArrow ?? true,
             leading: leadingIcon,
-            title: TabBar(
-              controller: controller,
-              tabs: tabTexts,
-              dividerColor: dividerColor,
-              labelStyle: labelStyle,
-              unselectedLabelColor: unselectedLabelColor,
-              unselectedLabelStyle: unselectedLabelStyle,
+            title: Transform.translate(
+              offset: enableOffsetValue ?? const Offset(0, 0),
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: TabBar(
+                  isScrollable: isTabScrollable ?? false,
+                  controller: controller,
+                  indicator: tabIndicator ??
+                      const BoxDecoration(
+                        border: Border(
+                          bottom: BorderSide(
+                            color: Colors.deepPurple,
+                            width: 2.0,
+                          ),
+                        ),
+                      ),
+                  tabs: tabTexts,
+                  dividerColor: dividerColor,
+                  labelStyle: labelStyle,
+                  unselectedLabelColor: unselectedLabelColor,
+                  unselectedLabelStyle: unselectedLabelStyle,
+                  labelPadding: EdgeInsets.zero,
+                ),
+              ),
             ),
           ),
           body: child,

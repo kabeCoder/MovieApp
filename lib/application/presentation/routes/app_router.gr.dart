@@ -45,6 +45,12 @@ abstract class _$AppRouter extends RootStackRouter {
         child: const HomeScreen(),
       );
     },
+    MoreLikeThisRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const MoreLikeThisScreen(),
+      );
+    },
     MoreRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
@@ -170,6 +176,20 @@ class HomeRoute extends PageRouteInfo<void> {
         );
 
   static const String name = 'HomeRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [MoreLikeThisScreen]
+class MoreLikeThisRoute extends PageRouteInfo<void> {
+  const MoreLikeThisRoute({List<PageRouteInfo>? children})
+      : super(
+          MoreLikeThisRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'MoreLikeThisRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
 }

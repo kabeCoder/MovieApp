@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:movie_app/core/domain/models/movie/movie.dart';
 import 'package:movie_app/core/domain/models/tv_show/tv_show.dart';
 import 'package:movie_app/features/details/presentation/screens/details_screen.dart';
+import 'package:movie_app/features/details/presentation/screens/more_like_this_screen.dart';
 import 'package:movie_app/features/navigation/presentation/screens/navigation_screen.dart';
 import 'package:movie_app/features/coming_soon/presentation/screens/coming_soon_screen.dart';
 import 'package:movie_app/features/download/presentation/screens/download_screen.dart';
@@ -53,6 +54,11 @@ class AppRouter extends _$AppRouter {
         ),
         AutoRoute(
           page: DetailsRoute.page,
+          children: [
+            AutoRoute(
+              page: MoreLikeThisRoute.page,
+            ),
+          ],
         ),
       ];
 }

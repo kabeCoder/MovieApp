@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:movie_app/application/presentation/routes/app_router.dart';
 import 'package:movie_app/application/presentation/utils/app_localizations.dart';
 import 'package:movie_app/application/presentation/utils/color_constants.dart';
 import 'package:movie_app/application/presentation/utils/text_styles.dart';
@@ -17,6 +18,7 @@ import 'package:movie_app/core/presentation/widgets/app_circular_progress_indica
 import 'package:movie_app/features/details/presentation/widgets/details_bloc_provider.dart';
 import 'package:movie_app/features/home/utils/home_constants.dart';
 import 'package:movie_app/features/widgets/common_button.dart';
+import 'package:movie_app/features/widgets/common_tab_bar.dart';
 import 'package:movie_app/features/widgets/common_text_view.dart';
 import 'package:readmore/readmore.dart';
 
@@ -314,6 +316,38 @@ class DetailsScreen extends StatelessWidget {
                   ],
                 ),
               ],
+            ),
+            SizedBox(
+              width: double.infinity,
+              height: 500,
+              child: CommonTabBar(
+                showBackArrow: false,
+                isTabScrollable: true,
+                tabRoutes: const [
+                  MoreLikeThisRoute(),
+                ],
+                tabTexts: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 8.0),
+                    child: Text(
+                      context.l10n.label_more_like_this,
+                    ),
+                  ),
+                ],
+                dividerColor: Colors.transparent,
+                labelStyle: TextStyles.bodyText2,
+                unselectedLabelColor: ColorConstants.deepPurpleLight,
+                unselectedLabelStyle: TextStyles.bodyText2,
+                tabIndicator: const BoxDecoration(
+                  border: Border(
+                    top: BorderSide(
+                      color: Colors.deepPurple,
+                      width: 3.0,
+                    ),
+                  ),
+                ),
+                enableOffsetValue: const Offset(-10, 0),
+              ),
             ),
           ],
         ),
