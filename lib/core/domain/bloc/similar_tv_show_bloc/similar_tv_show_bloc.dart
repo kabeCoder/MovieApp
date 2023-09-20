@@ -10,13 +10,13 @@ part 'similar_tv_show_bloc.freezed.dart';
 
 class SimilarTvShowBloc extends Bloc<SimilarTvShowEvent, SimilarTvShowState> {
   SimilarTvShowBloc({
-    required this.similarRepositoryImplementation,
+    required this.similarTvShowsRepositoryImplementation,
   }) : super(
           const _Initial(),
         ) {
-    on<_GetTvShowSimilar>(
+    on<_GetSimilarTvShows>(
       (event, emit) async {
-        final response = await similarRepositoryImplementation.getSimilarTvShows(event.tmdbSimilarFilter, event.tvShowId);
+        final response = await similarTvShowsRepositoryImplementation.getSimilarTvShows(event.tmdbSimilarFilter, event.tvShowId);
 
         if (response.error != null) {
           emit(
@@ -25,14 +25,14 @@ class SimilarTvShowBloc extends Bloc<SimilarTvShowEvent, SimilarTvShowState> {
             ),
           );
         } else {
-          final List<TvShowModel> tvShowSimilar = response.data?.toList() ?? [];
+          final List<TvShowModel> similarTvShows = response.data?.toList() ?? [];
           emit(
-            _$_LoadedTvShowSimilar(tvShowSimilar: tvShowSimilar),
+            _$_LoadedSimilarTvShows(similarTvShows: similarTvShows),
           );
         }
       },
     );
   }
 
-  final TmdbRepositoryImplementation similarRepositoryImplementation;
+  final TmdbRepositoryImplementation similarTvShowsRepositoryImplementation;
 }

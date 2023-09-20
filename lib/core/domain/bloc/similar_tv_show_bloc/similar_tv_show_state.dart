@@ -4,11 +4,11 @@ part of 'similar_tv_show_bloc.dart';
 class SimilarTvShowState with _$SimilarTvShowState {
   const factory SimilarTvShowState.initial() = _Initial;
 
-  const factory SimilarTvShowState.loadingSimilar() = _LoadingTvShowSimilar;
+  const factory SimilarTvShowState.loadingSimilarTvShows() = _LoadingSimilarTvShows;
 
-  const factory SimilarTvShowState.loadedSimilar({
-    required List<TvShowModel> tvShowSimilar,
-  }) = _LoadedTvShowSimilar;
+  const factory SimilarTvShowState.loadedSimilarTvShows({
+    required List<TvShowModel> similarTvShows,
+  }) = _LoadedSimilarTvShows;
 
   const factory SimilarTvShowState.encounteredError({
     required String errorMessage,

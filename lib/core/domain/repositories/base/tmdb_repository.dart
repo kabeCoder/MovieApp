@@ -27,4 +27,9 @@ abstract class TmdbRepository {
     TmdbFilter tmdbSimilarFilter,
     int tvShowId,
   );
+
+  Future<ApiResult<List<MovieModel>>> getSimilarMovies(
+    TmdbFilter tmdbSimilarFilter,
+    int movieId,
+  );
 }

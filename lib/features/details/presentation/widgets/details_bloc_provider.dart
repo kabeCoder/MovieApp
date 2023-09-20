@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_app/core/domain/bloc/casts_bloc/casts_bloc.dart';
 import 'package:movie_app/core/domain/bloc/genres_bloc/genres_bloc.dart';
+import 'package:movie_app/core/domain/bloc/similar_movie_bloc/similar_movie_bloc.dart';
 import 'package:movie_app/core/domain/bloc/similar_tv_show_bloc/similar_tv_show_bloc.dart';
 import 'package:movie_app/core/domain/repositories/tmdb_repository_Implementation.dart';
 import 'package:movie_app/core/domain/utils/enums/tmdb_filter.dart';
@@ -14,12 +15,14 @@ class DetailsBlocProvider extends StatelessWidget {
     this.tmdbFilter,
     this.tmdbCastsId,
     this.tvShowId,
+    this.movieId,
   }) : super(key: key);
 
   final Widget child;
   TmdbFilter? tmdbFilter;
   int? tmdbCastsId;
   int? tvShowId;
+  int? movieId;
 
   @override
   Widget build(BuildContext context) {
@@ -38,9 +41,15 @@ class DetailsBlocProvider extends StatelessWidget {
             ),
         ),
         BlocProvider(
-          create: (context) => SimilarTvShowBloc(similarRepositoryImplementation: context.read<TmdbRepositoryImplementation>())
+          create: (context) => SimilarTvShowBloc(similarTvShowsRepositoryImplementation: context.read<TmdbRepositoryImplementation>())
             ..add(
-              SimilarTvShowEvent.getSimilarTvShow(tmdbFilter!, tvShowId!),
+              SimilarTvShowEvent.getSimilarTvShows(tmdbFilter!, tvShowId!),
+            ),
+        ),
+        BlocProvider(
+          create: (context) => SimilarMovieBloc(similarMoviesRepositoryImplementation: context.read<TmdbRepositoryImplementation>())
+            ..add(
+              SimilarMovieEvent.getSimilarMovies(tmdbFilter!, movieId!),
             ),
         ),
       ],

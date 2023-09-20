@@ -17,9 +17,9 @@ import 'package:movie_app/core/presentation/widgets/app_cached_network_image.dar
 import 'package:movie_app/core/presentation/widgets/app_circular_progress_indicator.dart';
 import 'package:movie_app/features/details/presentation/widgets/details_bloc_provider.dart';
 import 'package:movie_app/features/home/utils/home_constants.dart';
-import 'package:movie_app/features/widgets/common_button.dart';
-import 'package:movie_app/features/widgets/common_tab_bar.dart';
-import 'package:movie_app/features/widgets/common_text_view.dart';
+import 'package:movie_app/features/common_widgets/common_button.dart';
+import 'package:movie_app/features/common_widgets/common_tab_bar.dart';
+import 'package:movie_app/features/common_widgets/common_text_view.dart';
 import 'package:readmore/readmore.dart';
 
 @RoutePage()

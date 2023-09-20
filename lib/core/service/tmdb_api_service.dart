@@ -200,4 +200,29 @@ class TmdbApiService extends BaseApiRepository {
       },
     );
   }
+
+  Future<ApiResult<List<MovieResponseDto>>> getSimilarMovies(
+    TmdbFilter moviesFilter,
+    int movieId,
+  ) {
+    final String path = _getTmdbSimilarPathForFilter(moviesFilter, movieId);
+
+    final uri = Uri.parse(
+      '${Env.baseUrl}$path?api_key=${Env.tmdbApiKey}',
+    );
+
+    return serviceCall<List<MovieResponseDto>>(
+      () async {
+        final response = await http.get(uri);
+        if (response.statusCode == 200) {
+          final Map<String, dynamic> jsonData = json.decode(response.body);
+          final List<dynamic> results = jsonData['results'] ?? [];
+          final List<MovieResponseDto> movieDtos = results.map((dynamic item) => MovieResponseDto.fromJson(item as Map<String, dynamic>)).toList();
+          return movieDtos;
+        } else {
+          throw Exception('HTTP Error: ${response.statusCode}');
+        }
+      },
+    );
+  }
 }

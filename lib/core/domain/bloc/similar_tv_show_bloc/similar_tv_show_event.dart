@@ -4,8 +4,8 @@ part of 'similar_tv_show_bloc.dart';
 class SimilarTvShowEvent with _$SimilarTvShowEvent {
   const factory SimilarTvShowEvent.started() = _Started;
 
-  const factory SimilarTvShowEvent.getSimilarTvShow(
+  const factory SimilarTvShowEvent.getSimilarTvShows(
     TmdbFilter tmdbSimilarFilter,
     int tvShowId,
-  ) = _GetTvShowSimilar;
+  ) = _GetSimilarTvShows;
 }
