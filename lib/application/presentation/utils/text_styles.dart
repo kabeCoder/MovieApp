@@ -9,6 +9,7 @@ class TextStyles {
     fontSize: 24,
     fontWeight: FontWeight.bold,
     color: ColorConstants.deepPurpleLight,
+    letterSpacing: 1.0,
   );
 
   static const TextStyle headline2 = TextStyle(
@@ -16,6 +17,7 @@ class TextStyles {
     fontSize: 20,
     fontWeight: FontWeight.bold,
     color: ColorConstants.deepPurpleLight,
+    letterSpacing: 1.0,
   );
 
   static const TextStyle bodyText1 = TextStyle(
@@ -23,6 +25,7 @@ class TextStyles {
     fontSize: 16,
     fontWeight: FontWeight.normal,
     color: ColorConstants.deepPurpleLight,
+    letterSpacing: 1.0,
   );
 
   static const TextStyle bodyText2 = TextStyle(
@@ -30,5 +33,6 @@ class TextStyles {
     fontSize: 14,
     fontWeight: FontWeight.normal,
     color: ColorConstants.deepPurpleLight,
+    letterSpacing: 1.0,
   );
 }

@@ -8,15 +8,15 @@ part 'movie_response_dto.g.dart';
 @freezed
 class MovieResponseDto with _$MovieResponseDto {
   const factory MovieResponseDto({
-    @JsonKey(name: 'backdrop_path') String? backdropPath,
+    required int id,
     @JsonKey(name: 'genre_ids') required List<int> genreIds,
     required String overview,
     required double popularity,
     @JsonKey(name: 'poster_path') String? posterPath,
-    @JsonKey(name: 'release_date') required String releaseDate,
+    @JsonKey(name: 'backdrop_path') String? backdropPath,
     required String title,
+    @JsonKey(name: 'release_date') required String? releaseDate,
     @JsonKey(name: 'vote_average') required double voteAverage,
-    @JsonKey(name: 'vote_count') required int voteCount,
   }) = _MovieResponseDto;
 
   factory MovieResponseDto.fromJson(Map<String, dynamic> json) => _$MovieResponseDtoFromJson(json);
@@ -24,11 +24,15 @@ class MovieResponseDto with _$MovieResponseDto {
   const MovieResponseDto._();
 
   MovieModel toDomain() => MovieModel(
+        id: id,
+        genreIds: genreIds,
+        overview: overview,
+        popularity: popularity,
+        posterUrl: Uri.parse('${Env.baseImageUrl}/w500/$posterPath'),
+        backdropUrl: Uri.parse('${Env.baseImageBackdropUrl}/$backdropPath'),
         title: title,
-        posterUrl: Uri.parse('${Env.baseImageUrl}/w500$posterPath'),
-        backdropUrl: Uri.parse('${Env.baseImageBackdropUrl}$backdropPath'),
-        description: overview,
-        releaseDate: DateTime.parse(releaseDate),
+        releaseDate: releaseDate?.isNotEmpty == true ? DateTime.parse(releaseDate!) : DateTime.now(),
+        voteAverage: voteAverage,
       );
 }
 

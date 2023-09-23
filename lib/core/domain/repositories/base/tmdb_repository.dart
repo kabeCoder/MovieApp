@@ -1,3 +1,5 @@
+import 'package:movie_app/core/domain/models/casts/casts.dart';
+import 'package:movie_app/core/domain/models/genres/genres.dart';
 import 'package:movie_app/core/domain/models/movie/movie.dart';
 import 'package:movie_app/core/domain/models/tv_show/tv_show.dart';
 import 'package:movie_app/core/domain/utils/enums/tmdb_filter.dart';
@@ -9,6 +11,25 @@ abstract class TmdbRepository {
   );
 
   Future<ApiResult<List<TvShowModel>>> getTvShows(
-    TmdbFilter moviesFilter,
+    TmdbFilter tvShowsFilter,
+  );
+
+  Future<ApiResult<List<CastsModel>>> getCasts(
+    TmdbFilter tmdbCastsFilter,
+    int tmdbCastsId,
+  );
+
+  Future<ApiResult<List<GenresModel>>> getGenres(
+    TmdbFilter tmdbGenresFilter,
+  );
+
+  Future<ApiResult<List<TvShowModel>>> getSimilarTvShows(
+    TmdbFilter tmdbSimilarFilter,
+    int tvShowId,
+  );
+
+  Future<ApiResult<List<MovieModel>>> getSimilarMovies(
+    TmdbFilter tmdbSimilarFilter,
+    int movieId,
   );
 }

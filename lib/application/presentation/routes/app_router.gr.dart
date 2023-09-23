@@ -45,6 +45,18 @@ abstract class _$AppRouter extends RootStackRouter {
         child: const HomeScreen(),
       );
     },
+    MoreLikeThisRoute.name: (routeData) {
+      final args = routeData.argsAs<MoreLikeThisRouteArgs>();
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: MoreLikeThisScreen(
+          key: args.key,
+          collection: args.collection,
+          tmdbFilter: args.tmdbFilter,
+          tmdbId: args.tmdbId,
+        ),
+      );
+    },
     MoreRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
@@ -172,6 +184,54 @@ class HomeRoute extends PageRouteInfo<void> {
   static const String name = 'HomeRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [MoreLikeThisScreen]
+class MoreLikeThisRoute extends PageRouteInfo<MoreLikeThisRouteArgs> {
+  MoreLikeThisRoute({
+    Key? key,
+    required String collection,
+    required TmdbFilter tmdbFilter,
+    required int tmdbId,
+    List<PageRouteInfo>? children,
+  }) : super(
+          MoreLikeThisRoute.name,
+          args: MoreLikeThisRouteArgs(
+            key: key,
+            collection: collection,
+            tmdbFilter: tmdbFilter,
+            tmdbId: tmdbId,
+          ),
+          initialChildren: children,
+        );
+
+  static const String name = 'MoreLikeThisRoute';
+
+  static const PageInfo<MoreLikeThisRouteArgs> page =
+      PageInfo<MoreLikeThisRouteArgs>(name);
+}
+
+class MoreLikeThisRouteArgs {
+  const MoreLikeThisRouteArgs({
+    this.key,
+    required this.collection,
+    required this.tmdbFilter,
+    required this.tmdbId,
+  });
+
+  final Key? key;
+
+  final String collection;
+
+  final TmdbFilter tmdbFilter;
+
+  final int tmdbId;
+
+  @override
+  String toString() {
+    return 'MoreLikeThisRouteArgs{key: $key, collection: $collection, tmdbFilter: $tmdbFilter, tmdbId: $tmdbId}';
+  }
 }
 
 /// generated route for

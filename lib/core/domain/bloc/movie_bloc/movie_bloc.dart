@@ -12,20 +12,22 @@ class MovieBloc extends Bloc<MovieEvent, MovieState> {
   MovieBloc({
     required this.movieRepositoryImplementation,
   }) : super(const _Initial()) {
-    on<_GetMovies>((event, emit) async {
-      final response = await movieRepositoryImplementation.getMovies(event.moviesFilter);
+    on<_GetMovies>(
+      (event, emit) async {
+        final response = await movieRepositoryImplementation.getMovies(event.moviesFilter);
 
-      if (response.error != null) {
-        emit(
-          _EncounteredError(
-            errorMessage: response.error ?? '',
-          ),
-        );
-      } else {
-        final List<MovieModel> movies = response.data?.toList() ?? [];
-        emit(_$_LoadedMovies(movies: movies));
-      }
-    });
+        if (response.error != null) {
+          emit(
+            _EncounteredError(
+              errorMessage: response.error ?? '',
+            ),
+          );
+        } else {
+          final List<MovieModel> movies = response.data?.toList() ?? [];
+          emit(_$_LoadedMovies(movies: movies));
+        }
+      },
+    );
   }
 
   final TmdbRepositoryImplementation movieRepositoryImplementation;

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:movie_app/application/presentation/utils/app_localizations.dart';
 import 'package:movie_app/core/domain/utils/enums/tmdb_filter.dart';
-import 'package:movie_app/features/home/presentation/widgets/common_horizontal_list_view.dart';
+import 'package:movie_app/features/home/presentation/widgets/tmdb_horizontal_list_view.dart';
 import 'package:movie_app/features/home/presentation/widgets/home_bloc_provider.dart';
 
 class TvShowsVerticalListView extends StatelessWidget {
@@ -20,28 +20,28 @@ class TvShowsVerticalListView extends StatelessWidget {
         children: [
           HomeBlocProvider(
             tmdbFilter: TmdbFilter.airingToday,
-            child: CommonHorizontalListView(
+            child: TmdbHorizontalListView(
               title: context.l10n.label_airing_today,
               collection: collection,
             ),
           ),
           HomeBlocProvider(
             tmdbFilter: TmdbFilter.popular,
-            child: CommonHorizontalListView(
+            child: TmdbHorizontalListView(
               title: context.l10n.label_popular,
               collection: collection,
             ),
           ),
           HomeBlocProvider(
             tmdbFilter: TmdbFilter.onTheAir,
-            child: CommonHorizontalListView(
+            child: TmdbHorizontalListView(
               title: context.l10n.label_on_the_air,
               collection: collection,
             ),
           ),
           HomeBlocProvider(
             tmdbFilter: TmdbFilter.topRated,
-            child: CommonHorizontalListView(
+            child: TmdbHorizontalListView(
               title: context.l10n.label_top_rated,
               collection: collection,
             ),
