@@ -276,6 +276,9 @@ class DetailsScreen extends StatelessWidget {
                 ),
               ),
             ),
+            const SizedBox(
+              height: 16,
+            ),
             const Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
@@ -298,7 +301,7 @@ class DetailsScreen extends StatelessWidget {
                       color: ColorConstants.deepPurpleLight,
                     ),
                     Text(
-                      'My List',
+                      'Rate',
                       style: TextStyles.bodyText2,
                     ),
                   ],
@@ -316,6 +319,9 @@ class DetailsScreen extends StatelessWidget {
                   ],
                 ),
               ],
+            ),
+            const SizedBox(
+              height: 16,
             ),
             SizedBox(
               width: double.infinity,
