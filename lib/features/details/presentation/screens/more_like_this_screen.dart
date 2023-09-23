@@ -10,6 +10,7 @@ import 'package:movie_app/core/domain/utils/enums/tmdb_filter.dart';
 import 'package:movie_app/core/presentation/widgets/app_circular_progress_indicator.dart';
 import 'package:movie_app/features/details/presentation/widgets/details_bloc_provider.dart';
 import 'package:movie_app/features/common_widgets/common_text_view.dart';
+import 'package:movie_app/features/details/presentation/widgets/tmdb_horizontal_item.dart';
 import 'package:readmore/readmore.dart';
 
 @RoutePage()
@@ -29,6 +30,7 @@ class MoreLikeThisScreen extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           if (collection == context.l10n.collection_tv_show)
             DetailsBlocProvider(
@@ -46,19 +48,16 @@ class MoreLikeThisScreen extends StatelessWidget {
                   loadingSimilarTvShows: () => const Center(
                     child: AppCircularProgressIndicator(),
                   ),
-                  loadedSimilarTvShows: (similarTvShows) => CommonTextView(
-                    alignment: Alignment.centerLeft,
-                    child: ReadMoreText(
-                      similarTvShows.map((similarTvShow) => similarTvShow.name).join(', '),
-                      trimLines: 2,
-                      colorClickableText: ColorConstants.white1,
-                      trimMode: TrimMode.Line,
-                      trimCollapsedText: 'more',
-                      trimExpandedText: 'less',
-                      style: TextStyles.bodyText2.copyWith(
-                        fontWeight: FontWeight.w300,
-                        fontSize: 12,
-                      ),
+                  loadedSimilarTvShows: (similarTvShows) => Expanded(
+                    child: ListView(
+                      shrinkWrap: true,
+                      children: [
+                        for (final similarTvShow in similarTvShows)
+                          TmdbHorizontalItem(
+                            collection: context.l10n.collection_tv_show,
+                            tvShow: similarTvShow,
+                          ),
+                      ],
                     ),
                   ),
                   orElse: SizedBox.shrink,
@@ -81,19 +80,16 @@ class MoreLikeThisScreen extends StatelessWidget {
                   loadingSimilarMovies: () => const Center(
                     child: AppCircularProgressIndicator(),
                   ),
-                  loadedSimilarMovies: (similarMovies) => CommonTextView(
-                    alignment: Alignment.centerLeft,
-                    child: ReadMoreText(
-                      similarMovies.map((similarMovie) => similarMovie.title).join(', '),
-                      trimLines: 2,
-                      colorClickableText: ColorConstants.white1,
-                      trimMode: TrimMode.Line,
-                      trimCollapsedText: 'more',
-                      trimExpandedText: 'less',
-                      style: TextStyles.bodyText2.copyWith(
-                        fontWeight: FontWeight.w300,
-                        fontSize: 12,
-                      ),
+                  loadedSimilarMovies: (similarMovies) => Expanded(
+                    child: ListView(
+                      shrinkWrap: true,
+                      children: [
+                        for (final similarMovie in similarMovies)
+                          TmdbHorizontalItem(
+                            collection: context.l10n.collection_movie,
+                            movie: similarMovie,
+                          ),
+                      ],
                     ),
                   ),
                   orElse: SizedBox.shrink,

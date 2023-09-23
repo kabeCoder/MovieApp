@@ -6,10 +6,10 @@ import 'package:movie_app/application/presentation/utils/text_styles.dart';
 import 'package:movie_app/core/domain/bloc/movie_bloc/movie_bloc.dart';
 import 'package:movie_app/core/domain/bloc/tv_show_bloc/tv_show_bloc.dart';
 import 'package:movie_app/core/presentation/widgets/app_circular_progress_indicator.dart';
-import 'package:movie_app/features/home/presentation/widgets/common_vertical_item.dart';
+import 'package:movie_app/features/home/presentation/widgets/tmdb_vertical_item.dart';
 
-class CommonHorizontalListView extends StatelessWidget {
-  const CommonHorizontalListView({
+class TmdbHorizontalListView extends StatelessWidget {
+  const TmdbHorizontalListView({
     super.key,
     required this.title,
     required this.collection,
@@ -59,7 +59,7 @@ class CommonHorizontalListView extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       for (final movie in movies)
-                        CommonVerticalItem(
+                        VerticalItem(
                           collection: context.l10n.collection_movie,
                           movie: movie,
                         ),
@@ -91,7 +91,7 @@ class CommonHorizontalListView extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       for (final tvShow in tvShows)
-                        CommonVerticalItem(
+                        VerticalItem(
                           collection: context.l10n.collection_tv_show,
                           tvShow: tvShow,
                         ),

@@ -9,8 +9,8 @@ import 'package:movie_app/core/domain/models/movie/movie.dart';
 import 'package:movie_app/core/domain/models/tv_show/tv_show.dart';
 import 'package:movie_app/core/presentation/widgets/app_cached_network_image.dart';
 
-class CommonVerticalItem extends StatelessWidget {
-  CommonVerticalItem({
+class VerticalItem extends StatelessWidget {
+  VerticalItem({
     super.key,
     required this.collection,
     this.movie,
