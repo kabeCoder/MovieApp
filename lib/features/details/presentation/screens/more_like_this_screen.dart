@@ -2,16 +2,12 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_app/application/presentation/utils/app_localizations.dart';
-import 'package:movie_app/application/presentation/utils/color_constants.dart';
-import 'package:movie_app/application/presentation/utils/text_styles.dart';
 import 'package:movie_app/core/domain/bloc/similar_movie_bloc/similar_movie_bloc.dart';
 import 'package:movie_app/core/domain/bloc/similar_tv_show_bloc/similar_tv_show_bloc.dart';
 import 'package:movie_app/core/domain/utils/enums/tmdb_filter.dart';
 import 'package:movie_app/core/presentation/widgets/app_circular_progress_indicator.dart';
 import 'package:movie_app/features/details/presentation/widgets/details_bloc_provider.dart';
-import 'package:movie_app/features/common_widgets/common_text_view.dart';
 import 'package:movie_app/features/details/presentation/widgets/tmdb_horizontal_item.dart';
-import 'package:readmore/readmore.dart';
 
 @RoutePage()
 class MoreLikeThisScreen extends StatelessWidget {
