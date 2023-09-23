@@ -87,17 +87,17 @@ class MoreLikeThisScreen extends StatelessWidget {
                     child: ListView(
                       shrinkWrap: true,
                       children: [
-                        // if (similarMovies.isEmpty)
-                        //   Text(
-                        //     context.l10n.label_no_similar_movies,
-                        //     style: TextStyles.bodyText1,
-                        //   )
-                        // else
-                        for (final similarMovie in similarMovies)
-                          TmdbHorizontalItem(
-                            collection: context.l10n.collection_movie,
-                            movie: similarMovie,
-                          ),
+                        if (similarMovies.isEmpty)
+                          Text(
+                            context.l10n.label_no_similar_movies,
+                            style: TextStyles.bodyText1,
+                          )
+                        else
+                          for (final similarMovie in similarMovies)
+                            TmdbHorizontalItem(
+                              collection: context.l10n.collection_movie,
+                              movie: similarMovie,
+                            ),
                       ],
                     ),
                   ),
