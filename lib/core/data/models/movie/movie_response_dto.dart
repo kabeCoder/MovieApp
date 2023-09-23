@@ -15,7 +15,7 @@ class MovieResponseDto with _$MovieResponseDto {
     @JsonKey(name: 'poster_path') String? posterPath,
     @JsonKey(name: 'backdrop_path') String? backdropPath,
     required String title,
-    @JsonKey(name: 'release_date') required String releaseDate,
+    @JsonKey(name: 'release_date') required String? releaseDate,
     @JsonKey(name: 'vote_average') required double voteAverage,
   }) = _MovieResponseDto;
 
@@ -31,7 +31,7 @@ class MovieResponseDto with _$MovieResponseDto {
         posterUrl: Uri.parse('${Env.baseImageUrl}/w500/$posterPath'),
         backdropUrl: Uri.parse('${Env.baseImageBackdropUrl}/$backdropPath'),
         title: title,
-        releaseDate: DateTime.parse(releaseDate),
+        releaseDate: releaseDate?.isNotEmpty == true ? DateTime.parse(releaseDate!) : DateTime.now(),
         voteAverage: voteAverage,
       );
 }

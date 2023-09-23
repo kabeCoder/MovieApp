@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_app/application/presentation/utils/app_localizations.dart';
+import 'package:movie_app/application/presentation/utils/text_styles.dart';
 import 'package:movie_app/core/domain/bloc/similar_movie_bloc/similar_movie_bloc.dart';
 import 'package:movie_app/core/domain/bloc/similar_tv_show_bloc/similar_tv_show_bloc.dart';
 import 'package:movie_app/core/domain/utils/enums/tmdb_filter.dart';
@@ -48,11 +49,17 @@ class MoreLikeThisScreen extends StatelessWidget {
                     child: ListView(
                       shrinkWrap: true,
                       children: [
-                        for (final similarTvShow in similarTvShows)
-                          TmdbHorizontalItem(
-                            collection: context.l10n.collection_tv_show,
-                            tvShow: similarTvShow,
-                          ),
+                        if (similarTvShows.isEmpty)
+                          Text(
+                            context.l10n.label_no_similar_tv_shows,
+                            style: TextStyles.bodyText1,
+                          )
+                        else
+                          for (final similarTvShow in similarTvShows)
+                            TmdbHorizontalItem(
+                              collection: context.l10n.collection_tv_show,
+                              tvShow: similarTvShow,
+                            ),
                       ],
                     ),
                   ),
@@ -80,6 +87,12 @@ class MoreLikeThisScreen extends StatelessWidget {
                     child: ListView(
                       shrinkWrap: true,
                       children: [
+                        // if (similarMovies.isEmpty)
+                        //   Text(
+                        //     context.l10n.label_no_similar_movies,
+                        //     style: TextStyles.bodyText1,
+                        //   )
+                        // else
                         for (final similarMovie in similarMovies)
                           TmdbHorizontalItem(
                             collection: context.l10n.collection_movie,
