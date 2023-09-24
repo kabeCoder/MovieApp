@@ -6,6 +6,7 @@ import 'package:movie_app/core/data/models/casts/casts_response_dto.dart';
 import 'package:movie_app/core/data/models/genres/genres_dto.dart';
 import 'package:movie_app/core/data/models/movie/movie_response_dto.dart';
 import 'package:movie_app/core/data/models/tv_show/tv_show_response_dto.dart';
+import 'package:movie_app/core/data/models/video/video_response_dto.dart';
 import 'package:movie_app/core/domain/utils/enums/tmdb_filter.dart';
 import 'package:movie_app/core/service/base/base_api_repository.dart';
 import 'package:movie_app/core/service/base/data/models/api_result.dart';
@@ -77,6 +78,20 @@ class TmdbApiService extends BaseApiRepository {
         return '/3/tv/$tmdbId/similar';
       default:
         throw Exception('Invalid similar filter');
+    }
+  }
+
+  String _getTmdbVideoPathForFilter(
+    TmdbFilter filter,
+    int tmdbId,
+  ) {
+    switch (filter) {
+      case TmdbFilter.movie:
+        return '/3/movie/$tmdbId/videos';
+      case TmdbFilter.tv:
+        return '/3/tv/$tmdbId/videos';
+      default:
+        throw Exception('Invalid videos filter');
     }
   }
 
@@ -219,6 +234,32 @@ class TmdbApiService extends BaseApiRepository {
           final List<dynamic> results = jsonData['results'] ?? [];
           final List<MovieResponseDto> movieDtos = results.map((dynamic item) => MovieResponseDto.fromJson(item as Map<String, dynamic>)).toList();
           return movieDtos;
+        } else {
+          throw Exception('HTTP Error: ${response.statusCode}');
+        }
+      },
+    );
+  }
+
+  Future<ApiResult<List<VideoResponseDto>>> getVideo(
+    TmdbFilter tmdbVideoFilter,
+    int tmdbVideoId,
+  ) {
+    final String path = _getTmdbVideoPathForFilter(tmdbVideoFilter, tmdbVideoId);
+
+    final uri = Uri.parse(
+      '${Env.baseUrl}$path?api_key=${Env.tmdbApiKey}',
+    );
+
+    return serviceCall<List<VideoResponseDto>>(
+      () async {
+        final response = await http.get(uri);
+        if (response.statusCode == 200) {
+          final Map<String, dynamic> jsonData = json.decode(response.body);
+          final List<dynamic> results = jsonData['results'] ?? [];
+          final List<VideoResponseDto> videoDto = results.map((dynamic item) => VideoResponseDto.fromJson(item as Map<String, dynamic>)).toList();
+
+          return videoDto;
         } else {
           throw Exception('HTTP Error: ${response.statusCode}');
         }

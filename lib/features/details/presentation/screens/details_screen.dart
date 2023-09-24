@@ -1,5 +1,6 @@
 // ignore_for_file: must_be_immutable, avoid_function_literals_in_foreach_calls
 
+import 'package:bottom_sheet/bottom_sheet.dart';
 import 'package:flutter/material.dart';
 
 import 'package:auto_route/auto_route.dart';
@@ -167,7 +168,7 @@ class DetailsScreen extends StatelessWidget {
                 Icons.play_arrow,
               ),
               iconTextSpacing: 4,
-              onTap: () {},
+              onTap: () => _playVideo(context),
             ),
             CommonButton(
               buttonText: context.l10n.label_download,
@@ -363,6 +364,41 @@ class DetailsScreen extends StatelessWidget {
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  void _playVideo(BuildContext context) {
+    showFlexibleBottomSheet(
+      context: context,
+      builder: _buildBottomSheet,
+      minHeight: 0,
+      initHeight: 0.75,
+      maxHeight: 0.75,
+      isExpand: false,
+    );
+  }
+
+  Widget _buildBottomSheet(
+    BuildContext context,
+    ScrollController scrollController,
+    double bottomSheetOffset,
+  ) {
+    return Scaffold(
+      backgroundColor: ColorConstants.white1,
+      body: ListView(
+        controller: scrollController,
+        shrinkWrap: true,
+        children: [
+          Text(
+            'ddwadw',
+            style: TextStyles.bodyText1,
+          ),
+          Text(
+            'ddwadw',
+            style: TextStyles.bodyText1,
+          ),
+        ],
       ),
     );
   }
