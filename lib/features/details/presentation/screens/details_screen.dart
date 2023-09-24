@@ -11,6 +11,7 @@ import 'package:movie_app/application/presentation/utils/color_constants.dart';
 import 'package:movie_app/application/presentation/utils/text_styles.dart';
 import 'package:movie_app/core/domain/bloc/casts_bloc/casts_bloc.dart';
 import 'package:movie_app/core/domain/bloc/genres_bloc/genres_bloc.dart';
+import 'package:movie_app/core/domain/bloc/video_bloc/video_bloc.dart';
 import 'package:movie_app/core/domain/models/movie/movie.dart';
 import 'package:movie_app/core/domain/models/tv_show/tv_show.dart';
 import 'package:movie_app/core/domain/utils/enums/tmdb_filter.dart';
@@ -168,7 +169,7 @@ class DetailsScreen extends StatelessWidget {
                 Icons.play_arrow,
               ),
               iconTextSpacing: 4,
-              onTap: () => _playVideo(context),
+              onTap: () => _playVideo(context, tmdbFilter, id!),
             ),
             CommonButton(
               buttonText: context.l10n.label_download,
@@ -368,10 +369,12 @@ class DetailsScreen extends StatelessWidget {
     );
   }
 
-  void _playVideo(BuildContext context) {
+  void _playVideo(BuildContext context, TmdbFilter tmdbFilter, int id) {
     showFlexibleBottomSheet(
       context: context,
-      builder: _buildBottomSheet,
+      builder: (context, scrollController, bottomSheetOffset) {
+        return _buildBottomSheet(context, tmdbFilter, id);
+      },
       minHeight: 0,
       initHeight: 0.75,
       maxHeight: 0.75,
@@ -381,25 +384,61 @@ class DetailsScreen extends StatelessWidget {
 
   Widget _buildBottomSheet(
     BuildContext context,
-    ScrollController scrollController,
-    double bottomSheetOffset,
+    TmdbFilter tmdbFilter,
+    int id,
   ) {
     return Scaffold(
       backgroundColor: ColorConstants.white1,
-      body: ListView(
-        controller: scrollController,
-        shrinkWrap: true,
-        children: [
-          Text(
-            'ddwadw',
-            style: TextStyles.bodyText1,
+      body: DetailsBlocProvider(
+        tmdbFilter: tmdbFilter,
+        tmdbVideoId: id,
+        child: BlocConsumer<VideoBloc, VideoState>(
+          listener: (context, state) => state.whenOrNull(
+            encounteredError: (errorMessage) => ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text(errorMessage),
+              ),
+            ),
           ),
-          Text(
-            'ddwadw',
-            style: TextStyles.bodyText1,
+          builder: (_, state) => state.maybeWhen(
+            loadingVideos: () => const Center(
+              child: AppCircularProgressIndicator(),
+            ),
+            loadedVideos: (tmdbVideos) => CommonTextView(
+              alignment: Alignment.centerLeft,
+              child: ReadMoreText(
+                tmdbVideos.map((video) => video.name).join(', '),
+                trimLines: 2,
+                colorClickableText: ColorConstants.white1,
+                trimMode: TrimMode.Line,
+                trimCollapsedText: context.l10n.label_more,
+                trimExpandedText: context.l10n.label_less,
+                style: TextStyles.bodyText2.copyWith(
+                  fontWeight: FontWeight.w300,
+                  fontSize: 12,
+                ),
+              ),
+            ),
+            orElse: SizedBox.shrink,
           ),
-        ],
+        ),
       ),
     );
   }
 }
+
+
+// ListView(
+//         controller: scrollController,
+//         shrinkWrap: true,
+//         children: [
+//           Text(
+//             'ddwadw',
+//             style: TextStyles.bodyText1,
+//           ),
+//           Text(
+//             'ddwadw',
+//             style: TextStyles.bodyText1,
+//           ),
+//         ],
+//       ),
