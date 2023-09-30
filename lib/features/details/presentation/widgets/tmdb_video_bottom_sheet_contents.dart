@@ -24,7 +24,7 @@ class TmdbVideoBottomSheetContents extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: ColorConstants.white1,
+      backgroundColor: Colors.black.withOpacity(0.8),
       body: DetailsBlocProvider(
         tmdbFilter: tmdbFilter,
         tmdbVideoId: id,
@@ -40,25 +40,46 @@ class TmdbVideoBottomSheetContents extends StatelessWidget {
             loadingVideos: () => const Center(
               child: AppCircularProgressIndicator(),
             ),
-            loadedVideos: (tmdbVideos) => tmdbVideos.isEmpty
-                ? Container(
-                    color: Colors.black,
-                    width: double.infinity,
-                    height: 250,
-                    child: Center(
-                      child: Text(
-                        context.l10n.label_no_video_available,
-                        style: TextStyles.bodyText1.copyWith(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
+            loadedVideos: (tmdbVideos) => Column(
+              children: [
+                const SizedBox(height: 8),
+                const SizedBox(
+                  width: 50,
+                  child: Center(
+                    child: Divider(
+                      color: ColorConstants.white1,
+                      thickness: 2.0,
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 8),
+                tmdbVideos.isEmpty
+                    ? Column(
+                        children: [
+                          Container(
+                            color: Colors.black,
+                            width: double.infinity,
+                            height: 250,
+                            child: Center(
+                              child: Text(
+                                context.l10n.label_no_video_available,
+                                style: TextStyles.bodyText1.copyWith(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      )
+                    : Expanded(
+                        child: TmdbVideoItem(
+                          video: tmdbVideos.first,
+                          videoLists: tmdbVideos,
                         ),
                       ),
-                    ),
-                  )
-                : TmdbVideoItem(
-                    video: tmdbVideos.first,
-                    videoLists: tmdbVideos,
-                  ),
+              ],
+            ),
             orElse: SizedBox.shrink,
           ),
         ),

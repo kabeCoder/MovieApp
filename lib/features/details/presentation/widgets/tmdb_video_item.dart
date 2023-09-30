@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:movie_app/application/presentation/utils/text_styles.dart';
 import 'package:movie_app/core/domain/models/video/video.dart';
 
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
@@ -19,6 +20,7 @@ class TmdbVideoItem extends StatefulWidget {
 
 class _TmdbVideoItemState extends State<TmdbVideoItem> {
   late YoutubePlayerController _controller;
+  String? selectedVideoId;
 
   @override
   void initState() {
@@ -39,29 +41,51 @@ class _TmdbVideoItemState extends State<TmdbVideoItem> {
         SizedBox(
           width: double.infinity,
           height: 250,
-          child: _playSingleYoutubeVideo(),
+          child: YoutubePlayer(
+            controller: _controller,
+            showVideoProgressIndicator: true,
+          ),
         ),
+        const SizedBox(height: 8),
         Expanded(
           child: ListView.builder(
+            shrinkWrap: true,
             itemCount: widget.videoLists.length,
             itemBuilder: (_, int index) {
               final videoList = widget.videoLists[index];
-              return Row(
-                children: [
-                  Text(videoList.name),
-                ],
+              return InkWell(
+                onTap: () {
+                  setState(() {
+                    selectedVideoId = videoList.key;
+                  });
+                  _controller.load(selectedVideoId!);
+                },
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    children: [
+                      SizedBox(
+                        height: 80,
+                        width: 120,
+                        child: Image.network('https://img.youtube.com/vi/${videoList.key}/0.jpg'),
+                      ),
+                      Expanded(
+                        child: Text(
+                          videoList.name,
+                          style: TextStyles.bodyText1.copyWith(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
               );
             },
           ),
         )
       ],
-    );
-  }
-
-  Widget _playSingleYoutubeVideo() {
-    return YoutubePlayer(
-      controller: _controller,
-      showVideoProgressIndicator: true,
     );
   }
 }

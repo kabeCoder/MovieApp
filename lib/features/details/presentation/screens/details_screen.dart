@@ -11,7 +11,6 @@ import 'package:movie_app/application/presentation/utils/color_constants.dart';
 import 'package:movie_app/application/presentation/utils/text_styles.dart';
 import 'package:movie_app/core/domain/bloc/casts_bloc/casts_bloc.dart';
 import 'package:movie_app/core/domain/bloc/genres_bloc/genres_bloc.dart';
-import 'package:movie_app/core/domain/bloc/video_bloc/video_bloc.dart';
 import 'package:movie_app/core/domain/models/movie/movie.dart';
 import 'package:movie_app/core/domain/models/tv_show/tv_show.dart';
 import 'package:movie_app/core/domain/utils/enums/tmdb_filter.dart';
@@ -19,7 +18,6 @@ import 'package:movie_app/core/presentation/widgets/app_cached_network_image.dar
 import 'package:movie_app/core/presentation/widgets/app_circular_progress_indicator.dart';
 import 'package:movie_app/features/details/presentation/widgets/details_bloc_provider.dart';
 import 'package:movie_app/features/details/presentation/widgets/tmdb_video_bottom_sheet_contents.dart';
-import 'package:movie_app/features/details/presentation/widgets/tmdb_video_item.dart';
 import 'package:movie_app/features/home/utils/home_constants.dart';
 import 'package:movie_app/features/common_widgets/common_button.dart';
 import 'package:movie_app/features/common_widgets/common_tab_bar.dart';
@@ -389,6 +387,10 @@ class DetailsScreen extends StatelessWidget {
       initHeight: 0.75,
       maxHeight: 0.75,
       isExpand: false,
+      bottomSheetBorderRadius: const BorderRadius.horizontal(
+        left: Radius.circular(10),
+        right: Radius.circular(10),
+      ),
     );
   }
 }
