@@ -18,6 +18,8 @@ import 'package:movie_app/core/domain/utils/enums/tmdb_filter.dart';
 import 'package:movie_app/core/presentation/widgets/app_cached_network_image.dart';
 import 'package:movie_app/core/presentation/widgets/app_circular_progress_indicator.dart';
 import 'package:movie_app/features/details/presentation/widgets/details_bloc_provider.dart';
+import 'package:movie_app/features/details/presentation/widgets/tmdb_video_bottom_sheet_contents.dart';
+import 'package:movie_app/features/details/presentation/widgets/tmdb_video_item.dart';
 import 'package:movie_app/features/home/utils/home_constants.dart';
 import 'package:movie_app/features/common_widgets/common_button.dart';
 import 'package:movie_app/features/common_widgets/common_tab_bar.dart';
@@ -169,7 +171,11 @@ class DetailsScreen extends StatelessWidget {
                 Icons.play_arrow,
               ),
               iconTextSpacing: 4,
-              onTap: () => _playVideo(context, tmdbFilter, id!),
+              onTap: () => _playVideo(
+                context,
+                tmdbFilter,
+                id!,
+              ),
             ),
             CommonButton(
               buttonText: context.l10n.label_download,
@@ -373,7 +379,11 @@ class DetailsScreen extends StatelessWidget {
     showFlexibleBottomSheet(
       context: context,
       builder: (context, scrollController, bottomSheetOffset) {
-        return _buildBottomSheet(context, tmdbFilter, id);
+        return TmdbVideoBottomSheetContents(
+          collection: collection,
+          tmdbFilter: tmdbFilter,
+          id: id,
+        );
       },
       minHeight: 0,
       initHeight: 0.75,
@@ -381,64 +391,4 @@ class DetailsScreen extends StatelessWidget {
       isExpand: false,
     );
   }
-
-  Widget _buildBottomSheet(
-    BuildContext context,
-    TmdbFilter tmdbFilter,
-    int id,
-  ) {
-    return Scaffold(
-      backgroundColor: ColorConstants.white1,
-      body: DetailsBlocProvider(
-        tmdbFilter: tmdbFilter,
-        tmdbVideoId: id,
-        child: BlocConsumer<VideoBloc, VideoState>(
-          listener: (context, state) => state.whenOrNull(
-            encounteredError: (errorMessage) => ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text(errorMessage),
-              ),
-            ),
-          ),
-          builder: (_, state) => state.maybeWhen(
-            loadingVideos: () => const Center(
-              child: AppCircularProgressIndicator(),
-            ),
-            loadedVideos: (tmdbVideos) => CommonTextView(
-              alignment: Alignment.centerLeft,
-              child: ReadMoreText(
-                tmdbVideos.map((video) => video.name).join(', '),
-                trimLines: 2,
-                colorClickableText: ColorConstants.white1,
-                trimMode: TrimMode.Line,
-                trimCollapsedText: context.l10n.label_more,
-                trimExpandedText: context.l10n.label_less,
-                style: TextStyles.bodyText2.copyWith(
-                  fontWeight: FontWeight.w300,
-                  fontSize: 12,
-                ),
-              ),
-            ),
-            orElse: SizedBox.shrink,
-          ),
-        ),
-      ),
-    );
-  }
 }
-
-
-// ListView(
-//         controller: scrollController,
-//         shrinkWrap: true,
-//         children: [
-//           Text(
-//             'ddwadw',
-//             style: TextStyles.bodyText1,
-//           ),
-//           Text(
-//             'ddwadw',
-//             style: TextStyles.bodyText1,
-//           ),
-//         ],
-//       ),
