@@ -27,7 +27,7 @@ class VideoBloc extends Bloc<VideoEvent, VideoState> {
         } else {
           final List<VideoModel> video = response.data?.toList() ?? [];
           emit(
-            _$_LoadedVideos(video: video),
+            _LoadedVideos(video: video),
           );
         }
       },

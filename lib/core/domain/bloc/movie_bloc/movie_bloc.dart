@@ -24,7 +24,7 @@ class MovieBloc extends Bloc<MovieEvent, MovieState> {
           );
         } else {
           final List<MovieModel> movies = response.data?.toList() ?? [];
-          emit(_$_LoadedMovies(movies: movies));
+          emit(_LoadedMovies(movies: movies));
         }
       },
     );

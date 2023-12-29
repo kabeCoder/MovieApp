@@ -27,7 +27,7 @@ class CastsBloc extends Bloc<CastsEvent, CastsState> {
         } else {
           final List<CastsModel> casts = response.data?.toList() ?? [];
           emit(
-            _$_LoadedCasts(casts: casts),
+            _LoadedCasts(casts: casts),
           );
         }
       },
