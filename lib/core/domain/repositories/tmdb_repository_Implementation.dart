@@ -1,6 +1,7 @@
 import 'package:movie_app/core/domain/models/casts/casts.dart';
 import 'package:movie_app/core/domain/models/genres/genres.dart';
 import 'package:movie_app/core/domain/models/movie/movie.dart';
+import 'package:movie_app/core/domain/models/search/search.dart';
 import 'package:movie_app/core/domain/models/tv_show/tv_show.dart';
 import 'package:movie_app/core/domain/models/video/video.dart';
 import 'package:movie_app/core/domain/repositories/base/tmdb_repository.dart';
@@ -194,6 +195,30 @@ class TmdbRepositoryImplementation implements TmdbRepository {
       );
     } catch (e) {
       return ApiResult<List<VideoModel>>(
+        error: 'Network Error: $e',
+      );
+    }
+  }
+
+  @override
+  Future<ApiResult<List<SearchModel>>> getSearchTvShowOrMovie(String tmdbQuery) async {
+    try {
+      final response = await apiService.getSearch(tmdbQuery);
+
+      if (response.error != null) {
+        return ApiResult<List<SearchModel>>(
+          error: response.error,
+        );
+      }
+
+      final List<SearchModel> search = response.data?.map((dto) => dto.toDomain()).toList() ?? [];
+
+      return ApiResult<List<SearchModel>>(
+        data: search,
+        error: null,
+      );
+    } catch (e) {
+      return ApiResult<List<SearchModel>>(
         error: 'Network Error: $e',
       );
     }

@@ -29,6 +29,7 @@ dependencies:
   path_provider: ^2.1.1
   l10n_flutter: ^1.0.7
   freezed: ^2.4.6
+  debounce_throttle: ^2.0.0
 
 dev_dependencies:
   auto_route_generator: ^7.3.1

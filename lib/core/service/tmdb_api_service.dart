@@ -5,6 +5,7 @@ import 'package:movie_app/application/data/utils/env.dart';
 import 'package:movie_app/core/data/models/casts/casts_response_dto.dart';
 import 'package:movie_app/core/data/models/genres/genres_dto.dart';
 import 'package:movie_app/core/data/models/movie/movie_response_dto.dart';
+import 'package:movie_app/core/data/models/search/search_response_dto.dart';
 import 'package:movie_app/core/data/models/tv_show/tv_show_response_dto.dart';
 import 'package:movie_app/core/data/models/video/video_response_dto.dart';
 import 'package:movie_app/core/domain/utils/enums/tmdb_filter.dart';
@@ -265,5 +266,28 @@ class TmdbApiService extends BaseApiRepository {
         }
       },
     );
+  }
+
+  Future<ApiResult<List<SearchResponseDto>>> getSearch(String tmdQuery) async {
+    const String path = "/3/search/multi";
+
+    final uri = Uri.parse(
+      '${Env.baseUrl}$path?api_key=${Env.tmdbApiKey}&query=$tmdQuery',
+    );
+
+    try {
+      final response = await http.get(uri);
+
+      if (response.statusCode == 200) {
+        final Map<String, dynamic> jsonData = json.decode(response.body);
+        final List<dynamic> results = jsonData['results'] ?? [];
+        final List<SearchResponseDto> searchDtos = results.map((dynamic item) => SearchResponseDto.fromJson(item as Map<String, dynamic>)).toList();
+        return ApiResult(data: searchDtos);
+      } else {
+        return ApiResult(error: 'HTTP Error: ${response.statusCode}');
+      }
+    } catch (e) {
+      return ApiResult(error: 'An error occurred: $e');
+    }
   }
 }
