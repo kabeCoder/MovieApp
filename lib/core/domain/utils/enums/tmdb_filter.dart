@@ -7,4 +7,5 @@ enum TmdbFilter {
   onTheAir,
   tv,
   movie,
+  none,
 }

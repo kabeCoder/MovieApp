@@ -1,6 +1,7 @@
 {
   "@@locale": "en",
   "collection_movie": "movie",
+  "collection_multi": "multi",
   "collection_tv_show": "tvShow",
   "label_Upcoming": "Upcoming",
   "label_airing_today": "Airing Today",
@@ -9,6 +10,7 @@
   "label_film": "Film",
   "label_genres": "Genres",
   "label_less": " less",
+  "label_media_tv": "tv",
   "label_more": " more",
   "label_more_like_this": "More Like This",
   "label_movies": "Movies",

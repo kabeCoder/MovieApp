@@ -9,9 +9,17 @@ part 'search_response_dto.g.dart';
 class SearchResponseDto with _$SearchResponseDto {
   const factory SearchResponseDto({
     required int id,
-    @JsonKey(name: 'backdrop_path') String? backdropPath,
     required String? name,
+    @JsonKey(name: 'origin_country') required List<String>? originCountry,
+    @JsonKey(name: 'genre_ids') required List<int>? genreIds,
+    @JsonKey(name: 'first_air_date') required String? firstAirDate,
+    required String overview,
+    required double popularity,
+    @JsonKey(name: 'backdrop_path') String? backdropPath,
     required String? title,
+    @JsonKey(name: 'media_type') String? mediaType,
+    @JsonKey(name: 'release_date') required String? releaseDate,
+    @JsonKey(name: 'vote_average') required double voteAverage,
   }) = _SearchResponseDto;
 
   factory SearchResponseDto.fromJson(Map<String, dynamic> json) => _$SearchResponseDtoFromJson(json);
@@ -20,9 +28,17 @@ class SearchResponseDto with _$SearchResponseDto {
 
   SearchModel toDomain() => SearchModel(
         id: id,
-        backdropUrl: Uri.parse('${Env.baseImageBackdropUrl}/$backdropPath'),
         name: name ?? '',
+        countries: originCountry ?? [],
+        genreIds: genreIds ?? [],
+        firstAirDate: firstAirDate ?? '',
+        overview: overview,
+        popularity: popularity,
+        backdropUrl: Uri.parse('${Env.baseImageBackdropUrl}/$backdropPath'),
         title: title ?? '',
+        mediaType: mediaType ?? '',
+        releaseDate: releaseDate?.isNotEmpty == true ? DateTime.parse(releaseDate!) : DateTime.now(),
+        voteAverage: voteAverage,
       );
 }
 
