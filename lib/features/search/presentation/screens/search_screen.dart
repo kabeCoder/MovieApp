@@ -26,15 +26,17 @@ class _SearchScreenState extends State<SearchScreen> {
     return Scaffold(
       appBar: AppBar(
         title: SearchBox(
-          onSearch: (query) {
-            setState(() {
-              searchController.text = query;
-            });
-          },
+          onSearch: (query) => setState(() {
+            searchController.text = query;
+          }),
+          onClear: () => setState(() {
+            searchController.clear();
+          }),
         ),
       ),
-      body: Column(
+      body: Stack(
         children: [
+          const SearchTmdbVerticalListView(),
           SearchBlocProvider(
             tmdbQuery: searchController.text,
             child: BlocConsumer<SearchBloc, SearchState>(
@@ -68,7 +70,6 @@ class _SearchScreenState extends State<SearchScreen> {
               ),
             ),
           ),
-          const SearchTmdbVerticalListView(),
         ],
       ),
     );

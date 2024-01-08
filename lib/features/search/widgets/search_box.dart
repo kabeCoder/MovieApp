@@ -7,15 +7,19 @@ class SearchBox extends StatefulWidget {
   const SearchBox({
     Key? key,
     required this.onSearch,
+    required this.onClear,
   }) : super(key: key);
 
   final void Function(String) onSearch;
+  final void Function() onClear;
 
   @override
   State<SearchBox> createState() => _SearchBoxState();
 }
 
 class _SearchBoxState extends State<SearchBox> {
+  final TextEditingController searchController = TextEditingController();
+
   final Debouncer<String> debouncer = Debouncer<String>(
     const Duration(milliseconds: 500),
     initialValue: '',
@@ -34,6 +38,7 @@ class _SearchBoxState extends State<SearchBox> {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
       child: TextField(
+        controller: searchController,
         onChanged: (query) {
           debouncer.value = query;
         },
@@ -49,6 +54,13 @@ class _SearchBoxState extends State<SearchBox> {
           focusedBorder: OutlineInputBorder(
             borderSide: const BorderSide(color: ColorConstants.grey1),
             borderRadius: BorderRadius.circular(8.0),
+          ),
+          suffixIcon: GestureDetector(
+            onTap: () => {
+              searchController.clear(),
+              widget.onClear(),
+            },
+            child: const Icon(Icons.close),
           ),
         ),
       ),

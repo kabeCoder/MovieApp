@@ -10,22 +10,17 @@ class SearchTmdbVerticalListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
-        children: [
-          SearchBlocProvider(
-            child: SearchTmdbHorizontalListView(
-              title: "Discover Tv Shows",
-              collection: context.l10n.collection_tv_show,
+    return Expanded(
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            SearchBlocProvider(
+              child: SearchTmdbHorizontalListView(
+                title: context.l10n.label_discover_tv_and_movies,
+              ),
             ),
-          ),
-          SearchBlocProvider(
-            child: SearchTmdbHorizontalListView(
-              title: "Discover Movies",
-              collection: context.l10n.collection_movie,
-            ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
