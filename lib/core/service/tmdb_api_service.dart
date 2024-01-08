@@ -23,6 +23,8 @@ class TmdbApiService extends BaseApiRepository {
         return '/3/movie/upcoming';
       case TmdbFilter.topRated:
         return '/3/movie/top_rated';
+      case TmdbFilter.movie:
+        return '/3/discover/movie';
       default:
         throw Exception('Invalid filter');
     }
@@ -38,6 +40,8 @@ class TmdbApiService extends BaseApiRepository {
         return '/3/tv/on_the_air';
       case TmdbFilter.topRated:
         return '/3/tv/top_rated';
+      case TmdbFilter.tv:
+        return '/3/discover/tv';
       default:
         throw Exception('Invalid tv filter');
     }

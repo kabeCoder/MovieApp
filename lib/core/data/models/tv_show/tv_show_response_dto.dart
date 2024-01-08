@@ -9,10 +9,10 @@ part 'tv_show_response_dto.g.dart';
 class TvShowResponseDto with _$TvShowResponseDto {
   const factory TvShowResponseDto({
     required int id,
-    required String name,
-    @JsonKey(name: 'origin_country') required List<String> originCountry,
-    @JsonKey(name: 'genre_ids') required List<int> genreIds,
-    @JsonKey(name: 'first_air_date') required String firstAirDate,
+    required String? name,
+    @JsonKey(name: 'origin_country') required List<String>? originCountry,
+    @JsonKey(name: 'genre_ids') required List<int>? genreIds,
+    @JsonKey(name: 'first_air_date') required String? firstAirDate,
     required String overview,
     required double popularity,
     @JsonKey(name: 'poster_path') String? posterPath,
@@ -26,14 +26,17 @@ class TvShowResponseDto with _$TvShowResponseDto {
 
   TvShowModel toDomain() => TvShowModel(
         id: id,
-        name: name,
-        countries: originCountry,
-        genreIds: genreIds,
-        firstAirDate: firstAirDate,
+        name: name ?? '',
+        countries: originCountry ?? [],
+        genreIds: genreIds ?? [],
+        firstAirDate: firstAirDate ?? '',
         overview: overview,
         popularity: popularity,
         posterUrl: Uri.parse('${Env.baseImageUrl}/w500$posterPath'),
-        backdropUrl: Uri.parse('${Env.baseImageBackdropUrl}/$backdropPath'),
+        backdropUrl: backdropPath != null
+            ? Uri.parse('${Env.baseImageBackdropUrl}/$backdropPath')
+            : Uri.parse(
+                'https://st4.depositphotos.com/14953852/24787/v/450/depositphotos_247872612-stock-illustration-no-image-available-icon-vector.jpg'),
         voteAverage: voteAverage,
       );
 }

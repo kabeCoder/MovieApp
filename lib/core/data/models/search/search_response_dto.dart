@@ -34,7 +34,10 @@ class SearchResponseDto with _$SearchResponseDto {
         firstAirDate: firstAirDate ?? '',
         overview: overview,
         popularity: popularity,
-        backdropUrl: Uri.parse('${Env.baseImageBackdropUrl}/$backdropPath'),
+        backdropUrl: backdropPath != null
+            ? Uri.parse('${Env.baseImageBackdropUrl}/$backdropPath')
+            : Uri.parse(
+                'https://st4.depositphotos.com/14953852/24787/v/450/depositphotos_247872612-stock-illustration-no-image-available-icon-vector.jpg'),
         title: title ?? '',
         mediaType: mediaType ?? '',
         releaseDate: releaseDate?.isNotEmpty == true ? DateTime.parse(releaseDate!) : DateTime.now(),

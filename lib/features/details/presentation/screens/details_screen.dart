@@ -56,7 +56,7 @@ class DetailsScreen extends StatelessWidget {
         ? movie?.title
         : (collection == context.l10n.collection_tv_show)
             ? tvShow?.name
-            : multi?.name;
+            : multi?.title;
     final popularity = (collection == context.l10n.collection_movie)
         ? movie?.popularity
         : (collection == context.l10n.collection_tv_show)
@@ -71,7 +71,6 @@ class DetailsScreen extends StatelessWidget {
                     (multi?.mediaType == context.l10n.label_media_tv || multi?.mediaType == context.l10n.collection_movie))
                 ? multi?.id
                 : null;
-    print("xyz 1: ${id}");
     final genres = (collection == context.l10n.collection_movie)
         ? movie?.genreIds
         : (collection == context.l10n.collection_tv_show)

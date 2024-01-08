@@ -29,7 +29,10 @@ class MovieResponseDto with _$MovieResponseDto {
         overview: overview,
         popularity: popularity,
         posterUrl: Uri.parse('${Env.baseImageUrl}/w500/$posterPath'),
-        backdropUrl: Uri.parse('${Env.baseImageBackdropUrl}/$backdropPath'),
+        backdropUrl: backdropPath != null
+            ? Uri.parse('${Env.baseImageBackdropUrl}/$backdropPath')
+            : Uri.parse(
+                'https://st4.depositphotos.com/14953852/24787/v/450/depositphotos_247872612-stock-illustration-no-image-available-icon-vector.jpg'),
         title: title,
         releaseDate: releaseDate?.isNotEmpty == true ? DateTime.parse(releaseDate!) : DateTime.now(),
         voteAverage: voteAverage,

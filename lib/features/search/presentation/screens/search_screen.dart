@@ -8,6 +8,7 @@ import 'package:movie_app/core/presentation/widgets/app_circular_progress_indica
 import 'package:movie_app/features/search/widgets/search_bloc_provider.dart';
 import 'package:movie_app/features/search/widgets/search_box.dart';
 import 'package:movie_app/features/search/widgets/search_result.dart';
+import 'package:movie_app/features/search/widgets/search_tmdb_vertical_list_view.dart';
 
 @RoutePage()
 class SearchScreen extends StatefulWidget {
@@ -67,6 +68,7 @@ class _SearchScreenState extends State<SearchScreen> {
               ),
             ),
           ),
+          const SearchTmdbVerticalListView(),
         ],
       ),
     );
