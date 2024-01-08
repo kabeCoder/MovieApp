@@ -27,7 +27,7 @@ class SimilarTvShowBloc extends Bloc<SimilarTvShowEvent, SimilarTvShowState> {
         } else {
           final List<TvShowModel> similarTvShows = response.data?.toList() ?? [];
           emit(
-            _$_LoadedSimilarTvShows(similarTvShows: similarTvShows),
+            _LoadedSimilarTvShows(similarTvShows: similarTvShows),
           );
         }
       },

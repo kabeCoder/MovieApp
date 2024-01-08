@@ -5,7 +5,10 @@ import 'package:movie_app/application/data/utils/env.dart';
 import 'package:movie_app/core/data/models/casts/casts_response_dto.dart';
 import 'package:movie_app/core/data/models/genres/genres_dto.dart';
 import 'package:movie_app/core/data/models/movie/movie_response_dto.dart';
+import 'package:movie_app/core/data/models/people/people_response_dto.dart';
+import 'package:movie_app/core/data/models/search/search_response_dto.dart';
 import 'package:movie_app/core/data/models/tv_show/tv_show_response_dto.dart';
+import 'package:movie_app/core/data/models/video/video_response_dto.dart';
 import 'package:movie_app/core/domain/utils/enums/tmdb_filter.dart';
 import 'package:movie_app/core/service/base/base_api_repository.dart';
 import 'package:movie_app/core/service/base/data/models/api_result.dart';
@@ -21,6 +24,8 @@ class TmdbApiService extends BaseApiRepository {
         return '/3/movie/upcoming';
       case TmdbFilter.topRated:
         return '/3/movie/top_rated';
+      case TmdbFilter.movie:
+        return '/3/discover/movie';
       default:
         throw Exception('Invalid filter');
     }
@@ -36,6 +41,8 @@ class TmdbApiService extends BaseApiRepository {
         return '/3/tv/on_the_air';
       case TmdbFilter.topRated:
         return '/3/tv/top_rated';
+      case TmdbFilter.tv:
+        return '/3/discover/tv';
       default:
         throw Exception('Invalid tv filter');
     }
@@ -77,6 +84,36 @@ class TmdbApiService extends BaseApiRepository {
         return '/3/tv/$tmdbId/similar';
       default:
         throw Exception('Invalid similar filter');
+    }
+  }
+
+  String _getTmdbVideoPathForFilter(
+    TmdbFilter filter,
+    int tmdbId,
+  ) {
+    switch (filter) {
+      case TmdbFilter.movie:
+        return '/3/movie/$tmdbId/videos';
+      case TmdbFilter.tv:
+        return '/3/tv/$tmdbId/videos';
+      default:
+        throw Exception('Invalid videos filter');
+    }
+  }
+
+  String _getTrendingPathForFilter(
+    TmdbFilter filter,
+    String timeWindow,
+  ) {
+    switch (filter) {
+      case TmdbFilter.person:
+        return '/3/trending/person/$timeWindow';
+      case TmdbFilter.movie:
+        return '/3/trending/movie/$timeWindow';
+      case TmdbFilter.tv:
+        return '/3/trending/tv/$timeWindow';
+      default:
+        throw Exception('Invalid filter');
     }
   }
 
@@ -224,5 +261,83 @@ class TmdbApiService extends BaseApiRepository {
         }
       },
     );
+  }
+
+  Future<ApiResult<List<VideoResponseDto>>> getVideo(
+    TmdbFilter tmdbVideoFilter,
+    int tmdbVideoId,
+  ) {
+    final String path = _getTmdbVideoPathForFilter(tmdbVideoFilter, tmdbVideoId);
+
+    final uri = Uri.parse(
+      '${Env.baseUrl}$path?api_key=${Env.tmdbApiKey}',
+    );
+
+    return serviceCall<List<VideoResponseDto>>(
+      () async {
+        final response = await http.get(uri);
+        if (response.statusCode == 200) {
+          final Map<String, dynamic> jsonData = json.decode(response.body);
+          final List<dynamic> results = jsonData['results'] ?? [];
+          final List<VideoResponseDto> videoDto = results.map((dynamic item) => VideoResponseDto.fromJson(item as Map<String, dynamic>)).toList();
+
+          return videoDto;
+        } else {
+          throw Exception('HTTP Error: ${response.statusCode}');
+        }
+      },
+    );
+  }
+
+  Future<ApiResult<List<SearchResponseDto>>> getSearch(String tmdQuery) async {
+    const String path = "/3/search/multi";
+
+    final uri = Uri.parse(
+      '${Env.baseUrl}$path?api_key=${Env.tmdbApiKey}&query=$tmdQuery',
+    );
+
+    try {
+      final response = await http.get(uri);
+
+      if (response.statusCode == 200) {
+        final Map<String, dynamic> jsonData = json.decode(response.body);
+        final List<dynamic> results = jsonData['results'] ?? [];
+        final List<SearchResponseDto> searchDtos = results.map((dynamic item) => SearchResponseDto.fromJson(item as Map<String, dynamic>)).toList();
+        return ApiResult(data: searchDtos);
+      } else {
+        return ApiResult(error: 'HTTP Error: ${response.statusCode}');
+      }
+    } catch (e) {
+      return ApiResult(error: 'An error occurred: $e');
+    }
+  }
+
+  Future<ApiResult<List<PeopleResponseDto>>> getPeople(
+    TmdbFilter tmdbTrendingFilter,
+    String timeWindow,
+  ) async {
+    String path = _getTrendingPathForFilter(
+      tmdbTrendingFilter,
+      timeWindow,
+    );
+
+    final uri = Uri.parse(
+      '${Env.baseUrl}$path?api_key=${Env.tmdbApiKey}',
+    );
+
+    try {
+      final response = await http.get(uri);
+
+      if (response.statusCode == 200) {
+        final Map<String, dynamic> jsonData = json.decode(response.body);
+        final List<dynamic> results = jsonData['results'] ?? [];
+        final List<PeopleResponseDto> peopleDtos = results.map((dynamic item) => PeopleResponseDto.fromJson(item as Map<String, dynamic>)).toList();
+        return ApiResult(data: peopleDtos);
+      } else {
+        return ApiResult(error: 'HTTP Error: ${response.statusCode}');
+      }
+    } catch (e) {
+      return ApiResult(error: 'An error occurred: $e');
+    }
   }
 }

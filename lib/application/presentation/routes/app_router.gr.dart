@@ -30,6 +30,7 @@ abstract class _$AppRouter extends RootStackRouter {
           collection: args.collection,
           movie: args.movie,
           tvShow: args.tvShow,
+          multi: args.multi,
         ),
       );
     },
@@ -118,6 +119,7 @@ class DetailsRoute extends PageRouteInfo<DetailsRouteArgs> {
     required String collection,
     MovieModel? movie,
     TvShowModel? tvShow,
+    SearchModel? multi,
     List<PageRouteInfo>? children,
   }) : super(
           DetailsRoute.name,
@@ -126,6 +128,7 @@ class DetailsRoute extends PageRouteInfo<DetailsRouteArgs> {
             collection: collection,
             movie: movie,
             tvShow: tvShow,
+            multi: multi,
           ),
           initialChildren: children,
         );
@@ -142,6 +145,7 @@ class DetailsRouteArgs {
     required this.collection,
     this.movie,
     this.tvShow,
+    this.multi,
   });
 
   final Key? key;
@@ -152,9 +156,11 @@ class DetailsRouteArgs {
 
   final TvShowModel? tvShow;
 
+  final SearchModel? multi;
+
   @override
   String toString() {
-    return 'DetailsRouteArgs{key: $key, collection: $collection, movie: $movie, tvShow: $tvShow}';
+    return 'DetailsRouteArgs{key: $key, collection: $collection, movie: $movie, tvShow: $tvShow, multi: $multi}';
   }
 }
 

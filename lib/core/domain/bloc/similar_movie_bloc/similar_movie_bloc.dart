@@ -27,7 +27,7 @@ class SimilarMovieBloc extends Bloc<SimilarMovieEvent, SimilarMovieState> {
         } else {
           final List<MovieModel> similarMovies = response.data?.toList() ?? [];
           emit(
-            _$_LoadedSimilarMovies(similarMovies: similarMovies),
+            _LoadedSimilarMovies(similarMovies: similarMovies),
           );
         }
       },

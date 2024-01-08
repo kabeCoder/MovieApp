@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_app/application/presentation/utils/app_localizations.dart';
 import 'package:movie_app/application/presentation/utils/text_styles.dart';
 import 'package:movie_app/core/domain/bloc/movie_bloc/movie_bloc.dart';
+import 'package:movie_app/core/domain/bloc/people/people_bloc.dart';
 import 'package:movie_app/core/domain/bloc/tv_show_bloc/tv_show_bloc.dart';
 import 'package:movie_app/core/presentation/widgets/app_circular_progress_indicator.dart';
 import 'package:movie_app/features/home/presentation/widgets/tmdb_vertical_item.dart';
@@ -59,7 +60,7 @@ class TmdbHorizontalListView extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       for (final movie in movies)
-                        VerticalItem(
+                        TmdbVerticalItem(
                           collection: context.l10n.collection_movie,
                           movie: movie,
                         ),
@@ -91,9 +92,41 @@ class TmdbHorizontalListView extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       for (final tvShow in tvShows)
-                        VerticalItem(
+                        TmdbVerticalItem(
                           collection: context.l10n.collection_tv_show,
                           tvShow: tvShow,
+                        ),
+                    ],
+                  ),
+                ),
+                orElse: SizedBox.shrink,
+              ),
+            ),
+          if (collection == context.l10n.collection_people)
+            BlocConsumer<PeopleBloc, PeopleState>(
+              listener: (context, state) => state.whenOrNull(
+                encounteredError: (errorMessage) => ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text(errorMessage),
+                  ),
+                ),
+              ),
+              builder: (_, state) => state.maybeWhen(
+                loadingPeople: () => const Center(
+                  child: AppCircularProgressIndicator(),
+                ),
+                loadedPeople: (people) => SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 12,
+                  ),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      for (final person in people)
+                        TmdbVerticalItem(
+                          collection: context.l10n.collection_people,
+                          people: person,
                         ),
                     ],
                   ),

@@ -26,7 +26,7 @@ class GenresBloc extends Bloc<GenresEvent, GenresState> {
         } else {
           final List<GenresModel> genres = response.data?.toList() ?? [];
           emit(
-            _$_LoadedGenres(genres: genres),
+            _LoadedGenres(genres: genres),
           );
         }
       },

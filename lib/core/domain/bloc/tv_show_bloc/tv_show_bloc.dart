@@ -27,7 +27,7 @@ class TvShowBloc extends Bloc<TvShowEvent, TvShowState> {
         } else {
           final List<TvShowModel> tvShows = response.data?.toList() ?? [];
           emit(
-            _$_LoadedTvShows(tvShow: tvShows),
+            _LoadedTvShows(tvShow: tvShows),
           );
         }
       },
