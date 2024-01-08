@@ -30,6 +30,7 @@ class _TmdbVideoItemState extends State<TmdbVideoItem> {
       flags: const YoutubePlayerFlags(
         autoPlay: false,
         mute: false,
+        controlsVisibleAtStart: false,
       ),
     );
   }

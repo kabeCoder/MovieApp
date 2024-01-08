@@ -5,6 +5,7 @@ import 'package:movie_app/application/data/utils/env.dart';
 import 'package:movie_app/core/data/models/casts/casts_response_dto.dart';
 import 'package:movie_app/core/data/models/genres/genres_dto.dart';
 import 'package:movie_app/core/data/models/movie/movie_response_dto.dart';
+import 'package:movie_app/core/data/models/people/people_response_dto.dart';
 import 'package:movie_app/core/data/models/search/search_response_dto.dart';
 import 'package:movie_app/core/data/models/tv_show/tv_show_response_dto.dart';
 import 'package:movie_app/core/data/models/video/video_response_dto.dart';
@@ -97,6 +98,22 @@ class TmdbApiService extends BaseApiRepository {
         return '/3/tv/$tmdbId/videos';
       default:
         throw Exception('Invalid videos filter');
+    }
+  }
+
+  String _getTrendingPathForFilter(
+    TmdbFilter filter,
+    String timeWindow,
+  ) {
+    switch (filter) {
+      case TmdbFilter.person:
+        return '/3/trending/person/$timeWindow';
+      case TmdbFilter.movie:
+        return '/3/trending/movie/$timeWindow';
+      case TmdbFilter.tv:
+        return '/3/trending/tv/$timeWindow';
+      default:
+        throw Exception('Invalid filter');
     }
   }
 
@@ -287,6 +304,35 @@ class TmdbApiService extends BaseApiRepository {
         final List<dynamic> results = jsonData['results'] ?? [];
         final List<SearchResponseDto> searchDtos = results.map((dynamic item) => SearchResponseDto.fromJson(item as Map<String, dynamic>)).toList();
         return ApiResult(data: searchDtos);
+      } else {
+        return ApiResult(error: 'HTTP Error: ${response.statusCode}');
+      }
+    } catch (e) {
+      return ApiResult(error: 'An error occurred: $e');
+    }
+  }
+
+  Future<ApiResult<List<PeopleResponseDto>>> getPeople(
+    TmdbFilter tmdbTrendingFilter,
+    String timeWindow,
+  ) async {
+    String path = _getTrendingPathForFilter(
+      tmdbTrendingFilter,
+      timeWindow,
+    );
+
+    final uri = Uri.parse(
+      '${Env.baseUrl}$path?api_key=${Env.tmdbApiKey}',
+    );
+
+    try {
+      final response = await http.get(uri);
+
+      if (response.statusCode == 200) {
+        final Map<String, dynamic> jsonData = json.decode(response.body);
+        final List<dynamic> results = jsonData['results'] ?? [];
+        final List<PeopleResponseDto> peopleDtos = results.map((dynamic item) => PeopleResponseDto.fromJson(item as Map<String, dynamic>)).toList();
+        return ApiResult(data: peopleDtos);
       } else {
         return ApiResult(error: 'HTTP Error: ${response.statusCode}');
       }

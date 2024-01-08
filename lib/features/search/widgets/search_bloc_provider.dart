@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_app/core/domain/bloc/movie_bloc/movie_bloc.dart';
+import 'package:movie_app/core/domain/bloc/people/people_bloc.dart';
 import 'package:movie_app/core/domain/bloc/search_bloc/search_bloc.dart';
 import 'package:movie_app/core/domain/bloc/tv_show_bloc/tv_show_bloc.dart';
 import 'package:movie_app/core/domain/repositories/tmdb_repository_Implementation.dart';
@@ -13,10 +14,12 @@ class SearchBlocProvider extends StatelessWidget {
     Key? key,
     required this.child,
     this.tmdbQuery,
+    this.timeWindow,
   }) : super(key: key);
 
   final Widget child;
   String? tmdbQuery;
+  String? timeWindow;
 
   @override
   Widget build(BuildContext context) {
@@ -39,6 +42,16 @@ class SearchBlocProvider extends StatelessWidget {
             movieRepositoryImplementation: context.read<TmdbRepositoryImplementation>(),
           )..add(
               const MovieEvent.getMovies(TmdbFilter.movie),
+            ),
+        ),
+        BlocProvider(
+          create: (_) => PeopleBloc(
+            peopleRepositoryImplementation: context.read<TmdbRepositoryImplementation>(),
+          )..add(
+              PeopleEvent.getPeople(
+                TmdbFilter.person,
+                timeWindow ?? '',
+              ),
             ),
         ),
       ],

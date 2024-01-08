@@ -440,8 +440,8 @@ class DetailsScreen extends StatelessWidget {
       },
       minHeight: 0,
       initHeight: 0.75,
-      maxHeight: 0.75,
-      isExpand: false,
+      maxHeight: 1,
+      isExpand: true,
       bottomSheetBorderRadius: const BorderRadius.horizontal(
         left: Radius.circular(10),
         right: Radius.circular(10),

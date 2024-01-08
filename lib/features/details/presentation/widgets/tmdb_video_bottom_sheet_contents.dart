@@ -87,33 +87,3 @@ class TmdbVideoBottomSheetContents extends StatelessWidget {
     );
   }
 }
-
-
-// tmdbVideos.isEmpty
-//                 ? Container(
-//                     color: Colors.black,
-//                     width: double.infinity,
-//                     height: 250,
-//                     child: Center(
-//                       child: Text(
-//                         context.l10n.label_no_video_available,
-//                         style: TextStyles.bodyText1.copyWith(
-//                           fontSize: 18,
-//                           fontWeight: FontWeight.bold,
-//                         ),
-//                       ),
-//                     ),
-//                   )
-//                 : Column(
-//                     children: [
-//                       if (collection == context.l10n.collection_tv_show)
-//                         TmdbVideoItem(
-//                           video: tmdbVideos.first,
-//                         ),
-//                       for (final tmdbVideo in tmdbVideos)
-//                         if (collection == context.l10n.collection_movie)
-//                           TmdbVideoItem(
-//                             video: tmdbVideo,
-//                           ),
-//                     ],
-//                   ),

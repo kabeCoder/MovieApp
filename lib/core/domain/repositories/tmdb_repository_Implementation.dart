@@ -1,6 +1,7 @@
 import 'package:movie_app/core/domain/models/casts/casts.dart';
 import 'package:movie_app/core/domain/models/genres/genres.dart';
 import 'package:movie_app/core/domain/models/movie/movie.dart';
+import 'package:movie_app/core/domain/models/people/people.dart';
 import 'package:movie_app/core/domain/models/search/search.dart';
 import 'package:movie_app/core/domain/models/tv_show/tv_show.dart';
 import 'package:movie_app/core/domain/models/video/video.dart';
@@ -219,6 +220,36 @@ class TmdbRepositoryImplementation implements TmdbRepository {
       );
     } catch (e) {
       return ApiResult<List<SearchModel>>(
+        error: 'Network Error: $e',
+      );
+    }
+  }
+
+  @override
+  Future<ApiResult<List<PeopleModel>>> getPeople(
+    TmdbFilter tmdbTrendingFilter,
+    String timeWindow,
+  ) async {
+    try {
+      final response = await apiService.getPeople(
+        tmdbTrendingFilter,
+        timeWindow,
+      );
+
+      if (response.error != null) {
+        return ApiResult<List<PeopleModel>>(
+          error: response.error,
+        );
+      }
+
+      final List<PeopleModel> people = response.data?.map((dto) => dto.toDomain()).toList() ?? [];
+
+      return ApiResult<List<PeopleModel>>(
+        data: people,
+        error: null,
+      );
+    } catch (e) {
+      return ApiResult<List<PeopleModel>>(
         error: 'Network Error: $e',
       );
     }

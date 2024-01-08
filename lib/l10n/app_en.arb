@@ -2,6 +2,7 @@
   "@@locale": "en",
   "collection_movie": "movie",
   "collection_multi": "multi",
+  "collection_people": "people",
   "collection_tv_show": "tvShow",
   "label_Upcoming": "Upcoming",
   "label_airing_today": "Airing Today",
@@ -29,5 +30,6 @@
   "label_search_show_and_movie": "Search for a show, movie...",
   "label_series": "Series",
   "label_top_rated": "Top Rated",
+  "label_trending_people": "Trending People",
   "label_tv_shows": "TV Shows"
 }
