@@ -58,7 +58,7 @@ class SearchTmdbHorizontalListView extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       for (final movie in movies)
-                        VerticalItem(
+                        TmdbVerticalItem(
                           collection: context.l10n.collection_movie,
                           movie: movie,
                         ),
@@ -90,7 +90,7 @@ class SearchTmdbHorizontalListView extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       for (final tvShow in tvShows)
-                        VerticalItem(
+                        TmdbVerticalItem(
                           collection: context.l10n.collection_tv_show,
                           tvShow: tvShow,
                         ),
