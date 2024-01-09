@@ -15,19 +15,18 @@
 - [Flutter](https://flutter.dev/)
 - [TMDb API](https://www.themoviedb.org/documentation/api)
 - [Other Notable Flutter Libraries:]
-  - [Flutter Bloc]
-  - [Freezed]
-  - [Cached Network Image]
-  - [Readmore]
-  - [Internet Connection Checker Plus]
-  - [Youtube Player Flutter]
-  - [L10n Flutter]
-  - [Debounce throttle]
-  - [Auto Route Generator]
+  - [Flutter Bloc](https://pub.dev/packages/flutter_bloc)
+  - [Freezed](https://pub.dev/packages/freezed)
+  - [Freezed Annotation]([https://pub.dev/packages/freezed](https://pub.dev/packages/freezed_annotation))
+  - [Cached Network Image](https://pub.dev/packages/cached_network_image)
+  - [Readmore](https://pub.dev/packages/readmore)
+  - [Internet Connection Checker Plus](https://pub.dev/packages/internet_connection_checker_plus)
+  - [Youtube Player Flutter](https://pub.dev/packages/youtube_player_flutter)
+  - [L10n Flutter](https://pub.dev/packages/l10n_flutter)
+  - [Debounce throttle](https://pub.dev/packages/debounce_throttle)
+  - [Auto Route Generator](https://pub.dev/packages/auto_route)
 
 # Features:
-
-Highlight key features of your Netflix clone.
 
 - **Intuitive UI:** The app features a sleek and intuitive user interface reminiscent of the older versions of Netflix, providing a nostalgic experience for users.
 
