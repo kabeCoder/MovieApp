@@ -1,21 +1,3 @@
-# movie_app
-
-A new Flutter project.
-
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
-
-
 # Project Title: 
   Movie App (Netflix Clone-Like)
 
@@ -25,28 +7,50 @@ samples, guidance on mobile development, and a full API reference.
   content.It does not only fetches content but also integrates YouTube API for seamless video streaming.
   
 # Screenshots or Demo:
+  Google Drive Link:
+  https://drive.google.com/drive/folders/1XRjo5UaxoKH54Wr6udvO8c53AafbckOy?usp=drive_link
 
-  Demo: 
-
-
-Include screenshots or a link to a demo video showcasing the app's appearance and functionality.
-# Getting Started:
-
-Provide instructions on how to clone and run your project.
-Mention any dependencies or prerequisites.
 # Built With:
 
-List the main technologies, frameworks, and libraries you used in your project.
+- [Flutter](https://flutter.dev/)
+- [TMDb API](https://www.themoviedb.org/documentation/api)
+- [Other Notable Flutter Libraries:]
+  - [Flutter Bloc]
+  - [Freezed]
+  - [Cached Network Image]
+  - [Readmore]
+  - [Internet Connection Checker Plus]
+  - [Youtube Player Flutter]
+  - [L10n Flutter]
+  - [Debounce throttle]
+  - [Auto Route Generator]
+
 # Features:
 
 Highlight key features of your Netflix clone.
-Contributing:
 
-Explain how others can contribute to your project.
-Authors:
+- **Intuitive UI:** The app features a sleek and intuitive user interface reminiscent of the older versions of Netflix, providing a nostalgic experience for users.
 
-Include your name as the author and, if applicable, give credit to others who contributed.
-License:
+- **Extensive Content Library:** Explore a vast collection of movies and TV shows sourced from the TMDb API, ensuring an ever-growing and diverse content library.
 
-Specify the license under which your project is distributed.
-Contact:
+- **Categorized Content:** Browse content conveniently categorized by genres, trending, and top-rated, making it easy to discover new and popular titles.
+
+- **Search Functionality:** Easily find specific movies or TV shows using the search functionality, enhancing the overall user experience.
+
+- **YouTube Video Streaming:** Stream videos seamlessly from YouTube using the integrated YouTube API, expanding the content variety available to users.
+
+- **Netflix-like Player:** Enjoy a seamless viewing experience with a Netflix-like video player that supports auto-play and mute functionality.
+
+# Architecture
+
+  This project follows the Modular Domain Driven Design (DDD) architecture, emphasizing a modular and scalable structure. Key architectural principles include:
+
+- **Modularity:** The project is organized into feature modules, each encapsulating a specific functionality. This enhances maintainability and reusability.
+
+- **Domain Driven Design (DDD):** The application design is centered around the domain model, promoting a clear understanding of business logic and fostering collaboration between development and domain experts.
+
+- **Bloc Pattern:** For state management, the project utilizes the Flutter Bloc library. It separates the presentation layer from business logic and provides a scalable and testable solution.
+
+# Contact:
+  Feel free to reach out via:
+    - email: kabecoder@gmail.com.
