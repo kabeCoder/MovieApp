@@ -31,7 +31,7 @@ class NavigationScreen extends StatelessWidget {
             ),
             BottomNavigationBarItem(
               icon: const Icon(Icons.movie),
-              label: context.l10n.label_new_and_hot,
+              label: context.l10n.label_whats_hot,
             ),
           ],
         );

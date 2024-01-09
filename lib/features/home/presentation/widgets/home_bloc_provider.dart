@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:movie_app/core/domain/bloc/genres_bloc/genres_bloc.dart';
 import 'package:movie_app/core/domain/bloc/movie_bloc/movie_bloc.dart';
 import 'package:movie_app/core/domain/bloc/tv_show_bloc/tv_show_bloc.dart';
 import 'package:movie_app/core/domain/repositories/tmdb_repository_Implementation.dart';
@@ -40,6 +41,12 @@ class HomeBlocProvider extends StatelessWidget {
                 tmdbFilter!,
                 '',
               ),
+            ),
+        ),
+        BlocProvider(
+          create: (context) => GenresBloc(genresRepositoryImplementation: context.read<TmdbRepositoryImplementation>())
+            ..add(
+              GenresEvent.getGenres(tmdbFilter!),
             ),
         ),
       ],
