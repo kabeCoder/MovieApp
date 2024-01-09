@@ -8,5 +8,7 @@ enum TmdbFilter {
   tv,
   movie,
   person,
+  trendingMovie,
+  trendingTvShow,
   none,
 }

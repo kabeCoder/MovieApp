@@ -14,7 +14,10 @@ import 'package:movie_app/core/service/base/base_api_repository.dart';
 import 'package:movie_app/core/service/base/data/models/api_result.dart';
 
 class TmdbApiService extends BaseApiRepository {
-  String _getMoviePathForFilter(TmdbFilter filter) {
+  String _getMoviePathForFilter(
+    TmdbFilter filter,
+    String? timeWindow,
+  ) {
     switch (filter) {
       case TmdbFilter.popular:
         return '/3/movie/popular';
@@ -26,12 +29,17 @@ class TmdbApiService extends BaseApiRepository {
         return '/3/movie/top_rated';
       case TmdbFilter.movie:
         return '/3/discover/movie';
+      case TmdbFilter.trendingMovie:
+        return '/3/trending/movie/{$timeWindow}';
       default:
         throw Exception('Invalid filter');
     }
   }
 
-  String _getTvShowPathForFilter(TmdbFilter filter) {
+  String _getTvShowPathForFilter(
+    TmdbFilter filter,
+    String? timeWindow,
+  ) {
     switch (filter) {
       case TmdbFilter.popular:
         return '/3/tv/popular';
@@ -43,6 +51,8 @@ class TmdbApiService extends BaseApiRepository {
         return '/3/tv/top_rated';
       case TmdbFilter.tv:
         return '/3/discover/tv';
+      case TmdbFilter.trendingTvShow:
+        return '/3/trending/tv/{$timeWindow}';
       default:
         throw Exception('Invalid tv filter');
     }
@@ -108,10 +118,6 @@ class TmdbApiService extends BaseApiRepository {
     switch (filter) {
       case TmdbFilter.person:
         return '/3/trending/person/$timeWindow';
-      case TmdbFilter.movie:
-        return '/3/trending/movie/$timeWindow';
-      case TmdbFilter.tv:
-        return '/3/trending/tv/$timeWindow';
       default:
         throw Exception('Invalid filter');
     }
@@ -119,8 +125,12 @@ class TmdbApiService extends BaseApiRepository {
 
   Future<ApiResult<List<MovieResponseDto>>> getMovies(
     TmdbFilter moviesFilter,
+    String? timeWindow,
   ) {
-    final String path = _getMoviePathForFilter(moviesFilter);
+    final String path = _getMoviePathForFilter(
+      moviesFilter,
+      timeWindow ?? '',
+    );
 
     final uri = Uri.parse(
       '${Env.baseUrl}$path?api_key=${Env.tmdbApiKey}',
@@ -143,8 +153,12 @@ class TmdbApiService extends BaseApiRepository {
 
   Future<ApiResult<List<TvShowResponseDto>>> getTvShows(
     TmdbFilter tvShowsFilter,
+    String? timeWindow,
   ) {
-    final String path = _getTvShowPathForFilter(tvShowsFilter);
+    final String path = _getTvShowPathForFilter(
+      tvShowsFilter,
+      timeWindow ?? '',
+    );
 
     final uri = Uri.parse(
       '${Env.baseUrl}$path?api_key=${Env.tmdbApiKey}',
@@ -242,7 +256,10 @@ class TmdbApiService extends BaseApiRepository {
     TmdbFilter moviesFilter,
     int movieId,
   ) {
-    final String path = _getTmdbSimilarPathForFilter(moviesFilter, movieId);
+    final String path = _getTmdbSimilarPathForFilter(
+      moviesFilter,
+      movieId,
+    );
 
     final uri = Uri.parse(
       '${Env.baseUrl}$path?api_key=${Env.tmdbApiKey}',
@@ -267,7 +284,10 @@ class TmdbApiService extends BaseApiRepository {
     TmdbFilter tmdbVideoFilter,
     int tmdbVideoId,
   ) {
-    final String path = _getTmdbVideoPathForFilter(tmdbVideoFilter, tmdbVideoId);
+    final String path = _getTmdbVideoPathForFilter(
+      tmdbVideoFilter,
+      tmdbVideoId,
+    );
 
     final uri = Uri.parse(
       '${Env.baseUrl}$path?api_key=${Env.tmdbApiKey}',
@@ -314,11 +334,11 @@ class TmdbApiService extends BaseApiRepository {
 
   Future<ApiResult<List<PeopleResponseDto>>> getPeople(
     TmdbFilter tmdbTrendingFilter,
-    String timeWindow,
+    String? timeWindow,
   ) async {
     String path = _getTrendingPathForFilter(
       tmdbTrendingFilter,
-      timeWindow,
+      timeWindow ?? '',
     );
 
     final uri = Uri.parse(

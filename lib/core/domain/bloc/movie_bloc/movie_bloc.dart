@@ -14,7 +14,10 @@ class MovieBloc extends Bloc<MovieEvent, MovieState> {
   }) : super(const _Initial()) {
     on<_GetMovies>(
       (event, emit) async {
-        final response = await movieRepositoryImplementation.getMovies(event.moviesFilter);
+        final response = await movieRepositoryImplementation.getMovies(
+          event.moviesFilter,
+          event.timeWindow,
+        );
 
         if (response.error != null) {
           emit(

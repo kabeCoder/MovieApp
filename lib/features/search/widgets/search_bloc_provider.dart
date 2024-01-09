@@ -34,14 +34,20 @@ class SearchBlocProvider extends StatelessWidget {
         BlocProvider(
           create: (context) => TvShowBloc(tvShowRepositoryImplementation: context.read<TmdbRepositoryImplementation>())
             ..add(
-              const TvShowEvent.getTvShows(TmdbFilter.tv),
+              const TvShowEvent.getTvShows(
+                TmdbFilter.tv,
+                '',
+              ),
             ),
         ),
         BlocProvider(
           create: (_) => MovieBloc(
             movieRepositoryImplementation: context.read<TmdbRepositoryImplementation>(),
           )..add(
-              const MovieEvent.getMovies(TmdbFilter.movie),
+              const MovieEvent.getMovies(
+                TmdbFilter.movie,
+                '',
+              ),
             ),
         ),
         BlocProvider(

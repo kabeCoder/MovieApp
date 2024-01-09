@@ -16,7 +16,10 @@ class TvShowBloc extends Bloc<TvShowEvent, TvShowState> {
         ) {
     on<_GetTvShows>(
       (event, emit) async {
-        final response = await tvShowRepositoryImplementation.getTvShows(event.tvShowsFilter);
+        final response = await tvShowRepositoryImplementation.getTvShows(
+          event.tvShowsFilter,
+          event.timeWindow,
+        );
 
         if (response.error != null) {
           emit(

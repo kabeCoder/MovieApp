@@ -20,9 +20,13 @@ class TmdbRepositoryImplementation implements TmdbRepository {
   @override
   Future<ApiResult<List<MovieModel>>> getMovies(
     TmdbFilter moviesFilter,
+    String? timeWindow,
   ) async {
     try {
-      final response = await apiService.getMovies(moviesFilter);
+      final response = await apiService.getMovies(
+        moviesFilter,
+        timeWindow,
+      );
 
       if (response.error != null) {
         return ApiResult<List<MovieModel>>(
@@ -44,9 +48,15 @@ class TmdbRepositoryImplementation implements TmdbRepository {
   }
 
   @override
-  Future<ApiResult<List<TvShowModel>>> getTvShows(TmdbFilter tvShowsFilter) async {
+  Future<ApiResult<List<TvShowModel>>> getTvShows(
+    TmdbFilter tvShowsFilter,
+    String? timeWindow,
+  ) async {
     try {
-      final response = await apiService.getTvShows(tvShowsFilter);
+      final response = await apiService.getTvShows(
+        tvShowsFilter,
+        timeWindow,
+      );
 
       if (response.error != null) {
         return ApiResult<List<TvShowModel>>(

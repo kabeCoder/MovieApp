@@ -11,10 +11,12 @@ import 'package:movie_app/core/service/base/data/models/api_result.dart';
 abstract class TmdbRepository {
   Future<ApiResult<List<MovieModel>>> getMovies(
     TmdbFilter moviesFilter,
+    String? timeWindow,
   );
 
   Future<ApiResult<List<TvShowModel>>> getTvShows(
     TmdbFilter tvShowsFilter,
+    String? timeWindow,
   );
 
   Future<ApiResult<List<CastsModel>>> getCasts(

@@ -6,5 +6,6 @@ class TvShowEvent with _$TvShowEvent {
 
   const factory TvShowEvent.getTvShows(
     TmdbFilter tvShowsFilter,
+    String? timeWindow,
   ) = _GetTvShows;
 }

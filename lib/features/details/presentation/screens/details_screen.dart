@@ -221,22 +221,22 @@ class DetailsScreen extends StatelessWidget {
                 id!,
               ),
             ),
-            CommonButton(
-              buttonText: context.l10n.label_download,
-              buttonTextStyle: TextStyles.bodyText2.copyWith(
-                fontWeight: FontWeight.w600,
-                color: ColorConstants.white1,
-              ),
-              buttonBackGroundColor: ColorConstants.grey1,
-              buttonRadius: 5.0,
-              width: double.infinity,
-              leadingIcon: const Icon(
-                Icons.download,
-                color: ColorConstants.white1,
-              ),
-              iconTextSpacing: 4,
-              onTap: () {},
-            ),
+            // CommonButton(
+            //   buttonText: context.l10n.label_download,
+            //   buttonTextStyle: TextStyles.bodyText2.copyWith(
+            //     fontWeight: FontWeight.w600,
+            //     color: ColorConstants.white1,
+            //   ),
+            //   buttonBackGroundColor: ColorConstants.grey1,
+            //   buttonRadius: 5.0,
+            //   width: double.infinity,
+            //   leadingIcon: const Icon(
+            //     Icons.download,
+            //     color: ColorConstants.white1,
+            //   ),
+            //   iconTextSpacing: 4,
+            //   onTap: () {},
+            // ),
             const SizedBox(height: 8),
             CommonTextView(
               alignment: Alignment.centerLeft,
@@ -327,50 +327,6 @@ class DetailsScreen extends StatelessWidget {
                   orElse: SizedBox.shrink,
                 ),
               ),
-            ),
-            const SizedBox(
-              height: 16,
-            ),
-            const Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                Column(
-                  children: [
-                    Icon(
-                      Icons.list_alt_outlined,
-                      color: ColorConstants.deepPurpleLight,
-                    ),
-                    Text(
-                      'My List',
-                      style: TextStyles.bodyText2,
-                    ),
-                  ],
-                ),
-                Column(
-                  children: [
-                    Icon(
-                      Icons.thumbs_up_down_outlined,
-                      color: ColorConstants.deepPurpleLight,
-                    ),
-                    Text(
-                      'Rate',
-                      style: TextStyles.bodyText2,
-                    ),
-                  ],
-                ),
-                Column(
-                  children: [
-                    Icon(
-                      Icons.share_outlined,
-                      color: ColorConstants.deepPurpleLight,
-                    ),
-                    Text(
-                      'Share',
-                      style: TextStyles.bodyText2,
-                    ),
-                  ],
-                ),
-              ],
             ),
             const SizedBox(
               height: 16,
