@@ -17,7 +17,7 @@
 - [Other Notable Flutter Libraries:]
   - [Flutter Bloc](https://pub.dev/packages/flutter_bloc)
   - [Freezed](https://pub.dev/packages/freezed)
-  - [Freezed Annotation]([https://pub.dev/packages/freezed](https://pub.dev/packages/freezed_annotation))
+  - [Freezed Annotation]([https://pub.dev/packages/freezed](https://pub.dev/packages/freezed_annotation)
   - [Cached Network Image](https://pub.dev/packages/cached_network_image)
   - [Readmore](https://pub.dev/packages/readmore)
   - [Internet Connection Checker Plus](https://pub.dev/packages/internet_connection_checker_plus)
