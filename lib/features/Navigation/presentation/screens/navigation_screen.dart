@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:auto_route/auto_route.dart';
 import 'package:movie_app/application/presentation/routes/app_router.dart';
+import 'package:movie_app/application/presentation/utils/app_localizations.dart';
 
 @RoutePage()
 class NavigationScreen extends StatelessWidget {
@@ -13,34 +14,24 @@ class NavigationScreen extends StatelessWidget {
       routes: const [
         HomeRoute(),
         SearchRoute(),
-        ComingSoonRoute(),
-        DownloadRoute(),
-        MoreRoute(),
+        NewAndHotRoute(),
       ],
       bottomNavigationBuilder: (_, tabsRouter) {
         return BottomNavigationBar(
           currentIndex: tabsRouter.activeIndex,
           onTap: tabsRouter.setActiveIndex,
-          items: const [
+          items: [
             BottomNavigationBarItem(
-              icon: Icon(Icons.home),
-              label: 'Home',
+              icon: const Icon(Icons.home),
+              label: context.l10n.labe_home,
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.search),
-              label: 'Search',
+              icon: const Icon(Icons.search),
+              label: context.l10n.label_search,
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.movie),
-              label: 'Coming Soon',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.download),
-              label: 'Download',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.more),
-              label: 'More',
+              icon: const Icon(Icons.movie),
+              label: context.l10n.label_new_and_hot,
             ),
           ],
         );

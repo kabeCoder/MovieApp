@@ -6,5 +6,6 @@ class MovieEvent with _$MovieEvent {
 
   const factory MovieEvent.getMovies(
     TmdbFilter moviesFilter,
+    String? timeWindow,
   ) = _GetMovies;
 }

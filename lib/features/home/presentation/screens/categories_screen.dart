@@ -4,15 +4,15 @@ import 'package:auto_route/auto_route.dart';
 import 'package:movie_app/application/presentation/utils/text_styles.dart';
 
 @RoutePage()
-class MyListScreen extends StatelessWidget {
-  const MyListScreen({super.key});
+class CategoriesScreen extends StatelessWidget {
+  const CategoriesScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
       body: Center(
         child: Text(
-          'MyList Screen',
+          'Categories Screen',
           style: TextStyles.bodyText1,
         ),
       ),

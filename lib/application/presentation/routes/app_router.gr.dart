@@ -15,10 +15,10 @@ abstract class _$AppRouter extends RootStackRouter {
 
   @override
   final Map<String, PageFactory> pagesMap = {
-    ComingSoonRoute.name: (routeData) {
+    CategoriesRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const ComingSoonScreen(),
+        child: const CategoriesScreen(),
       );
     },
     DetailsRoute.name: (routeData) {
@@ -32,12 +32,6 @@ abstract class _$AppRouter extends RootStackRouter {
           tvShow: args.tvShow,
           multi: args.multi,
         ),
-      );
-    },
-    DownloadRoute.name: (routeData) {
-      return AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: const DownloadScreen(),
       );
     },
     HomeRoute.name: (routeData) {
@@ -58,28 +52,22 @@ abstract class _$AppRouter extends RootStackRouter {
         ),
       );
     },
-    MoreRoute.name: (routeData) {
-      return AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: const MoreScreen(),
-      );
-    },
     MoviesRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
         child: const MoviesScreen(),
       );
     },
-    MyListRoute.name: (routeData) {
-      return AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: const MyListScreen(),
-      );
-    },
     NavigationRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
         child: const NavigationScreen(),
+      );
+    },
+    NewAndHotRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const NewAndHotScreen(),
       );
     },
     SearchRoute.name: (routeData) {
@@ -98,15 +86,15 @@ abstract class _$AppRouter extends RootStackRouter {
 }
 
 /// generated route for
-/// [ComingSoonScreen]
-class ComingSoonRoute extends PageRouteInfo<void> {
-  const ComingSoonRoute({List<PageRouteInfo>? children})
+/// [CategoriesScreen]
+class CategoriesRoute extends PageRouteInfo<void> {
+  const CategoriesRoute({List<PageRouteInfo>? children})
       : super(
-          ComingSoonRoute.name,
+          CategoriesRoute.name,
           initialChildren: children,
         );
 
-  static const String name = 'ComingSoonRoute';
+  static const String name = 'CategoriesRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
 }
@@ -162,20 +150,6 @@ class DetailsRouteArgs {
   String toString() {
     return 'DetailsRouteArgs{key: $key, collection: $collection, movie: $movie, tvShow: $tvShow, multi: $multi}';
   }
-}
-
-/// generated route for
-/// [DownloadScreen]
-class DownloadRoute extends PageRouteInfo<void> {
-  const DownloadRoute({List<PageRouteInfo>? children})
-      : super(
-          DownloadRoute.name,
-          initialChildren: children,
-        );
-
-  static const String name = 'DownloadRoute';
-
-  static const PageInfo<void> page = PageInfo<void>(name);
 }
 
 /// generated route for
@@ -241,20 +215,6 @@ class MoreLikeThisRouteArgs {
 }
 
 /// generated route for
-/// [MoreScreen]
-class MoreRoute extends PageRouteInfo<void> {
-  const MoreRoute({List<PageRouteInfo>? children})
-      : super(
-          MoreRoute.name,
-          initialChildren: children,
-        );
-
-  static const String name = 'MoreRoute';
-
-  static const PageInfo<void> page = PageInfo<void>(name);
-}
-
-/// generated route for
 /// [MoviesScreen]
 class MoviesRoute extends PageRouteInfo<void> {
   const MoviesRoute({List<PageRouteInfo>? children})
@@ -269,20 +229,6 @@ class MoviesRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [MyListScreen]
-class MyListRoute extends PageRouteInfo<void> {
-  const MyListRoute({List<PageRouteInfo>? children})
-      : super(
-          MyListRoute.name,
-          initialChildren: children,
-        );
-
-  static const String name = 'MyListRoute';
-
-  static const PageInfo<void> page = PageInfo<void>(name);
-}
-
-/// generated route for
 /// [NavigationScreen]
 class NavigationRoute extends PageRouteInfo<void> {
   const NavigationRoute({List<PageRouteInfo>? children})
@@ -292,6 +238,20 @@ class NavigationRoute extends PageRouteInfo<void> {
         );
 
   static const String name = 'NavigationRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [NewAndHotScreen]
+class NewAndHotRoute extends PageRouteInfo<void> {
+  const NewAndHotRoute({List<PageRouteInfo>? children})
+      : super(
+          NewAndHotRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'NewAndHotRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
 }

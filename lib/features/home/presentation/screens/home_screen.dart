@@ -17,7 +17,7 @@ class HomeScreen extends StatelessWidget {
       tabRoutes: const [
         TvShowsRoute(),
         MoviesRoute(),
-        MyListRoute(),
+        CategoriesRoute(),
       ],
       leadingIcon: Image.asset('assets/images/netflix.png'),
       tabTexts: [
@@ -34,7 +34,7 @@ class HomeScreen extends StatelessWidget {
         ),
         Tab(
           child: Text(
-            context.l10n.label_my_list,
+            context.l10n.label_categories,
           ),
         ),
       ],
