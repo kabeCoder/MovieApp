@@ -7,8 +7,7 @@
   content.It does not only fetches content but also integrates YouTube API for seamless video streaming.
   
 # Screenshots or Demo:
-  Google Drive Link:
-  https://drive.google.com/drive/folders/1XRjo5UaxoKH54Wr6udvO8c53AafbckOy?usp=drive_link
+![Movie_App_Demo-ezgif com-video-to-gif-converter](https://github.com/kabeCoder/MovieApp/assets/121206784/66298b58-42b4-4d54-ac49-7eea5f8f89a6)
 
 # Built With:
 
